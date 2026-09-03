@@ -48,12 +48,12 @@
 		3AE4D0BE2A6E2DDC009FEA9E /* Library.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEC211D2A459B4700A63465 /* Library.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AE595822F08C3D400C13426 /* Library.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEC211D2A459B4700A63465 /* Library.framework */; };
 		3AE595AA2F08C61600C13426 /* RootHelper in Copy Helpers */ = {isa = PBXBuildFile; fileRef = 3AE595712F08C34000C13426 /* RootHelper */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		3AE595B02F08D00000C13426 /* HelperService/LaunchDaemons/io.nekohasekai.sfamt.helper.plist in Copy LaunchDaemon */ = {isa = PBXBuildFile; fileRef = 3AE595AE2F08D00000C13426 /* HelperService/LaunchDaemons/io.nekohasekai.sfamt.helper.plist */; };
+		3AE595B02F08D00000C13426 /* HelperService/LaunchDaemons/com.amamiyakokoro.box.helper.plist in Copy LaunchDaemon */ = {isa = PBXBuildFile; fileRef = 3AE595AE2F08D00000C13426 /* HelperService/LaunchDaemons/com.amamiyakokoro.box.helper.plist */; };
 		3AE8490F2FC559980016E814 /* GhosttyTerminal in Frameworks */ = {isa = PBXBuildFile; platformFilters = (ios, macos, ); productRef = 3AE8490E2FC559980016E814 /* GhosttyTerminal */; };
 		3AE849112FC559A30016E814 /* GhosttyTheme in Frameworks */ = {isa = PBXBuildFile; platformFilters = (ios, macos, ); productRef = 3AE849102FC559A30016E814 /* GhosttyTheme */; };
 		3AEAEE992A4F16430059612D /* Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3A096F862A4ED3DE00D4A2ED /* Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		3AEECBF22A6DF40A006A0E0C /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF342B12A4AA520002B34AC /* NetworkExtension.framework */; };
-		3AEECC1A2A6DFA79006A0E0C /* io.nekohasekai.sfamt.system.systemextension in Embed System Extensions */ = {isa = PBXBuildFile; fileRef = 3AEECBF12A6DF40A006A0E0C /* io.nekohasekai.sfamt.system.systemextension */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		3AEECC1A2A6DFA79006A0E0C /* com.amamiyakokoro.box.system.systemextension in Embed System Extensions */ = {isa = PBXBuildFile; fileRef = 3AEECBF12A6DF40A006A0E0C /* com.amamiyakokoro.box.system.systemextension */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		3AEECC1D2A6DFA79006A0E0C /* Library.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEC211D2A459B4700A63465 /* Library.framework */; };
 		3AEECC1E2A6DFA79006A0E0C /* Library.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEC211D2A459B4700A63465 /* Library.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AEECC352A6DFDAD006A0E0C /* MacLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEECC2F2A6DFDAD006A0E0C /* MacLibrary.framework */; };
@@ -484,7 +484,7 @@
 			dstPath = ../Library/LaunchDaemons;
 			dstSubfolderSpec = 7;
 			files = (
-				3AE595B02F08D00000C13426 /* HelperService/LaunchDaemons/io.nekohasekai.sfamt.helper.plist in Copy LaunchDaemon */,
+				3AE595B02F08D00000C13426 /* HelperService/LaunchDaemons/com.amamiyakokoro.box.helper.plist in Copy LaunchDaemon */,
 			);
 			name = "Copy LaunchDaemon";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -506,7 +506,7 @@
 			dstPath = "$(SYSTEM_EXTENSIONS_FOLDER_PATH)";
 			dstSubfolderSpec = 16;
 			files = (
-				3AEECC1A2A6DFA79006A0E0C /* io.nekohasekai.sfamt.system.systemextension in Embed System Extensions */,
+				3AEECC1A2A6DFA79006A0E0C /* com.amamiyakokoro.box.system.systemextension in Embed System Extensions */,
 			);
 			name = "Embed System Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -538,7 +538,7 @@
 		3AAAFB212EF5218F004C69AD /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
 		3AAAFE162EF52772004C69AD /* FileProvider.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FileProvider.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.2.sdk/System/Library/Frameworks/FileProvider.framework; sourceTree = DEVELOPER_DIR; };
 		3ABA46D22A6A32A100D8366B /* Messages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Messages.framework; path = Library/Frameworks/Messages.framework; sourceTree = DEVELOPER_DIR; };
-		3AC03B962A72BF3300B7946F /* sing-box.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sing-box.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AC03B962A72BF3300B7946F /* KokoroBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KokoroBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AC6CFB92FC07A7500F5B0AE /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.4.sdk/usr/lib/libresolv.tbd; sourceTree = DEVELOPER_DIR; };
 		3AC6CFC82FC07C3000F5B0AE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.4.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		3AC72A2E2EED94DD0039DEA4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -550,13 +550,13 @@
 		3AE595712F08C34000C13426 /* RootHelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RootHelper; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE595A12F08C4E900C13426 /* CoreWLAN.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreWLAN.framework; path = System/Library/Frameworks/CoreWLAN.framework; sourceTree = SDKROOT; };
 		3AE595A32F08C4ED00C13426 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
-		3AE595AE2F08D00000C13426 /* HelperService/LaunchDaemons/io.nekohasekai.sfamt.helper.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = HelperService/LaunchDaemons/io.nekohasekai.sfamt.helper.plist; sourceTree = "<group>"; };
-		3AE595AF2F08D00000C13426 /* UserHelper/LaunchAgents/io.nekohasekai.sfamt.userhelper.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UserHelper/LaunchAgents/io.nekohasekai.sfamt.userhelper.plist; sourceTree = "<group>"; };
+		3AE595AE2F08D00000C13426 /* HelperService/LaunchDaemons/com.amamiyakokoro.box.helper.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = HelperService/LaunchDaemons/com.amamiyakokoro.box.helper.plist; sourceTree = "<group>"; };
+		3AE595AF2F08D00000C13426 /* UserHelper/LaunchAgents/com.amamiyakokoro.box.userhelper.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UserHelper/LaunchAgents/com.amamiyakokoro.box.userhelper.plist; sourceTree = "<group>"; };
 		3AEC20DB2A4599D000A63465 /* Libbox.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = Libbox.xcframework; sourceTree = "<group>"; };
-		3AEC20F32A459AB400A63465 /* sing-box.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sing-box.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3AEC21092A459B1900A63465 /* sing-box.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sing-box.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AEC20F32A459AB400A63465 /* KokoroBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KokoroBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AEC21092A459B1900A63465 /* KokoroBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KokoroBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AEC211D2A459B4700A63465 /* Library.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Library.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3AEECBF12A6DF40A006A0E0C /* io.nekohasekai.sfamt.system.systemextension */ = {isa = PBXFileReference; explicitFileType = "wrapper.system-extension"; includeInIndex = 0; path = io.nekohasekai.sfamt.system.systemextension; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AEECBF12A6DF40A006A0E0C /* com.amamiyakokoro.box.system.systemextension */ = {isa = PBXFileReference; explicitFileType = "wrapper.system-extension"; includeInIndex = 0; path = com.amamiyakokoro.box.system.systemextension; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AEECC042A6DF9CA006A0E0C /* SFM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SFM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AEECC2F2A6DFDAD006A0E0C /* MacLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MacLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AF342B12A4AA520002B34AC /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
@@ -964,8 +964,8 @@
 		3AE5C9042F08E53400C13426 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				3AE595AE2F08D00000C13426 /* HelperService/LaunchDaemons/io.nekohasekai.sfamt.helper.plist */,
-				3AE595AF2F08D00000C13426 /* UserHelper/LaunchAgents/io.nekohasekai.sfamt.userhelper.plist */,
+				3AE595AE2F08D00000C13426 /* HelperService/LaunchDaemons/com.amamiyakokoro.box.helper.plist */,
+				3AE595AF2F08D00000C13426 /* UserHelper/LaunchAgents/com.amamiyakokoro.box.userhelper.plist */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1006,16 +1006,16 @@
 		3AEC20C72A45991900A63465 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3AEC20F32A459AB400A63465 /* sing-box.app */,
-				3AEC21092A459B1900A63465 /* sing-box.app */,
+				3AEC20F32A459AB400A63465 /* KokoroBox.app */,
+				3AEC21092A459B1900A63465 /* KokoroBox.app */,
 				3AEC211D2A459B4700A63465 /* Library.framework */,
 				3A77016D2A4E6B34008F031F /* IntentsExtension.appex */,
 				3A096F862A4ED3DE00D4A2ED /* Extension.appex */,
 				3A4EAD102A4FEAE6005435B3 /* ApplicationLibrary.framework */,
-				3AEECBF12A6DF40A006A0E0C /* io.nekohasekai.sfamt.system.systemextension */,
+				3AEECBF12A6DF40A006A0E0C /* com.amamiyakokoro.box.system.systemextension */,
 				3AEECC042A6DF9CA006A0E0C /* SFM.app */,
 				3AEECC2F2A6DFDAD006A0E0C /* MacLibrary.framework */,
-				3AC03B962A72BF3300B7946F /* sing-box.app */,
+				3AC03B962A72BF3300B7946F /* KokoroBox.app */,
 				3AE171992A8128DD00393060 /* TVExtension.appex */,
 				3AE395F22C21A5CA00647718 /* WidgetExtension.appex */,
 				3AAAFB202EF5218F004C69AD /* FileProviderExtension.appex */,
@@ -1279,7 +1279,7 @@
 			);
 			name = SFT;
 			productName = SFT;
-			productReference = 3AC03B962A72BF3300B7946F /* sing-box.app */;
+			productReference = 3AC03B962A72BF3300B7946F /* KokoroBox.app */;
 			productType = "com.apple.product-type.application";
 		};
 		3AE171982A8128DD00393060 /* TVExtension */ = {
@@ -1376,7 +1376,7 @@
 				3A2E87FA2ED5ABDA00644195 /* TreeSitterJSON5Runestone */,
 			);
 			productName = SFI;
-			productReference = 3AEC20F32A459AB400A63465 /* sing-box.app */;
+			productReference = 3AEC20F32A459AB400A63465 /* KokoroBox.app */;
 			productType = "com.apple.product-type.application";
 		};
 		3AEC21082A459B1900A63465 /* SFM */ = {
@@ -1404,7 +1404,7 @@
 			packageProductDependencies = (
 			);
 			productName = SFM;
-			productReference = 3AEC21092A459B1900A63465 /* sing-box.app */;
+			productReference = 3AEC21092A459B1900A63465 /* KokoroBox.app */;
 			productType = "com.apple.product-type.application";
 		};
 		3AEC211C2A459B4700A63465 /* Library */ = {
@@ -1451,7 +1451,7 @@
 			);
 			name = SystemExtension;
 			productName = SystemExtension;
-			productReference = 3AEECBF12A6DF40A006A0E0C /* io.nekohasekai.sfamt.system.systemextension */;
+			productReference = 3AEECBF12A6DF40A006A0E0C /* com.amamiyakokoro.box.system.systemextension */;
 			productType = "com.apple.product-type.system-extension";
 		};
 		3AEECC032A6DF9CA006A0E0C /* SFM.System */ = {
@@ -2183,7 +2183,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Extension/Info.plist;
@@ -2223,7 +2223,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Extension/Info.plist;
@@ -2342,7 +2342,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
 				MARKETING_VERSION = 1.0;
@@ -2364,7 +2364,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
 				MARKETING_VERSION = 1.0;
@@ -2387,7 +2387,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_PACKAGE_IDENTIFIER).SFTUITests";
@@ -2409,7 +2409,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_PACKAGE_IDENTIFIER).SFTUITests";
@@ -2432,7 +2432,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 26.2;
 				MARKETING_VERSION = 1.0;
@@ -2453,7 +2453,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 26.2;
 				MARKETING_VERSION = 1.0;
@@ -2476,7 +2476,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IntentsExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = IntentsExtension;
@@ -2515,7 +2515,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IntentsExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = IntentsExtension;
@@ -2606,7 +2606,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FileProviderExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = FileProviderExtension;
@@ -2639,7 +2639,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FileProviderExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = FileProviderExtension;
@@ -2673,12 +2673,12 @@
 				CODE_SIGN_ENTITLEMENTS = SFT/SFT.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SFT/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "sing-box";
+				INFOPLIST_KEY_CFBundleDisplayName = KokoroBox;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "As a universal proxy platform, sing-box configures routing according to your configuration.";
@@ -2691,7 +2691,7 @@
 				);
 				MARKETING_VERSION = 1.14.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_PACKAGE_IDENTIFIER)";
-				PRODUCT_NAME = "sing-box";
+				PRODUCT_NAME = KokoroBox;
 				SDKROOT = appletvos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -2709,12 +2709,12 @@
 				CODE_SIGN_ENTITLEMENTS = SFT/SFT.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SFT/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "sing-box";
+				INFOPLIST_KEY_CFBundleDisplayName = KokoroBox;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "As a universal proxy platform, sing-box configures routing according to your configuration.";
@@ -2727,7 +2727,7 @@
 				);
 				MARKETING_VERSION = 1.14.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_PACKAGE_IDENTIFIER)";
-				PRODUCT_NAME = "sing-box";
+				PRODUCT_NAME = KokoroBox;
 				SDKROOT = appletvos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -2745,7 +2745,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TVExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TVExtension;
@@ -2781,7 +2781,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TVExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TVExtension;
@@ -2820,7 +2820,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WidgetExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = WidgetExtension;
@@ -2851,7 +2851,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WidgetExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = WidgetExtension;
@@ -2883,7 +2883,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
 				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
@@ -2924,7 +2924,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
 				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
@@ -2962,7 +2962,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APP_GROUP_IDENTIFIER = "group.$(BASE_PACKAGE_IDENTIFIER)";
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				BASE_PACKAGE_IDENTIFIER = io.nekohasekai.sfamt;
+				BASE_PACKAGE_IDENTIFIER = com.amamiyakokoro.box;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -3032,7 +3032,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APP_GROUP_IDENTIFIER = "group.$(BASE_PACKAGE_IDENTIFIER)";
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				BASE_PACKAGE_IDENTIFIER = io.nekohasekai.sfamt;
+				BASE_PACKAGE_IDENTIFIER = com.amamiyakokoro.box;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -3099,11 +3099,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SFI/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "sing-box";
+				INFOPLIST_KEY_CFBundleDisplayName = KokoroBox;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
@@ -3123,7 +3123,7 @@
 				MARKETING_VERSION = 1.14.4;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_PACKAGE_IDENTIFIER)";
-				PRODUCT_NAME = "sing-box";
+				PRODUCT_NAME = KokoroBox;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -3143,11 +3143,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SFI/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "sing-box";
+				INFOPLIST_KEY_CFBundleDisplayName = KokoroBox;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
@@ -3167,7 +3167,7 @@
 				MARKETING_VERSION = 1.14.4;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_PACKAGE_IDENTIFIER)";
-				PRODUCT_NAME = "sing-box";
+				PRODUCT_NAME = KokoroBox;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -3188,12 +3188,12 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 395;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SFM/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "sing-box";
+				INFOPLIST_KEY_CFBundleDisplayName = KokoroBox;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_LSUIElement = YES;
@@ -3207,7 +3207,7 @@
 				MARKETING_VERSION = 1.14.0;
 				OTHER_CODE_SIGN_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_PACKAGE_IDENTIFIER)";
-				PRODUCT_NAME = "sing-box";
+				PRODUCT_NAME = KokoroBox;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				REEXPORTED_LIBRARY_PATHS = "";
 				SDKROOT = macosx;
@@ -3227,12 +3227,12 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 395;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SFM/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "sing-box";
+				INFOPLIST_KEY_CFBundleDisplayName = KokoroBox;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_LSUIElement = YES;
@@ -3246,7 +3246,7 @@
 				MARKETING_VERSION = 1.14.0;
 				OTHER_CODE_SIGN_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_PACKAGE_IDENTIFIER)";
-				PRODUCT_NAME = "sing-box";
+				PRODUCT_NAME = KokoroBox;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				REEXPORTED_LIBRARY_PATHS = "";
 				SDKROOT = macosx;
@@ -3266,7 +3266,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -3314,7 +3314,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -3360,7 +3360,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = P8XK3KHB48;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 755TNLRN92;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = YES;
@@ -3389,7 +3389,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_PACKAGE_IDENTIFIER).system";
 				PRODUCT_NAME = "$(inherited)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "XC io nekohasekai sfamt system";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "XC com amamiyakokoro box system";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -3408,7 +3408,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = P8XK3KHB48;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 755TNLRN92;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = YES;
@@ -3437,7 +3437,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_PACKAGE_IDENTIFIER).system";
 				PRODUCT_NAME = "$(inherited)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "XC io nekohasekai sfamt system";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "XC com amamiyakokoro box system";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -3460,13 +3460,13 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = P8XK3KHB48;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 755TNLRN92;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SFM.System/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "sing-box";
+				INFOPLIST_KEY_CFBundleDisplayName = KokoroBox;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -3480,7 +3480,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_PACKAGE_IDENTIFIER).standalone";
 				PRODUCT_NAME = SFM;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "XC io nekohasekai sfamt standalone";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "XC com amamiyakokoro box standalone";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -3502,13 +3502,13 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = P8XK3KHB48;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 755TNLRN92;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SFM.System/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "sing-box";
+				INFOPLIST_KEY_CFBundleDisplayName = KokoroBox;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -3522,7 +3522,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_PACKAGE_IDENTIFIER).standalone";
 				PRODUCT_NAME = SFM;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "XC io nekohasekai sfamt standalone";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "XC com amamiyakokoro box standalone";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -3615,11 +3615,11 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "sing-box";
+				INFOPLIST_KEY_CFBundleDisplayName = KokoroBox;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3654,11 +3654,11 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "sing-box";
+				INFOPLIST_KEY_CFBundleDisplayName = KokoroBox;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3694,7 +3694,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ActionExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Send with Taildrop";
@@ -3732,7 +3732,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ActionExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Send with Taildrop";
@@ -3770,11 +3770,11 @@
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtension.System/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "sing-box";
+				INFOPLIST_KEY_CFBundleDisplayName = KokoroBox;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3806,11 +3806,11 @@
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 755TNLRN92;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtension.System/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "sing-box";
+				INFOPLIST_KEY_CFBundleDisplayName = KokoroBox;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

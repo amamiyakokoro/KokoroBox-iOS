@@ -2,13 +2,13 @@
 <installer-gui-script minSpecVersion="2">
     <title>sing-box</title>
     <license file="LICENSE"/>
-    <pkg-ref id="io.nekohasekai.sfamt.standalone"/>
+    <pkg-ref id="com.amamiyakokoro.box.standalone"/>
     <options customize="never" require-scripts="false" hostArchitectures="arm64"/>
     <choices-outline>
         <line choice="default"/>
     </choices-outline>
-    <choice id="default" title="sing-box">
-        <pkg-ref id="io.nekohasekai.sfamt.standalone"/>
+    <choice id="default" title="KokoroBox">
+        <pkg-ref id="com.amamiyakokoro.box.standalone"/>
     </choice>
-    <pkg-ref id="io.nekohasekai.sfamt.standalone" version="0" onConclusion="none">component-arm64.pkg</pkg-ref>
+    <pkg-ref id="com.amamiyakokoro.box.standalone" version="0" onConclusion="none">component-arm64.pkg</pkg-ref>
 </installer-gui-script>

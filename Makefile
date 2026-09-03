@@ -148,7 +148,7 @@ build_macos_pkg_apple: archive_macos_standalone_apple export_macos_standalone_ap
 	ditto "build/SFM.System-arm64/SFM.app" "build/pkgroot-arm64/SFM.app"
 	pkgbuild --root "build/pkgroot-arm64" \
 		--component-plist SFM.System/component.plist \
-		--identifier io.nekohasekai.sfamt.standalone \
+		--identifier com.amamiyakokoro.box.standalone \
 		--install-location /Applications \
 		--min-os-version 13.0 \
 		--compression latest \
@@ -168,7 +168,7 @@ build_macos_pkg_intel: archive_macos_standalone_intel export_macos_standalone_in
 	ditto "build/SFM.System-x86_64/SFM.app" "build/pkgroot-x86_64/SFM.app"
 	pkgbuild --root "build/pkgroot-x86_64" \
 		--component-plist SFM.System/component.plist \
-		--identifier io.nekohasekai.sfamt.standalone \
+		--identifier com.amamiyakokoro.box.standalone \
 		--install-location /Applications \
 		--min-os-version 13.0 \
 		--compression latest \
@@ -188,7 +188,7 @@ build_macos_pkg_universal: archive_macos_standalone_universal export_macos_stand
 	ditto "build/SFM.System-universal/SFM.app" "build/pkgroot-universal/SFM.app"
 	pkgbuild --root "build/pkgroot-universal" \
 		--component-plist SFM.System/component.plist \
-		--identifier io.nekohasekai.sfamt.standalone \
+		--identifier com.amamiyakokoro.box.standalone \
 		--install-location /Applications \
 		--min-os-version 13.0 \
 		--compression latest \
