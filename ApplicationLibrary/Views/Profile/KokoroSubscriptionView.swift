@@ -236,8 +236,9 @@
             guard let profile = await viewModel.createProfile(environments: environments) else { return }
             if let onSuccess {
                 await onSuccess(profile)
+            } else {
+                dismiss()
             }
-            dismiss()
         }
 
         private static func byteCount(_ count: Int64) -> String {
