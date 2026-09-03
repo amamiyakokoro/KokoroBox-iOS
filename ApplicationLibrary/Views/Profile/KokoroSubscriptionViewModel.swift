@@ -58,7 +58,7 @@
             guard !didLoad else { return }
             didLoad = true
             guard await KokoroSession.shared.hasSession() else { return }
-            await loadAccount(action: "load Kokoro subscription")
+            await loadAccount()
         }
 
         func signIn() async {
@@ -68,7 +68,9 @@
                 try await authenticator.signIn()
                 try await fetchAccountAndOptions()
             } catch {
-                alert = AlertState(action: "sign in to Kokoro", error: error)
+                alert = AlertState(
+                    errorMessage: "\(String(localized: "Failed to sign in to Kokoro"))\n\(error.localizedDescription)"
+                )
             }
         }
 
@@ -152,19 +154,23 @@
                 environments.profileUpdate.send()
                 return profile
             } catch {
-                alert = AlertState(action: "create Kokoro subscription", error: error)
+                alert = AlertState(
+                    errorMessage: "\(String(localized: "Failed to create Kokoro subscription"))\n\(error.localizedDescription)"
+                )
                 return nil
             }
         }
 
-        private func loadAccount(action: String) async {
+        private func loadAccount() async {
             isLoading = true
             defer { isLoading = false }
             do {
                 try await fetchAccountAndOptions()
             } catch {
                 isSignedIn = await KokoroSession.shared.hasSession()
-                alert = AlertState(action: action, error: error)
+                alert = AlertState(
+                    errorMessage: "\(String(localized: "Failed to load Kokoro subscription"))\n\(error.localizedDescription)"
+                )
             }
         }
 

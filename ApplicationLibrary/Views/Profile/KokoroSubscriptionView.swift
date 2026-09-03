@@ -120,7 +120,7 @@
                     )
                     FormPicker(
                         String(localized: "ISP"),
-                        options: viewModel.ispOptions.map { FormPickerOption($0.value, $0.label) },
+                        options: viewModel.ispOptions.map { FormPickerOption($0.value, Self.localizedISPLabel($0)) },
                         selection: $viewModel.selectedISP
                     )
                     if viewModel.supportsDirectMode {
@@ -149,12 +149,12 @@
                 Section("Routing") {
                     FormPicker(
                         String(localized: "Rule Source"),
-                        options: options.ruleSources.map { FormPickerOption($0, $0.capitalized) },
+                        options: options.ruleSources.map { FormPickerOption($0, Self.localizedRuleSourceLabel($0)) },
                         selection: $viewModel.selectedRuleSource
                     )
                     FormPicker(
                         String(localized: "Final Route"),
-                        options: options.finalRoutes.map { FormPickerOption($0, $0.capitalized) },
+                        options: options.finalRoutes.map { FormPickerOption($0, Self.localizedFinalRouteLabel($0)) },
                         selection: $viewModel.selectedFinalRoute
                     )
                 }
@@ -243,6 +243,45 @@
 
         private static func byteCount(_ count: Int64) -> String {
             ByteCountFormatter.string(fromByteCount: count, countStyle: .binary)
+        }
+
+        private static func localizedISPLabel(_ option: KokoroISPOption) -> String {
+            switch option.value {
+            case "":
+                String(localized: "Default")
+            case "ct":
+                String(localized: "China Telecom")
+            case "cu":
+                String(localized: "China Unicom")
+            case "cm":
+                String(localized: "China Mobile")
+            case "other":
+                String(localized: "Other ISP")
+            default:
+                option.label
+            }
+        }
+
+        private static func localizedRuleSourceLabel(_ value: String) -> String {
+            switch value {
+            case "origin":
+                String(localized: "Origin")
+            case "mirror":
+                String(localized: "Mirror")
+            default:
+                value.capitalized
+            }
+        }
+
+        private static func localizedFinalRouteLabel(_ value: String) -> String {
+            switch value {
+            case "proxy":
+                String(localized: "Proxy")
+            case "direct":
+                String(localized: "Direct")
+            default:
+                value.capitalized
+            }
         }
     }
 #endif
