@@ -21,7 +21,6 @@ KokoroBox can create and maintain sing-box profiles directly from a Kokoro accou
 - Credentials stored in the Apple Keychain with automatic token refresh
 - Server-driven plan, ISP, protocol, routing, and update options
 - VMess, AnyTLS, and Hysteria 2 subscription profiles when enabled by the server
-- Authenticated configuration downloads from `https://amamiyakoko.ro/api`
 - Configuration validation before replacing the active local profile
 
 Access tokens, refresh tokens, subscription credentials, and complete subscription URLs must never be included in logs, analytics, screenshots, or issue reports.
