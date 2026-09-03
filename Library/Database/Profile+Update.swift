@@ -8,7 +8,12 @@ public extension Profile {
             return
         }
         let url = remoteURL
-        let remoteContent = try await HTTPClient.getStringAsync(url)
+        let remoteContent: String
+        if let url, KokoroAPI.isAuthenticatedConfigurationURL(url) {
+            remoteContent = try await KokoroAPI.downloadConfiguration(from: url)
+        } else {
+            remoteContent = try await HTTPClient.getStringAsync(url)
+        }
         try await BlockingIO.run {
             var error: NSError?
             LibboxCheckConfig(remoteContent, &error)

@@ -57,6 +57,9 @@
         }
       }
     },
+    "%lld hours" : {
+
+    },
     "%lld Profiles" : {
       "localizations" : {
         "fa" : {
@@ -84,6 +87,9 @@
           }
         }
       }
+    },
+    "A Kokoro sign-in is already in progress." : {
+
     },
     "A report is saved for each service run" : {
       "localizations" : {
@@ -140,6 +146,9 @@
           }
         }
       }
+    },
+    "Account" : {
+
     },
     "Action" : {
       "localizations" : {
@@ -961,6 +970,9 @@
           }
         }
       }
+    },
+    "Bandwidth Limit" : {
+
     },
     "Beta" : {
       "localizations" : {
@@ -2392,6 +2404,9 @@
         }
       }
     },
+    "Could not open the Kokoro sign-in page." : {
+
+    },
     "Crash Report" : {
       "localizations" : {
         "fa" : {
@@ -2506,6 +2521,9 @@
           }
         }
       }
+    },
+    "Create Subscription" : {
+
     },
     "Created At" : {
       "localizations" : {
@@ -3123,6 +3141,9 @@
           }
         }
       }
+    },
+    "Direct" : {
+
     },
     "Direct connection" : {
       "localizations" : {
@@ -4822,6 +4843,9 @@
         }
       }
     },
+    "Final Route" : {
+
+    },
     "Flavor" : {
       "localizations" : {
         "fa" : {
@@ -6444,6 +6468,9 @@
     "IPv6" : {
       "shouldTranslate" : false
     },
+    "ISP" : {
+
+    },
     "Keep Menu Bar in Background" : {
       "localizations" : {
         "fa" : {
@@ -6583,6 +6610,24 @@
           }
         }
       }
+    },
+    "Kokoro returned an invalid sign-in callback." : {
+
+    },
+    "Kokoro sign-in could not be verified. Please try again." : {
+
+    },
+    "Kokoro sign-in failed: %@" : {
+
+    },
+    "Kokoro sign-in was denied or this account is not authorized." : {
+
+    },
+    "Kokoro Subscription" : {
+
+    },
+    "Kokoro's sing-box 1.14 renderer is currently in testing." : {
+
     },
     "Language" : {
       "localizations" : {
@@ -8985,6 +9030,9 @@
         }
       }
     },
+    "Plan" : {
+
+    },
     "Please enable camera access in Settings to scan QR codes." : {
       "localizations" : {
         "fa" : {
@@ -9264,6 +9312,9 @@
           }
         }
       }
+    },
+    "Profile Update Interval" : {
+
     },
     "Profiles" : {
       "localizations" : {
@@ -9680,6 +9731,9 @@
         }
       }
     },
+    "Relay" : {
+
+    },
     "Releases" : {
       "localizations" : {
         "fa" : {
@@ -10014,6 +10068,12 @@
     },
     "RootHelper" : {
       "shouldTranslate" : false
+    },
+    "Routing" : {
+
+    },
+    "Rule Source" : {
+
     },
     "Rules" : {
       "localizations" : {
@@ -10827,6 +10887,15 @@
         }
       }
     },
+    "Sign in securely with osu! in your system browser. This app never receives your osu! password." : {
+
+    },
+    "Sign in with Kokoro" : {
+
+    },
+    "Sign Out" : {
+
+    },
     "sing-box" : {
       "localizations" : {
         "fa" : {
@@ -11605,6 +11674,9 @@
           }
         }
       }
+    },
+    "Subscription" : {
+
     },
     "System Default" : {
       "localizations" : {
@@ -12418,6 +12490,9 @@
         }
       }
     },
+    "Traffic Used" : {
+
+    },
     "Transport" : {
       "localizations" : {
         "fa" : {
@@ -12698,6 +12773,9 @@
         }
       }
     },
+    "Unlimited" : {
+
+    },
     "Unsaved Changes" : {
       "localizations" : {
         "fa" : {
@@ -12754,6 +12832,12 @@
         }
       }
     },
+    "Update Profile Automatically" : {
+
+    },
+    "Update Rule Providers" : {
+
+    },
     "Update Settings" : {
       "localizations" : {
         "fa" : {
@@ -12809,6 +12893,9 @@
           }
         }
       }
+    },
+    "Updates" : {
+
     },
     "Uplink" : {
       "localizations" : {

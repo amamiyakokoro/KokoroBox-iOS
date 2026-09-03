@@ -13,10 +13,12 @@ public struct NewProfileMenuView: View {
     @State private var localImportRequest: NewProfileView.LocalImportRequest?
     @State private var manualCreateSucceeded = false
     #if !os(tvOS)
+        @State private var kokoroCreateSucceeded = false
         @State private var showFileImporter = false
         @State private var showQRScanner = false
     #endif
     #if os(macOS)
+        @State private var showKokoroSubscription = false
         @State private var showNewProfile = false
     #endif
     private var onComplete: (() -> Void)?
@@ -72,6 +74,13 @@ public struct NewProfileMenuView: View {
                 })
                 .environmentObject(environments)
             }
+            .sheet(isPresented: $showKokoroSubscription) {
+                KokoroSubscriptionView(onSuccess: { profile in
+                    await SharedPreferences.selectedProfileID.set(profile.mustID)
+                    complete()
+                })
+                .environmentObject(environments)
+            }
             .sheet(item: $localImportRequest) { request in
                 NewProfileView(localImportRequest: request, onSuccess: { profile in
                     await SharedPreferences.selectedProfileID.set(profile.mustID)
@@ -122,6 +131,13 @@ public struct NewProfileMenuView: View {
                     complete()
                 }
             }
+        #if !os(tvOS)
+            .onChangeCompat(of: kokoroCreateSucceeded) { newValue in
+                if newValue {
+                    complete()
+                }
+            }
+        #endif
             .alert($alert)
         #if !os(tvOS)
             .fileImporter(
@@ -150,6 +166,24 @@ public struct NewProfileMenuView: View {
     private var menuContent: some View {
         FormView {
             Section {
+                #if os(macOS)
+                    FormButton {
+                        showKokoroSubscription = true
+                    } label: {
+                        Label("Kokoro Subscription", systemImage: "person.crop.circle.badge.checkmark")
+                    }
+                #elseif os(iOS)
+                    FormNavigationLink {
+                        KokoroSubscriptionView(onSuccess: { [$kokoroCreateSucceeded] profile in
+                            await SharedPreferences.selectedProfileID.set(profile.mustID)
+                            $kokoroCreateSucceeded.wrappedValue = true
+                        })
+                        .environmentObject(environments)
+                    } label: {
+                        Label("Kokoro Subscription", systemImage: "person.crop.circle.badge.checkmark")
+                    }
+                #endif
+
                 #if os(tvOS)
                     FormNavigationLink {
                         ImportProfileView(onComplete: {
