@@ -238,7 +238,7 @@ public struct GlobalChecksModifier: ViewModifier {
             wifiLocationManager.onAuthorizationGranted = {
                 alert = AlertState(
                     title: String(localized: "WiFi State Access"),
-                    message: String(localized: "In the standalone version of SFM, reading WiFi state requires this app to be running. After you quit the SFM app, the sing-box service cannot continue to provide `wifi_ssid` and `wifi_bssid` routing rules.")
+                    message: String(localized: "In the standalone version of KokoroBoxM, reading WiFi state requires this app to be running. After you quit the KokoroBoxM app, the sing-box service cannot continue to provide `wifi_ssid` and `wifi_bssid` routing rules.")
                 )
             }
             wifiLocationManager.requestAuthorizationAndShowWarning()

@@ -16,8 +16,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3AEC20F22A459AB400A63465"
-               BuildableName = "KokoroBox.app"
-               BlueprintName = "SFI"
+               BuildableName = "KokoroBoxI.app"
+               BlueprintName = "KokoroBoxI"
                ReferencedContainer = "container:sing-box.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -36,8 +36,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3A6313712F0CEF3D0060A550"
-               BuildableName = "SFIUITests.xctest"
-               BlueprintName = "SFIUITests"
+               BuildableName = "KokoroBoxIUITests.xctest"
+               BlueprintName = "KokoroBoxIUITests"
                ReferencedContainer = "container:sing-box.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -58,8 +58,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3AEC20F22A459AB400A63465"
-            BuildableName = "KokoroBox.app"
-            BlueprintName = "SFI"
+            BuildableName = "KokoroBoxI.app"
+            BlueprintName = "KokoroBoxI"
             ReferencedContainer = "container:sing-box.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -75,8 +75,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3AEC20F22A459AB400A63465"
-            BuildableName = "KokoroBox.app"
-            BlueprintName = "SFI"
+            BuildableName = "KokoroBoxI.app"
+            BlueprintName = "KokoroBoxI"
             ReferencedContainer = "container:sing-box.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

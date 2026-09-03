@@ -4,7 +4,7 @@ Experimental iOS/macOS/tvOS client for sing-box, the universal proxy platform.
 
 ## Documentation
 
-[SFI](https://sing-box.sagernet.org/installation/clients/sfi/) | [SFM](https://sing-box.sagernet.org/installation/clients/sfm/)
+[KokoroBoxI](https://sing-box.sagernet.org/installation/clients/sfi/) | [KokoroBoxM](https://sing-box.sagernet.org/installation/clients/sfm/)
 
 ## License
 

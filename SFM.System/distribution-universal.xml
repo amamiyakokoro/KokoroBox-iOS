@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <installer-gui-script minSpecVersion="2">
-    <title>sing-box</title>
+    <title>KokoroBoxM</title>
     <license file="LICENSE"/>
     <pkg-ref id="com.amamiyakokoro.box.standalone"/>
     <options customize="never" require-scripts="false" hostArchitectures="arm64,x86_64"/>
     <choices-outline>
         <line choice="default"/>
     </choices-outline>
-    <choice id="default" title="KokoroBox">
+    <choice id="default" title="KokoroBoxM">
         <pkg-ref id="com.amamiyakokoro.box.standalone"/>
     </choice>
     <pkg-ref id="com.amamiyakokoro.box.standalone" version="0" onConclusion="none">component-universal.pkg</pkg-ref>

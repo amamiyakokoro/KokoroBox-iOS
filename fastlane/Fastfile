@@ -74,7 +74,7 @@ platform :mac do
     output_base_dir = File.expand_path("../screenshots/macos", __dir__)
     screenshots_cache_candidates = [
       File.expand_path("~/Library/Caches/tools.fastlane/screenshots"),
-      File.expand_path("~/Library/Containers/#{BASE_PACKAGE_IDENTIFIER}.SFMUITests.xctrunner/Data/Library/Caches/tools.fastlane/screenshots")
+      File.expand_path("~/Library/Containers/#{BASE_PACKAGE_IDENTIFIER}.KokoroBoxMUITests.xctrunner/Data/Library/Caches/tools.fastlane/screenshots")
     ].uniq
     ENV["DISABLE_SWIFTLINT"] = "1"
     ENV["SCREENSHOT_WINDOW_PIXEL_HEIGHT"] = "1000"
@@ -98,12 +98,12 @@ platform :mac do
 
       run_tests(
         project: "sing-box.xcodeproj",
-        scheme: "SFM",
+        scheme: "KokoroBoxM",
         destination: "platform=macOS",
         result_bundle: false,
         reinstall_app: false,
         app_identifier: BASE_PACKAGE_IDENTIFIER,
-        only_testing: ["SFMUITests/SnapshotTests"],
+        only_testing: ["KokoroBoxMUITests/SnapshotTests"],
         number_of_retries: 0
       )
 

@@ -28,7 +28,7 @@ echo "Building $PRODUCT_NAME (JAILBREAK, $BASE_PACKAGE_IDENTIFIER)"
 build() {
 	xcodebuild build \
 		"${XCODEBUILD_FLAGS[@]}" \
-		-scheme SFI \
+		-scheme KokoroBoxI \
 		-configuration Release \
 		-destination 'generic/platform=iOS' \
 		-derivedDataPath "$DERIVED_DATA" \
@@ -47,7 +47,7 @@ if [[ ! -d "$APP_SRC" ]]; then
 	exit 1
 fi
 
-# The SFI MARKETING_VERSION is stripped to X.Y.Z for App Store Connect; the SFM.System
+# The KokoroBoxI MARKETING_VERSION is stripped to X.Y.Z for App Store Connect; the SFM.System
 # standalone target keeps the full prerelease form (set by sing-box's update_apple_version).
 VERSION="$(awk -F' = ' '
 	/MARKETING_VERSION = / { v=$2; gsub(/[";]/,"",v) }
@@ -191,7 +191,7 @@ chmod 755 "$DEB_ROOT/DEBIAN/postinst" "$DEB_ROOT/DEBIAN/prerm"
 	| while IFS= read -r f; do printf '%s  %s\n' "$(md5 -q "$f")" "$f"; done ) > "$DEB_ROOT/DEBIAN/md5sums"
 chmod 644 "$DEB_ROOT/DEBIAN/md5sums"
 
-DEB_OUT="$REPO_ROOT/build/jailbreak/SFI-${VERSION}-iphoneos-arm64.deb"
+DEB_OUT="$REPO_ROOT/build/jailbreak/KokoroBoxI-${VERSION}-iphoneos-arm64.deb"
 
 dpkg-deb --root-owner-group -Zxz -z9 -Sextreme --build "$DEB_ROOT" "$DEB_OUT"
 echo "Built $DEB_OUT"
