@@ -130,7 +130,7 @@ public struct CoreView: View {
             }
         } else {
             await MainActor.run {
-                version = LibboxVersion()
+                version = Variant.coreVersion
                 isLoading = false
             }
             await loadSettingsBackground()

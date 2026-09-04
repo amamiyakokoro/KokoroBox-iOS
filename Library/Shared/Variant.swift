@@ -9,6 +9,7 @@ public enum Variant {
     #endif
 
     public static let applicationName = "KokoroBox"
+    public static let coreVersion = "1.15.0-alpha.1-kokoro"
 
     public static let isBeta = LibboxVersion().contains("-")
 
