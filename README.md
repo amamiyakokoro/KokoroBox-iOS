@@ -4,59 +4,36 @@
 
 # KokoroBox
 
-An Apple-platform sing-box client with native Kokoro subscription support.
+Native sing-box client for Apple platforms with Kokoro integration.
 
-**Client:** 1.14.4 (build 4) · **Core:** 1.15.0-alpha.1-kokoro
+**Client:** 1.14.4 (5) · **Core:** 1.15.0-alpha.1-kokoro
 
 </div>
 
-KokoroBox is an experimental Apple-platform client based on [sing-box for Apple](https://github.com/SagerNet/sing-box-for-apple), with first-party Kokoro account and subscription support. Its primary bundle identifier is `com.amamiyakokoro.box`.
+KokoroBox is based on [sing-box for Apple](https://github.com/SagerNet/sing-box-for-apple). It supports iOS, iPadOS, macOS, and tvOS under the primary bundle identifier `com.amamiyakokoro.box`.
 
 ## Features
 
-- Native clients for iOS, iPadOS, macOS, and tvOS
 - Local and remote sing-box profiles with validation before activation
-- Kokoro subscriptions with server-driven plan, ISP, protocol, routing, and update options
-- Kokoro account status and Custom Rules managed from a dedicated settings page
+- Server-driven Kokoro subscriptions and Custom Rules
 - System-browser osu! OAuth with mandatory PKCE S256 and Keychain token storage
-- Apple Network Extension and standalone macOS modes
-
-Kokoro sign-in is available on iOS, iPadOS, and macOS. See the [OAuth integration guide](docs/kokoro-oauth.md) and [Custom Rules client guide](docs/kokoro-custom-rules.md) for implementation and verification details.
-
-## Applications
-
-| Platform         | Xcode scheme | Product          |
-| ---------------- | ------------ | ---------------- |
-| iOS and iPadOS   | `KokoroBoxI` | `KokoroBoxI.app` |
-| macOS            | `KokoroBoxM` | `KokoroBoxM.app` |
-| macOS standalone | `SFM.System` | `KokoroBoxM.app` |
-| tvOS             | `SFT`        | `KokoroBox.app`  |
+- Network Extension and standalone macOS modes
 
 ## Build
 
-Requires a recent Xcode, a compatible `Libbox.xcframework`, and an Apple Developer team for signed builds.
+Clone with submodules, then open `sing-box.xcodeproj` and select `KokoroBoxI` (iOS/iPadOS), `KokoroBoxM` or `SFM.System` (macOS), or `SFT` (tvOS).
 
 ```bash
 git clone --recurse-submodules https://github.com/amamiyakokoro/KokoroBox-iOS.git
 cd KokoroBox-iOS
-```
-
-Open `sing-box.xcodeproj` and select a scheme, or use:
-
-```bash
 make build_ios
 make build_macos
-make build_macos_standalone
-make build_tvos
-```
-
-Run the Kokoro API, OAuth, and session tests with:
-
-```bash
 swift test
 ```
 
-Signing identities, App Groups, Network Extension capabilities, and provisioning profiles must belong to your Apple Developer team.
+Signed builds require a compatible `Libbox.xcframework`, an Apple Developer team, and matching App Group, Network Extension, and provisioning settings. Run Kokoro API and authentication tests with `swift test`.
+
+Implementation details: [OAuth and PKCE](docs/kokoro-oauth.md) · [Custom Rules](docs/kokoro-custom-rules.md)
 
 ## License
 
