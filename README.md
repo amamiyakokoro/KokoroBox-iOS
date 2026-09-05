@@ -6,6 +6,8 @@
 
 An Apple-platform sing-box client with native Kokoro subscription support.
 
+**Client:** 1.14.4 (build 4) · **Core:** 1.15.0-alpha.1-kokoro
+
 </div>
 
 ## About
@@ -18,7 +20,7 @@ The installed display name is **KokoroBox**. The primary application bundle iden
 
 - **Native Apple experience** — platform-specific apps for iOS, iPadOS, macOS, and tvOS
 - **sing-box profiles** — local and remote profile management with validation before activation
-- **Kokoro integration** — secure account sign-in and server-driven subscription options
+- **Kokoro integration** — system-browser OAuth with mandatory PKCE S256 and server-driven subscription options
 - **Secure credentials** — Apple Keychain storage with automatic access-token refresh
 - **Network integration** — Apple Network Extension and standalone macOS system modes
 
@@ -26,10 +28,12 @@ The installed display name is **KokoroBox**. The primary application bundle iden
 
 KokoroBox can create and maintain sing-box profiles directly from a Kokoro account:
 
-- Secure osu! sign-in through the system browser
+- Secure osu! sign-in through the system browser with a fresh state and PKCE verifier for every attempt
 - Server-driven plan, ISP, protocol, routing, and update options
 - VMess, AnyTLS, and Hysteria 2 subscription profiles when enabled by the server
 - Configuration validation before replacing the active local profile
+
+Kokoro browser sign-in is available in the iOS, iPadOS, and macOS clients. The tvOS target does not expose the Kokoro sign-in screen.
 
 Access tokens, refresh tokens, subscription credentials, and complete subscription URLs must never be included in logs, screenshots, analytics, or issue reports.
 
@@ -67,6 +71,12 @@ make build_ios
 make build_macos
 make build_macos_standalone
 make build_tvos
+```
+
+Run the focused Kokoro OAuth and session tests without Xcode signing:
+
+```bash
+swift test
 ```
 
 Code signing, application groups, Network Extension capabilities, and provisioning profiles must belong to your own Apple Developer team. Release and notarization targets in the `Makefile` additionally require the corresponding Apple distribution certificates and signing identities.
