@@ -18,9 +18,6 @@
 		3A4CA8CC2F75381F009C36CA /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3A4CA8CB2F75381F009C36CA /* MarkdownUI */; };
 		3A4EAD1B2A4FEB02005435B3 /* Library.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEC211D2A459B4700A63465 /* Library.framework */; };
 		3A4EAD372A4FEC20005435B3 /* ApplicationLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4EAD102A4FEAE6005435B3 /* ApplicationLibrary.framework */; };
-		3A4FB1572A73467F007012B9 /* Library.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEC211D2A459B4700A63465 /* Library.framework */; };
-		3A4FB1582A73467F007012B9 /* Library.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEC211D2A459B4700A63465 /* Library.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3A4FB15C2A73468C007012B9 /* ApplicationLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4EAD102A4FEAE6005435B3 /* ApplicationLibrary.framework */; };
 		3A5AA1BA2F7DB10900BA2A0D /* CrashReporter in Frameworks */ = {isa = PBXBuildFile; productRef = 3A5AA1B92F7DB10900BA2A0D /* CrashReporter */; };
 		3A5F26C82A503D4A00C27EDF /* Library.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEC211D2A459B4700A63465 /* Library.framework */; };
 		3A5F26C92A503D4A00C27EDF /* Library.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEC211D2A459B4700A63465 /* Library.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -38,9 +35,6 @@
 		3AC89DD52FCD9E3B002A14E8 /* DeviceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3AC89DD42FCD9E3B002A14E8 /* DeviceKit */; };
 		3ACE5E032EE1A91300644196 /* CodeEditSourceEditor in Frameworks */ = {isa = PBXBuildFile; productRef = 3ACE5E022EE1A91200644196 /* CodeEditSourceEditor */; };
 		3AD0F1002FD1000100000001 /* LegacyBinaryCodable in Frameworks */ = {isa = PBXBuildFile; productRef = 3AD0F1012FD1000100000002 /* LegacyBinaryCodable */; };
-		3AE1719A2A8128DD00393060 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF342B12A4AA520002B34AC /* NetworkExtension.framework */; };
-		3AE171A62A81294400393060 /* TVExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3AE171992A8128DD00393060 /* TVExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		3AE171A92A81297300393060 /* Library.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEC211D2A459B4700A63465 /* Library.framework */; };
 		3AE395F42C21A5CA00647718 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AE395F32C21A5CA00647718 /* WidgetKit.framework */; };
 		3AE395F62C21A5CA00647718 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AE395F52C21A5CA00647718 /* SwiftUI.framework */; };
 		3AE396032C21A5CC00647718 /* WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3AE395F22C21A5CA00647718 /* WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -75,7 +69,6 @@
 		9C37F17D2C131100001B9FA8 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 9C37F17C2C131100001B9FA8 /* Localizable.xcstrings */; };
 		9C37F17E2C131100001B9FA8 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 9C37F17C2C131100001B9FA8 /* Localizable.xcstrings */; };
 		9C37F17F2C131100001B9FA8 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 9C37F17C2C131100001B9FA8 /* Localizable.xcstrings */; };
-		9C37F1812C131100001B9FA8 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 9C37F17C2C131100001B9FA8 /* Localizable.xcstrings */; };
 		9C37F1822C131100001B9FA8 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 9C37F17C2C131100001B9FA8 /* Localizable.xcstrings */; };
 		9C37F1832C131100001B9FA8 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 9C37F17C2C131100001B9FA8 /* Localizable.xcstrings */; };
 		9C37F1842C131100001B9FA8 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 9C37F17C2C131100001B9FA8 /* Localizable.xcstrings */; };
@@ -117,33 +110,12 @@
 			remoteGlobalIDString = 3A4EAD0F2A4FEAE6005435B3;
 			remoteInfo = ApplicationLibrary;
 		};
-		3A4FB1592A73467F007012B9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3AEC20BD2A45991900A63465 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3AEC211C2A459B4700A63465;
-			remoteInfo = Library;
-		};
-		3A4FB15E2A73468C007012B9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3AEC20BD2A45991900A63465 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3A4EAD0F2A4FEAE6005435B3;
-			remoteInfo = ApplicationLibrary;
-		};
 		3A6313782F0CEF3D0060A550 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3AEC20BD2A45991900A63465 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 3AEC20F22A459AB400A63465;
 			remoteInfo = KokoroBoxI;
-		};
-		3A63139A2F0CEF740060A550 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3AEC20BD2A45991900A63465 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3AC03B952A72BF3300B7946F;
-			remoteInfo = SFT;
 		};
 		3A6313AD2F0CEFDD0060A550 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -193,20 +165,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 3A77016C2A4E6B34008F031F;
 			remoteInfo = IntentsExtension;
-		};
-		3AE171A72A81294400393060 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3AEC20BD2A45991900A63465 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3AE171982A8128DD00393060;
-			remoteInfo = TVExtension;
-		};
-		3AE171AB2A81297300393060 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3AEC20BD2A45991900A63465 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3AEC211C2A459B4700A63465;
-			remoteInfo = Library;
 		};
 		3AE396012C21A5CC00647718 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -371,28 +329,6 @@
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3A4FB15B2A73467F007012B9 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				3A4FB1582A73467F007012B9 /* Library.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3A4FB1632A7346A1007012B9 /* Embed Foundation Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				3AE171A62A81294400393060 /* TVExtension.appex in Embed Foundation Extensions */,
-			);
-			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		3A5F26CA2A503D4B00C27EDF /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -529,7 +465,6 @@
 		3A3DEBE62A4FFA6000373BF4 /* AppIntents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppIntents.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.0.sdk/System/Library/Frameworks/AppIntents.framework; sourceTree = DEVELOPER_DIR; };
 		3A4EAD102A4FEAE6005435B3 /* ApplicationLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ApplicationLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A6313722F0CEF3D0060A550 /* KokoroBoxIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KokoroBoxIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3A6313942F0CEF740060A550 /* SFTUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SFTUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A6313A72F0CEFDD0060A550 /* KokoroBoxMUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KokoroBoxMUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A77016D2A4E6B34008F031F /* IntentsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; includeInIndex = 0; path = IntentsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A7B32312FDE1D54008C0F7F /* sfajb-roothelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "sfajb-roothelper"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -537,12 +472,10 @@
 		3AAAFB212EF5218F004C69AD /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
 		3AAAFE162EF52772004C69AD /* FileProvider.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FileProvider.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.2.sdk/System/Library/Frameworks/FileProvider.framework; sourceTree = DEVELOPER_DIR; };
 		3ABA46D22A6A32A100D8366B /* Messages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Messages.framework; path = Library/Frameworks/Messages.framework; sourceTree = DEVELOPER_DIR; };
-		3AC03B962A72BF3300B7946F /* KokoroBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KokoroBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AC6CFB92FC07A7500F5B0AE /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.4.sdk/usr/lib/libresolv.tbd; sourceTree = DEVELOPER_DIR; };
 		3AC6CFC82FC07C3000F5B0AE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.4.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		3AC72A2E2EED94DD0039DEA4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		3AC72A302EED94F60039DEA4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS26.2.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
-		3AE171992A8128DD00393060 /* TVExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TVExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE395F22C21A5CA00647718 /* WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE395F32C21A5CA00647718 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		3AE395F52C21A5CA00647718 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -598,13 +531,6 @@
 			);
 			target = 3AEECC032A6DF9CA006A0E0C /* SFM.System */;
 		};
-		3ADDCEDB2E8B7264009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 3AC03B952A72BF3300B7946F /* SFT */;
-		};
 		3ADDCF922E8B7291009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -651,13 +577,6 @@
 			);
 			target = 3AEECC032A6DF9CA006A0E0C /* SFM.System */;
 		};
-		3ADDCFB22E8B72A6009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Icons/AppIcon.icns,
-			);
-			target = 3AC03B952A72BF3300B7946F /* SFT */;
-		};
 		3ADDCFB32E8B72A6009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -688,13 +607,6 @@
 				IntentsExtension.swift,
 			);
 			target = 3A77016C2A4E6B34008F031F /* IntentsExtension */;
-		};
-		3ADDCFCF2E8B72B8009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				PacketTunnelProvider.swift,
-			);
-			target = 3AE171982A8128DD00393060 /* TVExtension */;
 		};
 		3ADDCFDA2E8B72BC009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
@@ -743,21 +655,18 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		3A63135E2F0CEF190060A550 /* UITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = UITests; sourceTree = "<group>"; };
 		3A6313732F0CEF3D0060A550 /* SFIUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SFIUITests; sourceTree = "<group>"; };
-		3A6313952F0CEF740060A550 /* SFTUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SFTUITests; sourceTree = "<group>"; };
 		3A6313A82F0CEFDD0060A550 /* SFMUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SFMUITests; sourceTree = "<group>"; };
 		3A7B32402FDE1D54008C0F7F /* JailbreakDaemon */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = JailbreakDaemon; sourceTree = "<group>"; };
 		3AAAFB232EF5218F004C69AD /* FileProviderExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3AAAFB322EF5218F004C69AD /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = FileProviderExtension; sourceTree = "<group>"; };
 		3ADDCEB42E8B723B009ACE1D /* SFI */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3ADDCEBC2E8B723B009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SFI; sourceTree = "<group>"; };
 		3ADDCEC02E8B7240009ACE1D /* SFM */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3ADDCEC22E8B7240009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SFM; sourceTree = "<group>"; };
 		3ADDCEC92E8B7243009ACE1D /* SFM.System */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3ADDCECC2E8B7243009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SFM.System; sourceTree = "<group>"; };
-		3ADDCED52E8B7264009ACE1D /* SFT */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3ADDCEDB2E8B7264009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SFT; sourceTree = "<group>"; };
 		3ADDCEFE2E8B728C009ACE1D /* Library */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Library; sourceTree = "<group>"; };
 		3ADDCF5A2E8B7291009ACE1D /* ApplicationLibrary */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3ADDCF922E8B7291009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 3ADDCF932E8B7291009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 3ADDCF942E8B7291009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = ApplicationLibrary; sourceTree = "<group>"; };
-		3ADDCFA02E8B72A6009ACE1D /* MacLibrary */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3ADDCFAF2E8B72A6009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 3ADDCFB02E8B72A6009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 3ADDCFB12E8B72A6009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 3ADDCFB22E8B72A6009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 3ADDCFB32E8B72A6009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = MacLibrary; sourceTree = "<group>"; };
+		3ADDCFA02E8B72A6009ACE1D /* MacLibrary */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3ADDCFAF2E8B72A6009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 3ADDCFB02E8B72A6009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 3ADDCFB12E8B72A6009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 3ADDCFB32E8B72A6009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = MacLibrary; sourceTree = "<group>"; };
 		3ADDCFB72E8B72AB009ACE1D /* Extension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3ADDCFB92E8B72AB009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Extension; sourceTree = "<group>"; };
 		3ADDCFBE2E8B72B0009ACE1D /* SystemExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3ADDCFC12E8B72B0009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SystemExtension; sourceTree = "<group>"; };
 		3ADDCFC62E8B72B4009ACE1D /* IntentsExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3ADDCFC92E8B72B4009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = IntentsExtension; sourceTree = "<group>"; };
-		3ADDCFCD2E8B72B8009ACE1D /* TVExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3ADDCFCF2E8B72B8009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = TVExtension; sourceTree = "<group>"; };
 		3ADDCFD52E8B72BC009ACE1D /* WidgetExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3ADDCFDA2E8B72BC009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = WidgetExtension; sourceTree = "<group>"; };
 		3AE595722F08C34000C13426 /* HelperService */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = HelperService; sourceTree = "<group>"; };
 		3AF7B0032FF10001000A0001 /* ShareExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3AF7B0042FF10001000A0001 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 3AF7B1152FF10002000A0001 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 3AF7B2152FF10003000A0001 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = ShareExtension; sourceTree = "<group>"; };
@@ -794,13 +703,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3A6313912F0CEF740060A550 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		3A6313A42F0CEFDD0060A550 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -830,24 +732,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AAAFB222EF5218F004C69AD /* UniformTypeIdentifiers.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3AC03B932A72BF3300B7946F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3A4FB1572A73467F007012B9 /* Library.framework in Frameworks */,
-				3A4FB15C2A73468C007012B9 /* ApplicationLibrary.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3AE171962A8128DD00393060 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3AE171A92A81297300393060 /* Library.framework in Frameworks */,
-				3AE1719A2A8128DD00393060 /* NetworkExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -976,14 +860,12 @@
 				3ADDCEB42E8B723B009ACE1D /* SFI */,
 				3ADDCEC02E8B7240009ACE1D /* SFM */,
 				3ADDCEC92E8B7243009ACE1D /* SFM.System */,
-				3ADDCED52E8B7264009ACE1D /* SFT */,
 				3ADDCEFE2E8B728C009ACE1D /* Library */,
 				3ADDCF5A2E8B7291009ACE1D /* ApplicationLibrary */,
 				3ADDCFA02E8B72A6009ACE1D /* MacLibrary */,
 				3ADDCFB72E8B72AB009ACE1D /* Extension */,
 				3ADDCFBE2E8B72B0009ACE1D /* SystemExtension */,
 				3ADDCFC62E8B72B4009ACE1D /* IntentsExtension */,
-				3ADDCFCD2E8B72B8009ACE1D /* TVExtension */,
 				3ADDCFD52E8B72BC009ACE1D /* WidgetExtension */,
 				3AAAFB232EF5218F004C69AD /* FileProviderExtension */,
 				3AF7B0032FF10001000A0001 /* ShareExtension */,
@@ -993,7 +875,6 @@
 				3A7B32402FDE1D54008C0F7F /* JailbreakDaemon */,
 				3A63135E2F0CEF190060A550 /* UITests */,
 				3A6313732F0CEF3D0060A550 /* SFIUITests */,
-				3A6313952F0CEF740060A550 /* SFTUITests */,
 				3A6313A82F0CEFDD0060A550 /* SFMUITests */,
 				3AEC20C72A45991900A63465 /* Products */,
 				3AEC21012A459AE300A63465 /* Frameworks */,
@@ -1013,8 +894,6 @@
 				3AEECBF12A6DF40A006A0E0C /* com.amamiyakokoro.box.system.systemextension */,
 				3AEECC042A6DF9CA006A0E0C /* KokoroBoxM.app */,
 				3AEECC2F2A6DFDAD006A0E0C /* MacLibrary.framework */,
-				3AC03B962A72BF3300B7946F /* KokoroBox.app */,
-				3AE171992A8128DD00393060 /* TVExtension.appex */,
 				3AE395F22C21A5CA00647718 /* WidgetExtension.appex */,
 				3AAAFB202EF5218F004C69AD /* FileProviderExtension.appex */,
 				3AF7B0022FF10001000A0001 /* ShareExtension.appex */,
@@ -1022,7 +901,6 @@
 				3AF7B2022FF10003000A0001 /* ShareExtension.System.appex */,
 				3AE595712F08C34000C13426 /* RootHelper */,
 				3A6313722F0CEF3D0060A550 /* KokoroBoxIUITests.xctest */,
-				3A6313942F0CEF740060A550 /* SFTUITests.xctest */,
 				3A6313A72F0CEFDD0060A550 /* KokoroBoxMUITests.xctest */,
 				3A7B32312FDE1D54008C0F7F /* sfajb-roothelper */,
 			);
@@ -1147,29 +1025,6 @@
 			productReference = 3A6313722F0CEF3D0060A550 /* KokoroBoxIUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		3A6313932F0CEF740060A550 /* SFTUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3A63139C2F0CEF740060A550 /* Build configuration list for PBXNativeTarget "SFTUITests" */;
-			buildPhases = (
-				3A6313902F0CEF740060A550 /* Sources */,
-				3A6313912F0CEF740060A550 /* Frameworks */,
-				3A6313922F0CEF740060A550 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				3A63139B2F0CEF740060A550 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				3A6313952F0CEF740060A550 /* SFTUITests */,
-			);
-			name = SFTUITests;
-			packageProductDependencies = (
-			);
-			productName = SFTUITests;
-			productReference = 3A6313942F0CEF740060A550 /* SFTUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 		3A6313A62F0CEFDD0060A550 /* KokoroBoxMUITests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3A6313AF2F0CEFDD0060A550 /* Build configuration list for PBXNativeTarget "KokoroBoxMUITests" */;
@@ -1253,49 +1108,6 @@
 			);
 			productName = FileProviderExtension;
 			productReference = 3AAAFB202EF5218F004C69AD /* FileProviderExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
-		3AC03B952A72BF3300B7946F /* SFT */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3AC03BA32A72BF3500B7946F /* Build configuration list for PBXNativeTarget "SFT" */;
-			buildPhases = (
-				3AC03B922A72BF3300B7946F /* Sources */,
-				3AC03B932A72BF3300B7946F /* Frameworks */,
-				3AC03B942A72BF3300B7946F /* Resources */,
-				3A4FB15B2A73467F007012B9 /* Embed Frameworks */,
-				3A4FB1632A7346A1007012B9 /* Embed Foundation Extensions */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				3A4FB15A2A73467F007012B9 /* PBXTargetDependency */,
-				3A4FB15F2A73468C007012B9 /* PBXTargetDependency */,
-				3AE171A82A81294400393060 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				3ADDCED52E8B7264009ACE1D /* SFT */,
-			);
-			name = SFT;
-			productName = SFT;
-			productReference = 3AC03B962A72BF3300B7946F /* KokoroBox.app */;
-			productType = "com.apple.product-type.application";
-		};
-		3AE171982A8128DD00393060 /* TVExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3AE171A02A8128DD00393060 /* Build configuration list for PBXNativeTarget "TVExtension" */;
-			buildPhases = (
-				3AE171952A8128DD00393060 /* Sources */,
-				3AE171962A8128DD00393060 /* Frameworks */,
-				3AE171972A8128DD00393060 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				3AE171AC2A81297300393060 /* PBXTargetDependency */,
-			);
-			name = TVExtension;
-			productName = TVExtension;
-			productReference = 3AE171992A8128DD00393060 /* TVExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		3AE395F12C21A5CA00647718 /* WidgetExtension */ = {
@@ -1599,10 +1411,6 @@
 						CreatedOnToolsVersion = 26.2;
 						TestTargetID = 3AEC20F22A459AB400A63465;
 					};
-					3A6313932F0CEF740060A550 = {
-						CreatedOnToolsVersion = 26.2;
-						TestTargetID = 3AC03B952A72BF3300B7946F;
-					};
 					3A6313A62F0CEFDD0060A550 = {
 						CreatedOnToolsVersion = 26.2;
 						TestTargetID = 3AEC21082A459B1900A63465;
@@ -1612,12 +1420,6 @@
 					};
 					3AAAFB1F2EF5218F004C69AD = {
 						CreatedOnToolsVersion = 26.2;
-					};
-					3AC03B952A72BF3300B7946F = {
-						CreatedOnToolsVersion = 14.3.1;
-					};
-					3AE171982A8128DD00393060 = {
-						CreatedOnToolsVersion = 15.0;
 					};
 					3AE395F12C21A5CA00647718 = {
 						CreatedOnToolsVersion = 16.0;
@@ -1681,12 +1483,10 @@
 				3AEC21082A459B1900A63465 /* KokoroBoxM */,
 				3AEECC032A6DF9CA006A0E0C /* SFM.System */,
 				3AEECBF02A6DF40A006A0E0C /* SystemExtension */,
-				3AC03B952A72BF3300B7946F /* SFT */,
 				3AEC211C2A459B4700A63465 /* Library */,
 				3A4EAD0F2A4FEAE6005435B3 /* ApplicationLibrary */,
 				3AEECC2E2A6DFDAD006A0E0C /* MacLibrary */,
 				3A096F852A4ED3DE00D4A2ED /* Extension */,
-				3AE171982A8128DD00393060 /* TVExtension */,
 				3A77016C2A4E6B34008F031F /* IntentsExtension */,
 				3AE395F12C21A5CA00647718 /* WidgetExtension */,
 				3AAAFB1F2EF5218F004C69AD /* FileProviderExtension */,
@@ -1696,7 +1496,6 @@
 				3AE595702F08C34000C13426 /* RootHelper */,
 				3A7B32272FDE1D54008C0F7F /* JailbreakDaemon */,
 				3A6313712F0CEF3D0060A550 /* KokoroBoxIUITests */,
-				3A6313932F0CEF740060A550 /* SFTUITests */,
 				3A6313A62F0CEFDD0060A550 /* KokoroBoxMUITests */,
 			);
 		};
@@ -1718,13 +1517,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3A6313922F0CEF740060A550 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		3A6313A52F0CEFDD0060A550 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1733,21 +1525,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		3AAAFB1E2EF5218F004C69AD /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3AC03B942A72BF3300B7946F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9C37F1812C131100001B9FA8 /* Localizable.xcstrings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3AE171972A8128DD00393060 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1856,13 +1633,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3A6313902F0CEF740060A550 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		3A6313A32F0CEFDD0060A550 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1885,20 +1655,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		3AAAFB1C2EF5218F004C69AD /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3AC03B922A72BF3300B7946F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3AE171952A8128DD00393060 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2010,25 +1766,10 @@
 			target = 3A4EAD0F2A4FEAE6005435B3 /* ApplicationLibrary */;
 			targetProxy = 3A4EAD392A4FEC20005435B3 /* PBXContainerItemProxy */;
 		};
-		3A4FB15A2A73467F007012B9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3AEC211C2A459B4700A63465 /* Library */;
-			targetProxy = 3A4FB1592A73467F007012B9 /* PBXContainerItemProxy */;
-		};
-		3A4FB15F2A73468C007012B9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3A4EAD0F2A4FEAE6005435B3 /* ApplicationLibrary */;
-			targetProxy = 3A4FB15E2A73468C007012B9 /* PBXContainerItemProxy */;
-		};
 		3A6313792F0CEF3D0060A550 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3AEC20F22A459AB400A63465 /* KokoroBoxI */;
 			targetProxy = 3A6313782F0CEF3D0060A550 /* PBXContainerItemProxy */;
-		};
-		3A63139B2F0CEF740060A550 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3AC03B952A72BF3300B7946F /* SFT */;
-			targetProxy = 3A63139A2F0CEF740060A550 /* PBXContainerItemProxy */;
 		};
 		3A6313AE2F0CEFDD0060A550 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2064,16 +1805,6 @@
 			isa = PBXTargetDependency;
 			target = 3A77016C2A4E6B34008F031F /* IntentsExtension */;
 			targetProxy = 3AC1944A2A50014000BD8CB9 /* PBXContainerItemProxy */;
-		};
-		3AE171A82A81294400393060 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3AE171982A8128DD00393060 /* TVExtension */;
-			targetProxy = 3AE171A72A81294400393060 /* PBXContainerItemProxy */;
-		};
-		3AE171AC2A81297300393060 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3AEC211C2A459B4700A63465 /* Library */;
-			targetProxy = 3AE171AB2A81297300393060 /* PBXContainerItemProxy */;
 		};
 		3AE396022C21A5CC00647718 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2289,14 +2020,13 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,3";
-				TVOS_DEPLOYMENT_TARGET = 17.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -2331,13 +2061,12 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,3";
-				TVOS_DEPLOYMENT_TARGET = 17.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -2382,51 +2111,6 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = KokoroBoxI;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		3A63139D2F0CEF740060A550 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 755TNLRN92;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_PACKAGE_IDENTIFIER).SFTUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 3;
-				TEST_TARGET_NAME = SFT;
-				TVOS_DEPLOYMENT_TARGET = 26.2;
-			};
-			name = Debug;
-		};
-		3A63139E2F0CEF740060A550 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 755TNLRN92;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_PACKAGE_IDENTIFIER).SFTUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 3;
-				TEST_TARGET_NAME = SFT;
-				TVOS_DEPLOYMENT_TARGET = 26.2;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -2671,152 +2355,6 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		3AC03BA12A72BF3500B7946F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = SFT/SFT.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 755TNLRN92;
-				ENABLE_PREVIEWS = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = SFT/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = KokoroBox;
-				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "As a universal proxy platform, sing-box configures routing according to your configuration.";
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arm64;
-				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.14.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_PACKAGE_IDENTIFIER)";
-				PRODUCT_NAME = KokoroBox;
-				SDKROOT = appletvos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 17.0;
-			};
-			name = Debug;
-		};
-		3AC03BA22A72BF3500B7946F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = SFT/SFT.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 755TNLRN92;
-				ENABLE_PREVIEWS = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = SFT/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = KokoroBox;
-				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "As a universal proxy platform, sing-box configures routing according to your configuration.";
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arm64;
-				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.14.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_PACKAGE_IDENTIFIER)";
-				PRODUCT_NAME = KokoroBox;
-				SDKROOT = appletvos;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 17.0;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		3AE171A12A8128DD00393060 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = TVExtension/TVExtension.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 755TNLRN92;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = TVExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = TVExtension;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arm64;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_PACKAGE_IDENTIFIER).extension";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "appletvos appletvsimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 17.0;
-			};
-			name = Debug;
-		};
-		3AE171A22A8128DD00393060 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = TVExtension/TVExtension.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 755TNLRN92;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = TVExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = TVExtension;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arm64;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_PACKAGE_IDENTIFIER).extension";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "appletvos appletvsimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 17.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -3307,15 +2845,14 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,3";
-				TVOS_DEPLOYMENT_TARGET = 17.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -3355,14 +2892,13 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,3";
-				TVOS_DEPLOYMENT_TARGET = 17.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -3893,15 +3429,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3A63139C2F0CEF740060A550 /* Build configuration list for PBXNativeTarget "SFTUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3A63139D2F0CEF740060A550 /* Debug */,
-				3A63139E2F0CEF740060A550 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		3A6313AF2F0CEFDD0060A550 /* Build configuration list for PBXNativeTarget "KokoroBoxMUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -3934,24 +3461,6 @@
 			buildConfigurations = (
 				3AAAFB2F2EF5218F004C69AD /* Debug */,
 				3AAAFB302EF5218F004C69AD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3AC03BA32A72BF3500B7946F /* Build configuration list for PBXNativeTarget "SFT" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3AC03BA12A72BF3500B7946F /* Debug */,
-				3AC03BA22A72BF3500B7946F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3AE171A02A8128DD00393060 /* Build configuration list for PBXNativeTarget "TVExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3AE171A12A8128DD00393060 /* Debug */,
-				3AE171A22A8128DD00393060 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

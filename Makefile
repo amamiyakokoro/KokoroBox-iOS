@@ -7,7 +7,7 @@ INSTALLER_SIGN_IDENTITY := 21E03A44ACC2B48753BABB3DAE9B5F9A9CFF0480
 XCODEBUILD_FLAGS ?= -skipPackagePluginValidation
 export DISABLE_SWIFTLINT := 1
 
-build_all: build_ios build_macos build_tvos
+build_all: build_ios build_macos
 
 build_ios_deb:
 	bash Jailbreak/package.sh
@@ -21,10 +21,7 @@ build_macos:
 build_macos_standalone:
 	xcodebuild build $(XCODEBUILD_FLAGS) -scheme SFM.System -configuration Debug -destination 'generic/platform=macOS' | xcbeautify | grep -A 10 -e "Build Succeeded" -e "BUILD FAILED" -e "❌"
 
-build_tvos:
-	xcodebuild build $(XCODEBUILD_FLAGS) -scheme SFT -configuration Debug -destination 'generic/platform=tvOS' | xcbeautify | grep -A 10 -e "Build Succeeded" -e "BUILD FAILED" -e "❌"
-
-release: release_ios release_macos release_tvos
+release: release_ios release_macos
 
 release_ios: archive_ios upload_ios
 
@@ -43,15 +40,6 @@ archive_macos:
 
 upload_macos:
 	xcodebuild -exportArchive -archivePath build/KokoroBoxM.xcarchive -exportOptionsPlist SFI/Upload.plist
-
-release_tvos: archive_tvos upload_tvos
-
-archive_tvos:
-	rm -rf build/SFT.xcarchive
-	xcodebuild archive $(XCODEBUILD_FLAGS) -scheme SFT -configuration Release -archivePath build/SFT.xcarchive | xcbeautify
-
-upload_tvos:
-	xcodebuild -exportArchive -archivePath build/SFT.xcarchive -exportOptionsPlist SFI/Upload.plist
 
 release_macos_standalone: release_macos_dmg release_macos_pkg
 
@@ -255,7 +243,6 @@ dmg_install:
 clean:
 	rm -rf build/KokoroBoxI.xcarchive
 	rm -rf build/KokoroBoxM.xcarchive
-	rm -rf build/SFT.xcarchive
 	rm -rf build/SFM.System-arm64.xcarchive
 	rm -rf build/SFM.System-x86_64.xcarchive
 	rm -rf build/SFM.System-universal.xcarchive
@@ -264,7 +251,6 @@ clean:
 	rm -rf build/SFM.System-universal
 	rm -rf build/KokoroBoxI.dd
 	rm -rf build/KokoroBoxM.dd
-	rm -rf build/SFT.dd
 	rm -rf build/SFM.System-arm64.dd
 	rm -rf build/SFM.System-x86_64.dd
 	rm -rf build/SFM.System-universal.dd

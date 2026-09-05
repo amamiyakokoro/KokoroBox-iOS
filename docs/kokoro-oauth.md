@@ -76,7 +76,7 @@ Run `swift test` from the repository root. The package compiles the production O
 
 Coverage includes the RFC 7636 vector, verifier format and random independence, login URL and token JSON, correct/missing/wrong/duplicate/expired state, URI forgery, denial, replay, cancellation, timeout, cold-start rejection, lost verifier, concurrent attempts, late callbacks, HTTP 400/422, single-flight refresh, persistence failure, refresh 401, and logout during refresh.
 
-Build the `KokoroBoxI`, `KokoroBoxM`, and `SFM.System` schemes separately. The latter two produce the same app filename, and simultaneous builds in one DerivedData directory can conflict. tvOS has no Kokoro browser sign-in screen.
+Build the `KokoroBoxI`, `KokoroBoxM`, and `SFM.System` schemes separately. The latter two produce the same app filename, and simultaneous builds in one DerivedData directory can conflict.
 
 Before release, manually verify on a signed iPhone/iPad and both macOS variants:
 

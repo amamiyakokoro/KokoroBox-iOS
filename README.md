@@ -10,7 +10,7 @@ Native sing-box client for Apple platforms with Kokoro integration.
 
 </div>
 
-KokoroBox is based on [sing-box for Apple](https://github.com/SagerNet/sing-box-for-apple). It supports iOS, iPadOS, macOS, and tvOS under the primary bundle identifier `com.amamiyakokoro.box`.
+KokoroBox is based on [sing-box for Apple](https://github.com/SagerNet/sing-box-for-apple). It supports iOS, iPadOS, and macOS under the primary bundle identifier `com.amamiyakokoro.box`.
 
 ## Features
 
@@ -21,7 +21,7 @@ KokoroBox is based on [sing-box for Apple](https://github.com/SagerNet/sing-box-
 
 ## Build
 
-Clone with submodules, then open `sing-box.xcodeproj` and select `KokoroBoxI` (iOS/iPadOS), `KokoroBoxM` or `SFM.System` (macOS), or `SFT` (tvOS).
+Clone with submodules, then open `sing-box.xcodeproj` and select `KokoroBoxI` (iOS/iPadOS) or `KokoroBoxM`/`SFM.System` (macOS).
 
 ```bash
 git clone --recurse-submodules https://github.com/amamiyakokoro/KokoroBox-iOS.git
