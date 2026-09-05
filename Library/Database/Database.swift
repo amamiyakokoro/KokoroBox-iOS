@@ -2,7 +2,19 @@ import Foundation
 import GRDB
 
 enum Database {
-    static let sharedWriter = makeShared()
+    private static let sharedWriterTask = Task.detached(priority: .userInitiated) {
+        makeShared()
+    }
+
+    static func read<T: Sendable>(_ value: @Sendable (GRDB.Database) throws -> T) async throws -> T {
+        let writer = await sharedWriterTask.value
+        return try await writer.read(value)
+    }
+
+    static func write<T: Sendable>(_ updates: @Sendable (GRDB.Database) throws -> T) async throws -> T {
+        let writer = await sharedWriterTask.value
+        return try await writer.write(updates)
+    }
 
     private static func makeShared() -> any DatabaseWriter {
         do {

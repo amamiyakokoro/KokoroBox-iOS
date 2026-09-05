@@ -40,7 +40,7 @@ extension SharedPreferences {
     }
 
     private nonisolated static func read<T: Codable>(_ name: String) async throws -> T? {
-        guard let item = try await (Database.sharedWriter.read { db in
+        guard let item = try await (Database.read { db in
             try Item.fetchOne(db, id: name)
         })
         else {
@@ -55,7 +55,7 @@ extension SharedPreferences {
 
     private nonisolated static func write(_ name: String, _ value: (some Codable)?) async throws {
         if value == nil {
-            _ = try await Database.sharedWriter.write { db in
+            _ = try await Database.write { db in
                 try Item.deleteOne(db, id: name)
             }
         } else {
@@ -65,14 +65,14 @@ extension SharedPreferences {
             } else {
                 data = try BinaryEncoder().encode(value)
             }
-            try await Database.sharedWriter.write { db in
+            try await Database.write { db in
                 try Item(name: name, data: data).save(db)
             }
         }
     }
 
     nonisolated static func batchDelete(_ names: [String]) async throws {
-        try await Database.sharedWriter.write { db in
+        try await Database.write { db in
             for name in names {
                 try Item.deleteOne(db, id: name)
             }
