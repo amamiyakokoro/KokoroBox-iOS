@@ -13,6 +13,7 @@ class ApplicationDelegate: NSObject, UIApplicationDelegate, ObservableObject {
         LibboxPrepareCrashSignalHandlers()
         NativeCrashReporter.installForCurrentProcess()
         LibboxReinstallCrashSignalHandlers()
+        HangWatchdog.installForCurrentProcess()
         NSLog("Here I stand")
         setup()
         Task {
