@@ -48,6 +48,7 @@ class ApplicationDelegate: NSObject, UIApplicationDelegate, ObservableObject {
         options.crashReportSource = "Application"
         options.appVersion = Bundle.application.versionNumber
         options.appMarketingVersion = Bundle.application.version
+        options.platformMetadata = PlatformMetadata.json()
         await BlockingIO.run {
             var error: NSError?
             LibboxSetup(options, &error)
