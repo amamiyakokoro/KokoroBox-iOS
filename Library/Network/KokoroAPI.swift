@@ -21,6 +21,9 @@ public enum KokoroAPIError: LocalizedError, Sendable {
     case invalidContentType
     case unsupportedConfiguration
     case noSession
+    case networkTimeout
+    case conflict(currentRevision: Int?)
+    case rateLimited(retryAfter: TimeInterval?)
     case http(status: Int, detail: String?)
     case keychain(status: OSStatus)
 
@@ -36,6 +39,18 @@ public enum KokoroAPIError: LocalizedError, Sendable {
             return String(localized: "Kokoro does not currently offer a compatible sing-box subscription.")
         case .noSession:
             return String(localized: "Sign in to Kokoro again to continue.")
+        case .networkTimeout:
+            return String(localized: "The Kokoro request timed out. The result may be unknown.")
+        case let .conflict(currentRevision):
+            if let currentRevision {
+                return String(localized: "This rule set changed elsewhere (revision \(currentRevision)). Reload it before saving.")
+            }
+            return String(localized: "This change conflicts with the current Kokoro state. Reload before trying again.")
+        case let .rateLimited(retryAfter):
+            if let retryAfter {
+                return String(localized: "Too many Kokoro requests. Try again in \(Int(ceil(retryAfter))) seconds.")
+            }
+            return String(localized: "Too many Kokoro requests. Try again later.")
         case let .http(status, detail):
             if let detail, !detail.isEmpty {
                 return String(localized: "Kokoro request failed (HTTP \(status)): \(detail)")
@@ -161,12 +176,12 @@ public enum KokoroAPI {
     public static let redirectURI = "kokoro://oauth/callback"
 
     private static let baseURL = URL(string: "https://amamiyakoko.ro/api/")!
-    private static let decoder: JSONDecoder = {
+    static let decoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         return decoder
     }()
-    private static let encoder: JSONEncoder = {
+    static let encoder: JSONEncoder = {
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = .convertToSnakeCase
         return encoder
@@ -241,7 +256,7 @@ public enum KokoroAPI {
         return url.path.hasPrefix("/api/app/")
     }
 
-    private static func decodeAuthorized<Value: Decodable>(_ type: Value.Type, request: URLRequest) async throws -> Value {
+    static func decodeAuthorized<Value: Decodable>(_ type: Value.Type, request: URLRequest) async throws -> Value {
         let (data, _) = try await KokoroSession.shared.authorizedData(for: request)
         do {
             return try decoder.decode(type, from: data)
@@ -250,11 +265,11 @@ public enum KokoroAPI {
         }
     }
 
-    fileprivate static func endpoint(_ path: String) -> URL {
+    static func endpoint(_ path: String) -> URL {
         URL(string: path, relativeTo: baseURL)!.absoluteURL
     }
 
-    private static func request(path: String, method: String = "GET") -> URLRequest {
+    static func request(path: String, method: String = "GET") -> URLRequest {
         var request = URLRequest(url: endpoint(path))
         request.httpMethod = method
         request.timeoutInterval = 30
@@ -511,6 +526,7 @@ public actor KokoroSession {
         } catch {
             // URLSession NSError.userInfo can contain a full failing URL.
             if error is CancellationError || (error as? URLError)?.code == .cancelled { throw CancellationError() }
+            if (error as? URLError)?.code == .timedOut { throw KokoroAPIError.networkTimeout }
             throw KokoroAPIError.invalidResponse
         }
         guard let response = response as? HTTPURLResponse else {
@@ -527,10 +543,32 @@ public actor KokoroSession {
         return URLSession(configuration: config)
     }()
 
-    private static func validate(_ result: (Data, HTTPURLResponse), includeDetail: Bool = true) throws {
+    static func validate(_ result: (Data, HTTPURLResponse), includeDetail: Bool = true) throws {
         guard (200 ..< 300).contains(result.1.statusCode) else {
+            if result.1.statusCode == 409 {
+                throw KokoroAPIError.conflict(currentRevision: currentRevision(from: result.0))
+            }
+            if result.1.statusCode == 429 {
+                throw KokoroAPIError.rateLimited(retryAfter: retryAfter(from: result.1))
+            }
             throw KokoroAPIError.http(status: result.1.statusCode, detail: includeDetail ? errorDetail(from: result.0) : nil)
         }
+    }
+
+    private static func currentRevision(from data: Data) -> Int? {
+        guard let object = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+              let detail = object["detail"] as? [String: Any]
+        else {
+            return nil
+        }
+        return detail["current_revision"] as? Int
+    }
+
+    private static func retryAfter(from response: HTTPURLResponse) -> TimeInterval? {
+        guard let value = response.value(forHTTPHeaderField: "Retry-After") else { return nil }
+        if let seconds = TimeInterval(value), seconds >= 0 { return seconds }
+        guard let date = HTTPDateFormatter.formatter.date(from: value) else { return nil }
+        return max(0, date.timeIntervalSinceNow)
     }
 
     private static func errorDetail(from data: Data) -> String? {
@@ -608,5 +646,15 @@ public actor KokoroSession {
             ]
             SecItemDelete(query as CFDictionary)
         }
+    }
+
+    private enum HTTPDateFormatter {
+        static let formatter: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.locale = Locale(identifier: "en_US_POSIX")
+            formatter.timeZone = TimeZone(secondsFromGMT: 0)
+            formatter.dateFormat = "EEE',' dd MMM yyyy HH':'mm':'ss z"
+            return formatter
+        }()
     }
 }

@@ -37,7 +37,7 @@ let package = Package(
             "UserServiceEndpointRegistry.swift",
             "UserServiceXPC.swift",
             "XPCMachServiceBridge.swift",
-        ], sources: ["KokoroAPI.swift", "KokoroOAuth.swift"]),
+        ], sources: ["KokoroAPI.swift", "KokoroCustomRules.swift", "KokoroOAuth.swift"]),
         .target(name: "KokoroWebAuth", dependencies: ["KokoroAuth"], path: "ApplicationLibrary/Service", exclude: [
             "NWSocket.swift",
             "ProfileServer.swift",

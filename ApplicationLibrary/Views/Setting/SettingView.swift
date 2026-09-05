@@ -19,7 +19,7 @@ public extension Notification.Name {
 }
 
 public enum SettingsPage: Hashable {
-    case app
+    case app, customRules
     case core, packetTunnel, onDemandRules, profileOverride, remoteControl, sponsors
 }
 
@@ -30,12 +30,17 @@ public struct SettingView: View {
         }
 
         case app, core, packetTunnel, onDemandRules, profileOverride, remoteControl, sponsors
+        #if !os(tvOS)
+            case customRules
+        #endif
 
         #if os(macOS)
             var page: SettingsPage {
                 switch self {
                 case .app:
                     return .app
+                case .customRules:
+                    return .customRules
                 case .core:
                     return .core
                 case .packetTunnel:
@@ -60,6 +65,10 @@ public struct SettingView: View {
             switch self {
             case .app:
                 return String(localized: "App")
+            #if !os(tvOS)
+                case .customRules:
+                    return String(localized: "Custom Rules")
+            #endif
             case .core:
                 return String(localized: "Core")
             case .packetTunnel:
@@ -79,6 +88,10 @@ public struct SettingView: View {
             switch self {
             case .app:
                 return "app.badge.fill"
+            #if !os(tvOS)
+                case .customRules:
+                    return "list.bullet.rectangle"
+            #endif
             case .core:
                 return "shippingbox.fill"
             case .packetTunnel:
@@ -100,6 +113,10 @@ public struct SettingView: View {
                 switch self {
                 case .app:
                     AppView()
+                #if !os(tvOS)
+                    case .customRules:
+                        KokoroCustomRulesView()
+                #endif
                 case .core:
                     CoreView()
                 case .packetTunnel:
@@ -143,6 +160,8 @@ public struct SettingView: View {
                 switch page {
                 case .app:
                     AppView()
+                case .customRules:
+                    KokoroCustomRulesView()
                 case .core:
                     CoreView()
                 case .packetTunnel:
@@ -170,6 +189,9 @@ public struct SettingView: View {
         FormView {
             Section {
                 Tabs.app.navigationLink
+                #if !os(tvOS)
+                    Tabs.customRules.navigationLink
+                #endif
                 Tabs.core.navigationLink
                 #if !os(tvOS)
                     Tabs.packetTunnel.navigationLink

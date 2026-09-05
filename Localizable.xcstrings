@@ -113,6 +113,22 @@
         }
       }
     },
+    "%lld rules · revision %lld" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld 条规则 · 修订版本 %2$lld"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld 條規則 · 修訂版本 %2$lld"
+          }
+        }
+      }
+    },
     "A Kokoro sign-in is already in progress." : {
       "localizations" : {
         "fa" : {
@@ -141,6 +157,22 @@
         }
       }
     },
+    "A MATCH rule cannot use the REJECT target." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MATCH 规则不能使用 REJECT 目标。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MATCH 規則不能使用 REJECT 目標。"
+          }
+        }
+      }
+    },
     "A report is saved for each service run" : {
       "localizations" : {
         "fa" : {
@@ -165,6 +197,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "每次服務運行都會儲存一份報告"
+          }
+        }
+      }
+    },
+    "A rule set can contain only one MATCH rule." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每个规则集只能包含一条 MATCH 规则。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每個規則集只能包含一條 MATCH 規則。"
           }
         }
       }
@@ -1550,6 +1598,12 @@
         }
       }
     },
+    "check rule set" : {
+
+    },
+    "check saved custom rules" : {
+
+    },
     "Check Update" : {
       "localizations" : {
         "fa" : {
@@ -2759,6 +2813,9 @@
         }
       }
     },
+    "create rule set" : {
+
+    },
     "Create Subscription" : {
       "localizations" : {
         "fa" : {
@@ -2839,6 +2896,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "自定義配置"
+          }
+        }
+      }
+    },
+    "Custom Rules" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自定义规则"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自訂規則"
           }
         }
       }
@@ -3176,6 +3249,25 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "全部刪除"
+          }
+        }
+      }
+    },
+    "delete rule set" : {
+
+    },
+    "Delete Rule Set?" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除规则集？"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "刪除規則集？"
           }
         }
       }
@@ -4473,6 +4565,22 @@
     },
     "enforceRoutes" : {
       "shouldTranslate" : false
+    },
+    "Enter a valid rule set name." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请输入有效的规则集名称。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "請輸入有效的規則集名稱。"
+          }
+        }
+      }
     },
     "Error" : {
       "localizations" : {
@@ -7032,6 +7140,22 @@
         }
       }
     },
+    "Kokoro Account" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kokoro 账户"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kokoro 帳號"
+          }
+        }
+      }
+    },
     "Kokoro does not currently offer a compatible sing-box subscription." : {
       "localizations" : {
         "fa" : {
@@ -7649,6 +7773,9 @@
         }
       }
     },
+    "load custom rules" : {
+
+    },
     "Loading..." : {
       "localizations" : {
         "fa" : {
@@ -7729,6 +7856,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "本機"
+          }
+        }
+      }
+    },
+    "Local Rule Count" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "本地规则数量"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "本機規則數量"
           }
         }
       }
@@ -7930,6 +8073,23 @@
         }
       }
     },
+    "Manage the rules shared with the Kokoro website and generated configurations." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "管理与 Kokoro 网站及生成配置共享的规则。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "管理與 Kokoro 網站及產生設定共享的規則。"
+          }
+        }
+      }
+    },
     "Managing working directory requires Helper Service." : {
       "localizations" : {
         "fa" : {
@@ -8089,6 +8249,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "記憶體限制"
+          }
+        }
+      }
+    },
+    "Merge and Review" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "合并并检查"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "合併並檢查"
           }
         }
       }
@@ -8341,6 +8517,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "模式"
+          }
+        }
+      }
+    },
+    "More" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更多"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更多"
           }
         }
       }
@@ -8690,6 +8882,22 @@
         }
       }
     },
+    "New Rule Set" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新建规则集"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新增規則集"
+          }
+        }
+      }
+    },
     "New Server" : {
       "localizations" : {
         "fa" : {
@@ -8941,6 +9149,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "沒有可用的本機裝置"
+          }
+        }
+      }
+    },
+    "No rule sets" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有规则集"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "沒有規則集"
+          }
+        }
+      }
+    },
+    "No rules" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有规则"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "沒有規則"
           }
         }
       }
@@ -9221,6 +9461,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "只允許 HTTP 和 HTTPS URL"
+          }
+        }
+      }
+    },
+    "Only the default rule set is included in generated Kokoro configurations." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "只有 default 规则集会包含在生成的 Kokoro 配置中。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "只有 default 規則集會包含在產生的 Kokoro 設定中。"
           }
         }
       }
@@ -10274,6 +10530,22 @@
         }
       }
     },
+    "Provider" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "提供者"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "提供者"
+          }
+        }
+      }
+    },
     "Proxy" : {
       "localizations" : {
         "fa" : {
@@ -10494,6 +10766,38 @@
         }
       }
     },
+    "Reapply and merge update the base revision only. Review the draft and tap Save to submit it." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新应用和合并只会更新基础修订版本。请检查草稿，然后点按“保存”提交。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新套用和合併只會更新基礎修訂版本。請檢查草稿，然後點按「儲存」提交。"
+          }
+        }
+      }
+    },
+    "Reapply My Changes" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新应用我的更改"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新套用我的變更"
+          }
+        }
+      }
+    },
     "Reasserting" : {
       "localizations" : {
         "fa" : {
@@ -10685,6 +10989,25 @@
       },
       "shouldTranslate" : false
     },
+    "Reload" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新加载"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新載入"
+          }
+        }
+      }
+    },
+    "reload changed custom rules" : {
+
+    },
     "Remember SSH Options" : {
       "localizations" : {
         "fa" : {
@@ -10793,6 +11116,89 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "遠端錯誤：%@"
+          }
+        }
+      }
+    },
+    "Remote Revision" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "远端修订版本"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "遠端修訂版本"
+          }
+        }
+      }
+    },
+    "Remote Rule Count" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "远端规则数量"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "遠端規則數量"
+          }
+        }
+      }
+    },
+    "Remote Rules" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "远端规则"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "遠端規則"
+          }
+        }
+      }
+    },
+    "Rename" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重命名"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新命名"
+          }
+        }
+      }
+    },
+    "rename rule set" : {
+
+    },
+    "Rename Rule Set" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重命名规则集"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新命名規則集"
           }
         }
       }
@@ -10994,6 +11400,22 @@
         }
       }
     },
+    "Revision" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "修订版本"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "修訂版本"
+          }
+        }
+      }
+    },
     "RootHelper" : {
       "shouldTranslate" : false
     },
@@ -11025,6 +11447,70 @@
         }
       }
     },
+    "Rule Count" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "规则数量"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "規則數量"
+          }
+        }
+      }
+    },
+    "Rule Provider" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "规则提供者"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "規則提供者"
+          }
+        }
+      }
+    },
+    "Rule Set Changed" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "规则集已更改"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "規則集已變更"
+          }
+        }
+      }
+    },
+    "Rule Sets" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "规则集"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "規則集"
+          }
+        }
+      }
+    },
     "Rule Source" : {
       "localizations" : {
         "fa" : {
@@ -11049,6 +11535,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "規則來源"
+          }
+        }
+      }
+    },
+    "Rule values and targets cannot contain surrounding whitespace, commas, or control characters." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "规则值和目标不能包含首尾空白、逗号或控制字符。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "規則值和目標不能包含首尾空白、逗號或控制字元。"
           }
         }
       }
@@ -11109,6 +11611,22 @@
         }
       }
     },
+    "Rules run from top to bottom. MATCH can appear once and must be last." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "规则从上到下执行。MATCH 只能出现一次且必须位于最后。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "規則從上到下執行。MATCH 只能出現一次且必須位於最後。"
+          }
+        }
+      }
+    },
     "Save" : {
       "localizations" : {
         "fa" : {
@@ -11164,6 +11682,9 @@
           }
         }
       }
+    },
+    "save custom rules" : {
+
     },
     "Save File" : {
       "localizations" : {
@@ -11273,6 +11794,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "密鑰"
+          }
+        }
+      }
+    },
+    "Select an available domain rule provider." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请选择可用的域名规则提供者。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "請選擇可用的網域規則提供者。"
           }
         }
       }
@@ -11861,6 +12398,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "在菜單欄中顯示"
+          }
+        }
+      }
+    },
+    "Sign in securely with osu! in your system browser to manage Custom Rules." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通过系统浏览器使用 osu! 安全登录，以管理自定规则。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "透過系統瀏覽器使用 osu! 安全登入，以管理自訂規則。"
           }
         }
       }
@@ -13064,6 +13617,22 @@
         }
       }
     },
+    "Target" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "目标"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "目標"
+          }
+        }
+      }
+    },
     "Terminal Type" : {
       "localizations" : {
         "fa" : {
@@ -13088,6 +13657,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "終端類型"
+          }
+        }
+      }
+    },
+    "The delete result is unknown. Reload before trying again." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除结果未知。请重新加载后再试。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "刪除結果未知。請重新載入後再試。"
           }
         }
       }
@@ -13120,6 +13705,38 @@
         }
       }
     },
+    "The Kokoro request timed out. The result may be unknown." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kokoro 请求超时，操作结果可能未知。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kokoro 請求逾時，操作結果可能未知。"
+          }
+        }
+      }
+    },
+    "The MATCH rule must be last." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MATCH 规则必须位于最后。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MATCH 規則必須位於最後。"
+          }
+        }
+      }
+    },
     "The QR code does not contain a valid profile import link." : {
       "localizations" : {
         "fa" : {
@@ -13144,6 +13761,86 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "該二維碼不包含有效的配置導入鏈接。"
+          }
+        }
+      }
+    },
+    "The rename result is unknown. Reload before trying again." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重命名结果未知。请重新加载后再试。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新命名結果未知。請重新載入後再試。"
+          }
+        }
+      }
+    },
+    "The rule value is too long." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "规则值过长。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "規則值過長。"
+          }
+        }
+      }
+    },
+    "The rules changed on another device or on the website. Review the remote version before choosing how to continue." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "规则已在其他设备或网站上更改。请选择如何继续前先检查远端版本。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "規則已在其他裝置或網站上變更。請先檢查遠端版本，再選擇如何繼續。"
+          }
+        }
+      }
+    },
+    "The selected rule target is no longer available." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "所选规则目标已不可用。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "所選規則目標已不可用。"
+          }
+        }
+      }
+    },
+    "The selected rule type is no longer available." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "所选规则类型已不可用。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "所選規則類型已不可用。"
           }
         }
       }
@@ -13288,6 +13985,38 @@
         }
       }
     },
+    "This change conflicts with the current Kokoro state. Reload before trying again." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此更改与 Kokoro 当前状态冲突。请重新加载后再试。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此變更與 Kokoro 目前狀態衝突。請重新載入後再試。"
+          }
+        }
+      }
+    },
+    "This deletes the rule set from Kokoro and cannot be undone." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "这会从 Kokoro 删除规则集，且无法撤销。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "這會從 Kokoro 刪除規則集，且無法復原。"
+          }
+        }
+      }
+    },
     "This Device" : {
       "localizations" : {
         "fa" : {
@@ -13340,6 +14069,86 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "此輔助服務爲 `process_name` 和 `process_path` 路由規則提供進程查找功能，並管理工作目錄。"
+          }
+        }
+      }
+    },
+    "This rule requires a value." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此规则需要填写值。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此規則需要填寫值。"
+          }
+        }
+      }
+    },
+    "This rule set changed elsewhere (revision %lld). Reload it before saving." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此规则集已在其他位置更改（修订版本 %lld）。请重新加载后再保存。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此規則集已在其他位置變更（修訂版本 %lld）。請重新載入後再儲存。"
+          }
+        }
+      }
+    },
+    "This rule set changed elsewhere. Its latest version has been loaded." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此规则集已在其他位置更改，已加载最新版本。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此規則集已在其他位置變更，已載入最新版本。"
+          }
+        }
+      }
+    },
+    "This rule set contains too many rules." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此规则集包含过多规则。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此規則集包含過多規則。"
+          }
+        }
+      }
+    },
+    "This rule set no longer exists." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此规则集已不存在。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此規則集已不存在。"
           }
         }
       }
@@ -13508,6 +14317,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "要提供裝置，您可以使用基於 Chromium 的瀏覽器配合 sing-box dashboard，或使用 macOS 或 Android 上的 sing-box 圖形客戶端。"
+          }
+        }
+      }
+    },
+    "Too many Kokoro requests. Try again in %lld seconds." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kokoro 请求过多，请在 %lld 秒后重试。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kokoro 請求過多，請在 %lld 秒後重試。"
+          }
+        }
+      }
+    },
+    "Too many Kokoro requests. Try again later." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kokoro 请求过多，请稍后再试。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kokoro 請求過多，請稍後再試。"
           }
         }
       }
@@ -13960,6 +14801,22 @@
         }
       }
     },
+    "Up to %lld rule sets, with %lld rules in each set." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最多 %1$lld 个规则集，每个规则集最多 %2$lld 条规则。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最多 %1$lld 個規則集，每個規則集最多 %2$lld 條規則。"
+          }
+        }
+      }
+    },
     "Update" : {
       "localizations" : {
         "fa" : {
@@ -14314,6 +15171,22 @@
         }
       }
     },
+    "Use Remote Version" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用远端版本"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用遠端版本"
+          }
+        }
+      }
+    },
     "Use the + button to share a local USB device from this Mac." : {
       "localizations" : {
         "fa" : {
@@ -14394,6 +15267,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "使用者名稱"
+          }
+        }
+      }
+    },
+    "Value" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "值"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "值"
           }
         }
       }

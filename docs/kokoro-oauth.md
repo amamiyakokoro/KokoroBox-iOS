@@ -91,7 +91,7 @@ Mocked callback and Keychain tests are not evidence of OS callback delivery, rea
 
 ### Local validation, 2026-09-05
 
-- `swift test`: 21 tests passed, zero failures.
+- `swift test`: 28 tests passed, zero failures, including the Custom Rules API suite.
 - `KokoroBoxI`: Debug build for generic iOS Simulator passed.
 - `KokoroBoxM` and `SFM.System`: Debug builds for macOS arm64 passed.
 - All three builds used `CODE_SIGNING_ALLOWED=NO`, pinned package resolution and `-skipPackagePluginValidation`. Existing concurrency, dependency and extension-version warnings remain.

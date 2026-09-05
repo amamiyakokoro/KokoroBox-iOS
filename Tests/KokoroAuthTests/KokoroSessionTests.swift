@@ -57,6 +57,24 @@ private actor MockHTTP {
     }
 }
 
+private actor FixedStatusHTTP {
+    private(set) var requests: [URLRequest] = []
+    let status: Int
+
+    init(status: Int) {
+        self.status = status
+    }
+
+    func perform(_ request: URLRequest) -> (Data, HTTPURLResponse) {
+        requests.append(request)
+        let data = status == 409
+            ? Data(#"{"detail":{"message":"changed","current_revision":2}}"#.utf8)
+            : Data(#"{"detail":"rejected"}"#.utf8)
+        let headers = status == 429 ? ["Retry-After": "3"] : nil
+        return (data, HTTPURLResponse(url: request.url!, statusCode: status, httpVersion: nil, headerFields: headers)!)
+    }
+}
+
 final class KokoroSessionTests: XCTestCase {
     private func session(store: MemoryStore, http: MockHTTP) -> KokoroSession {
         KokoroSession(transport: { try await http.perform($0) }, load: { store.load() },
@@ -204,6 +222,30 @@ final class KokoroSessionTests: XCTestCase {
             if cancel { request.cancel() } else { await client.revoke() }
             do { try await request.value; XCTFail("Abandoned exchange saved tokens") } catch {}
             XCTAssertNil(store.load())
+        }
+    }
+
+    func testProtectedMutationDoesNotRetryNon401Errors() async throws {
+        for status in [400, 409, 422, 429] {
+            let store = MemoryStore()
+            try seed(store, expired: false)
+            let http = FixedStatusHTTP(status: status)
+            let client = KokoroSession(
+                transport: { await http.perform($0) },
+                load: { store.load() },
+                save: { try store.save($0) },
+                delete: { store.delete() }
+            )
+            var request = URLRequest(url: URL(string: "https://amamiyakoko.ro/api/app/custom-rules/sets/12/rules")!)
+            request.httpMethod = "PUT"
+            do {
+                _ = try await client.authorizedData(for: request)
+                XCTFail("Expected HTTP \(status)")
+            } catch {}
+            let requests = await http.requests
+            XCTAssertEqual(requests.count, 1)
+            XCTAssertEqual(requests.first?.value(forHTTPHeaderField: "Authorization"), "Bearer old-access")
+            XCTAssertEqual(store.load()?.refreshToken, "old-refresh")
         }
     }
 }

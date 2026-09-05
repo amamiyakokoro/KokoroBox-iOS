@@ -17,10 +17,11 @@ KokoroBox is an experimental Apple-platform client based on [sing-box for Apple]
 - Native clients for iOS, iPadOS, macOS, and tvOS
 - Local and remote sing-box profiles with validation before activation
 - Kokoro subscriptions with server-driven plan, ISP, protocol, routing, and update options
+- Kokoro Custom Rules shared with the website and generated configurations
 - System-browser osu! OAuth with mandatory PKCE S256 and Keychain token storage
 - Apple Network Extension and standalone macOS modes
 
-Kokoro sign-in is available on iOS, iPadOS, and macOS. See the [OAuth integration guide](docs/kokoro-oauth.md) for implementation and verification details.
+Kokoro sign-in is available on iOS, iPadOS, and macOS. See the [OAuth integration guide](docs/kokoro-oauth.md) and [Custom Rules client guide](docs/kokoro-custom-rules.md) for implementation and verification details.
 
 ## Applications
 
@@ -49,7 +50,7 @@ make build_macos_standalone
 make build_tvos
 ```
 
-Run the Kokoro OAuth and session tests with:
+Run the Kokoro API, OAuth, and session tests with:
 
 ```bash
 swift test
