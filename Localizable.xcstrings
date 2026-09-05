@@ -114,6 +114,7 @@
       }
     },
     "%lld rules · revision %lld" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1598,9 +1599,6 @@
         }
       }
     },
-    "check rule set" : {
-
-    },
     "check saved custom rules" : {
 
     },
@@ -2813,9 +2811,6 @@
         }
       }
     },
-    "create rule set" : {
-
-    },
     "Create Subscription" : {
       "localizations" : {
         "fa" : {
@@ -3253,10 +3248,8 @@
         }
       }
     },
-    "delete rule set" : {
-
-    },
     "Delete Rule Set?" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4567,6 +4560,7 @@
       "shouldTranslate" : false
     },
     "Enter a valid rule set name." : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -8522,6 +8516,7 @@
       }
     },
     "More" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -8883,6 +8878,7 @@
       }
     },
     "New Rule Set" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -9154,6 +9150,7 @@
       }
     },
     "No rule sets" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -9466,6 +9463,7 @@
       }
     },
     "Only the default rule set is included in generated Kokoro configurations." : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -11169,6 +11167,7 @@
       }
     },
     "Rename" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -11184,10 +11183,8 @@
         }
       }
     },
-    "rename rule set" : {
-
-    },
     "Rename Rule Set" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -11496,6 +11493,7 @@
       }
     },
     "Rule Sets" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -13661,7 +13659,24 @@
         }
       }
     },
+    "The default rule set is unavailable." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "默认规则集当前不可用。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "預設規則集目前無法使用。"
+          }
+        }
+      }
+    },
     "The delete result is unknown. Reload before trying again." : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -13766,6 +13781,7 @@
       }
     },
     "The rename result is unknown. Reload before trying again." : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -13957,6 +13973,22 @@
         }
       }
     },
+    "These rules override the default routing behavior in generated Kokoro configurations." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "这些规则会覆盖 Kokoro 生成配置中的默认路由行为。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "這些規則會覆寫 Kokoro 產生配置中的預設路由行為。"
+          }
+        }
+      }
+    },
     "This app needs to be placed under the Applications folder to work." : {
       "localizations" : {
         "fa" : {
@@ -14002,6 +14034,7 @@
       }
     },
     "This deletes the rule set from Kokoro and cannot be undone." : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -14106,6 +14139,7 @@
       }
     },
     "This rule set changed elsewhere. Its latest version has been loaded." : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -14138,6 +14172,7 @@
       }
     },
     "This rule set no longer exists." : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -14802,6 +14837,7 @@
       }
     },
     "Up to %lld rule sets, with %lld rules in each set." : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {

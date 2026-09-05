@@ -20,8 +20,15 @@ final class KokoroCustomRulesTests: XCTestCase {
           "schema_version": 1,
           "future_field": true,
           "sets": [{
+            "id": 13,
+            "name": "Games",
+            "revision": 2,
+            "created_at": "2026-09-05T09:00:00",
+            "updated_at": "2026-09-05T09:30:00",
+            "rules": []
+          }, {
             "id": 12,
-            "name": "default",
+            "name": "DeFaUlT",
             "revision": 4,
             "created_at": "2026-09-05T10:00:00",
             "updated_at": "2026-09-05T11:30:00",
@@ -34,9 +41,9 @@ final class KokoroCustomRulesTests: XCTestCase {
         """#.utf8)
         let state = try KokoroAPI.decoder.decode(KokoroCustomRulesState.self, from: data)
         XCTAssertEqual(state.schemaVersion, 1)
-        XCTAssertEqual(state.sets.first?.revision, 4)
-        XCTAssertEqual(state.sets.first?.rules.map(\.id), [52, 51])
-        XCTAssertTrue(state.sets.first?.isDefault == true)
+        XCTAssertEqual(state.defaultRuleSet?.id, 12)
+        XCTAssertEqual(state.defaultRuleSet?.revision, 4)
+        XCTAssertEqual(state.defaultRuleSet?.rules.map(\.id), [52, 51])
 
         let stateWithoutVersion = try KokoroAPI.decoder.decode(
             KokoroCustomRulesState.self,
@@ -45,21 +52,9 @@ final class KokoroCustomRulesTests: XCTestCase {
         XCTAssertEqual(stateWithoutVersion.schemaVersion, 1)
     }
 
-    func testReadAndMutationRequestsMatchContract() throws {
+    func testReadAndDefaultRuleReplacementRequestsMatchContract() throws {
         XCTAssertRequest(KokoroAPI.customRulesStateRequest(), method: "GET", path: "/api/app/custom-rules")
         XCTAssertRequest(KokoroAPI.customRulesOptionsRequest(), method: "GET", path: "/api/app/custom-rules/options")
-
-        let create = try KokoroAPI.createRuleSetRequest(name: "Games")
-        XCTAssertRequest(create, method: "POST", path: "/api/app/custom-rules/sets", json: ["name": "Games"])
-
-        let rename = try KokoroAPI.renameRuleSetRequest(id: 13, name: "Gaming", expectedRevision: 2)
-        XCTAssertRequest(rename, method: "PATCH", path: "/api/app/custom-rules/sets/13",
-                         json: ["name": "Gaming", "expected_revision": 2])
-
-        let delete = KokoroAPI.deleteRuleSetRequest(id: 13, expectedRevision: 3)
-        XCTAssertRequest(delete, method: "DELETE", path: "/api/app/custom-rules/sets/13")
-        XCTAssertEqual(URLComponents(url: delete.url!, resolvingAgainstBaseURL: false)?.queryItems,
-                       [URLQueryItem(name: "expected_revision", value: "3")])
 
         let rules = [
             KokoroCustomRuleInput(type: "DOMAIN-SUFFIX", payload: "example.com", target: "DIRECT"),
@@ -82,7 +77,6 @@ final class KokoroCustomRulesTests: XCTestCase {
             KokoroCustomRuleInput(type: "DOMAIN-SUFFIX", payload: "example.com", target: "JP"),
             KokoroCustomRuleInput(type: "MATCH", payload: nil, target: "DIRECT"),
         ]
-        XCTAssertNoThrow(try KokoroCustomRulesValidator.validateName("Games and Work", options: options))
         XCTAssertNoThrow(try KokoroCustomRulesValidator.validate(rules, options: options))
         XCTAssertNoThrow(try KokoroCustomRulesValidator.validate(
             [.init(type: "DOMAIN-SUFFIX", payload: "internal space", target: "DIRECT")],

@@ -4,6 +4,10 @@ public struct KokoroCustomRulesState: Codable, Sendable {
     public let schemaVersion: Int
     public let sets: [KokoroRuleSet]
 
+    public var defaultRuleSet: KokoroRuleSet? {
+        sets.first(where: \.isDefault)
+    }
+
     private enum CodingKeys: String, CodingKey {
         case schemaVersion
         case sets
@@ -59,11 +63,7 @@ public struct KokoroCustomRulesOptions: Codable, Sendable {
         limits = try container.decode([String: Int].self, forKey: .limits)
     }
 
-    public var maximumRuleSets: Int { limit(named: ["max_sets", "max_rule_sets"], fallback: 5) }
     public var maximumRulesPerSet: Int { limit(named: ["max_rules_per_set"], fallback: 200) }
-    public var maximumNameLength: Int {
-        limit(named: ["max_name_length", "max_set_name_length", "max_rule_set_name_length"], fallback: 64)
-    }
     public var maximumPayloadLength: Int { limit(named: ["max_payload_length"], fallback: 1024) }
 
     public var domainRuleProviders: [KokoroRuleProviderOption] {
@@ -142,7 +142,6 @@ public struct KokoroCustomRuleInput: Codable, Hashable, Sendable {
 }
 
 public enum KokoroCustomRulesValidationError: LocalizedError, Equatable, Sendable {
-    case invalidName
     case tooManyRules
     case unsupportedType
     case unsupportedTarget
@@ -156,7 +155,6 @@ public enum KokoroCustomRulesValidationError: LocalizedError, Equatable, Sendabl
 
     public var errorDescription: String? {
         switch self {
-        case .invalidName: String(localized: "Enter a valid rule set name.")
         case .tooManyRules: String(localized: "This rule set contains too many rules.")
         case .unsupportedType: String(localized: "The selected rule type is no longer available.")
         case .unsupportedTarget: String(localized: "The selected rule target is no longer available.")
@@ -172,16 +170,6 @@ public enum KokoroCustomRulesValidationError: LocalizedError, Equatable, Sendabl
 }
 
 public enum KokoroCustomRulesValidator {
-    public static func validateName(_ name: String, options: KokoroCustomRulesOptions) throws {
-        guard name == name.trimmingCharacters(in: .whitespacesAndNewlines),
-              !name.isEmpty,
-              name.count <= options.maximumNameLength,
-              !name.unicodeScalars.contains(where: CharacterSet.controlCharacters.contains)
-        else {
-            throw KokoroCustomRulesValidationError.invalidName
-        }
-    }
-
     public static func validate(_ rules: [KokoroCustomRuleInput], options: KokoroCustomRulesOptions) throws {
         guard rules.count <= options.maximumRulesPerSet else {
             throw KokoroCustomRulesValidationError.tooManyRules
@@ -237,8 +225,6 @@ public enum KokoroCustomRulesValidator {
 }
 
 extension KokoroAPI {
-    private struct RuleSetCreate: Encodable { let name: String }
-    private struct RuleSetRename: Encodable { let name: String; let expectedRevision: Int }
     private struct RuleSetReplace: Encodable { let expectedRevision: Int; let rules: [KokoroCustomRuleInput] }
 
     public static func customRules() async throws -> KokoroCustomRulesState {
@@ -247,21 +233,6 @@ extension KokoroAPI {
 
     public static func customRulesOptions() async throws -> KokoroCustomRulesOptions {
         try await decodeAuthorized(KokoroCustomRulesOptions.self, request: customRulesOptionsRequest())
-    }
-
-    public static func createRuleSet(name: String) async throws -> KokoroRuleSet {
-        try await decodeAuthorized(KokoroRuleSet.self, request: try createRuleSetRequest(name: name))
-    }
-
-    public static func renameRuleSet(id: Int, name: String, expectedRevision: Int) async throws -> KokoroRuleSet {
-        try await decodeAuthorized(
-            KokoroRuleSet.self,
-            request: try renameRuleSetRequest(id: id, name: name, expectedRevision: expectedRevision)
-        )
-    }
-
-    public static func deleteRuleSet(id: Int, expectedRevision: Int) async throws {
-        _ = try await KokoroSession.shared.authorizedData(for: deleteRuleSetRequest(id: id, expectedRevision: expectedRevision))
     }
 
     public static func replaceRules(
@@ -281,30 +252,6 @@ extension KokoroAPI {
 
     static func customRulesOptionsRequest() -> URLRequest {
         request(path: "app/custom-rules/options")
-    }
-
-    static func createRuleSetRequest(name: String) throws -> URLRequest {
-        try jsonRequest(path: "app/custom-rules/sets", method: "POST", body: RuleSetCreate(name: name))
-    }
-
-    static func renameRuleSetRequest(id: Int, name: String, expectedRevision: Int) throws -> URLRequest {
-        try jsonRequest(
-            path: "app/custom-rules/sets/\(id)",
-            method: "PATCH",
-            body: RuleSetRename(name: name, expectedRevision: expectedRevision)
-        )
-    }
-
-    static func deleteRuleSetRequest(id: Int, expectedRevision: Int) -> URLRequest {
-        var components = URLComponents(
-            url: endpoint("app/custom-rules/sets/\(id)"),
-            resolvingAgainstBaseURL: false
-        )!
-        components.queryItems = [URLQueryItem(name: "expected_revision", value: String(expectedRevision))]
-        var result = URLRequest(url: components.url!)
-        result.httpMethod = "DELETE"
-        result.timeoutInterval = 30
-        return result
     }
 
     static func replaceRulesRequest(

@@ -6,7 +6,11 @@
     public struct KokoroCustomRulesView: View {
         @Environment(\.dismiss) private var dismiss
         @StateObject private var viewModel = KokoroCustomRulesViewModel()
-        @State private var showCreateSet = false
+        @State private var editingRule: KokoroCustomRuleDraft?
+        @State private var isAddingRule = false
+        #if os(iOS)
+            @State private var editMode: EditMode = .inactive
+        #endif
 
         public init() {}
 
@@ -16,29 +20,23 @@
                     ProgressView()
                 } else if !viewModel.isSignedIn {
                     signedOutContent
+                } else if viewModel.ruleSet != nil, viewModel.options != nil {
+                    rulesContent
+                } else if viewModel.isLoading {
+                    ProgressView()
                 } else {
-                    FormView {
-                        setsSection
-                        createSection
-                    }
+                    unavailableContent
                 }
             }
             .navigationTitle("Custom Rules")
             #if os(iOS)
                 .navigationBarTitleDisplayMode(.inline)
+                .environment(\.editMode, $editMode)
             #endif
             #if os(macOS)
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) {
                         Button("Close") { dismiss() }
-                    }
-                    ToolbarItem(placement: .primaryAction) {
-                        Button {
-                            Task { await viewModel.reload() }
-                        } label: {
-                            Label("Reload", systemImage: "arrow.clockwise")
-                        }
-                        .disabled(viewModel.isLoading || !viewModel.isSignedIn)
                     }
                 }
             #endif
@@ -48,150 +46,34 @@
                 if viewModel.isSignedIn { await viewModel.reload() }
             }
             .alert($viewModel.alert)
-            .platformSheet(isPresented: $showCreateSet, size: .small) {
-                KokoroRuleSetNameView(title: String(localized: "New Rule Set"), initialName: "") { name in
-                    await viewModel.createSet(name: name)
-                }
-            }
-        }
-
-        private var signedOutContent: some View {
-            FormView {
-                Section {
-                    FormButton {
-                        Task { await viewModel.signIn() }
-                    } label: {
-                        Label("Sign in with Kokoro", systemImage: "person.crop.circle.badge.checkmark")
-                    }
-                } header: {
-                    Text("Kokoro Account")
-                } footer: {
-                    Text("Sign in securely with osu! in your system browser to manage Custom Rules.")
-                }
-            }
-        }
-
-        @ViewBuilder
-        private var setsSection: some View {
-            Section {
-                if viewModel.sets.isEmpty {
-                    Text("No rule sets")
-                        .foregroundStyle(.secondary)
-                } else if let options = viewModel.options {
-                    ForEach(viewModel.sets) { ruleSet in
-                        FormNavigationLink {
-                            KokoroRuleSetView(
-                                ruleSet: ruleSet,
-                                options: options,
-                                onUpdate: viewModel.update,
-                                onDelete: viewModel.remove
-                            )
-                        } label: {
-                            VStack(alignment: .leading, spacing: 3) {
-                                Text(verbatim: ruleSet.name)
-                                    .fontWeight(.medium)
-                                Text("\(ruleSet.rules.count) rules · revision \(ruleSet.revision)")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-                            }
-                        }
-                    }
-                }
-            } header: {
-                Text("Rule Sets")
-            } footer: {
-                Text("Only the default rule set is included in generated Kokoro configurations.")
-            }
-        }
-
-        @ViewBuilder
-        private var createSection: some View {
-            if let options = viewModel.options {
-                Section {
-                    FormButton {
-                        showCreateSet = true
-                    } label: {
-                        Label("New Rule Set", systemImage: "plus")
-                    }
-                    .disabled(viewModel.isLoading || viewModel.sets.count >= options.maximumRuleSets)
-                } footer: {
-                    Text("Up to \(options.maximumRuleSets) rule sets, with \(options.maximumRulesPerSet) rules in each set.")
-                }
-            }
-        }
-    }
-
-    @MainActor
-    private struct KokoroRuleSetView: View {
-        @Environment(\.dismiss) private var dismiss
-        @StateObject private var viewModel: KokoroRuleSetViewModel
-        @State private var editingRule: KokoroCustomRuleDraft?
-        @State private var isAddingRule = false
-        @State private var showRename = false
-        @State private var showDeleteConfirmation = false
-        #if os(iOS)
-            @State private var editMode: EditMode = .inactive
-        #endif
-
-        init(
-            ruleSet: KokoroRuleSet,
-            options: KokoroCustomRulesOptions,
-            onUpdate: @escaping (KokoroRuleSet) -> Void,
-            onDelete: @escaping (Int) -> Void
-        ) {
-            _viewModel = StateObject(wrappedValue: KokoroRuleSetViewModel(
-                ruleSet: ruleSet,
-                options: options,
-                onUpdate: onUpdate,
-                onDelete: onDelete
-            ))
-        }
-
-        var body: some View {
-            FormView {
-                rulesSection
-                statusSection
-            }
-            .navigationTitle(viewModel.ruleSet.name)
-            #if os(iOS)
-                .navigationBarTitleDisplayMode(.inline)
-                .environment(\.editMode, $editMode)
-            #endif
-            .disabled(viewModel.isSaving)
-            .toolbar { toolbarContent }
-            .alert($viewModel.alert)
             .platformSheet(isPresented: $isAddingRule, size: .small) {
-                KokoroCustomRuleEditView(
-                    title: String(localized: "New Rule"),
-                    draft: newDraft,
-                    options: viewModel.options
-                ) { rule in
-                    if rule.type == "MATCH" {
-                        viewModel.rules.append(rule)
-                    } else if let match = viewModel.rules.firstIndex(where: { $0.type == "MATCH" }) {
-                        viewModel.rules.insert(rule, at: match)
-                    } else {
-                        viewModel.rules.append(rule)
+                if let options = viewModel.options {
+                    KokoroCustomRuleEditView(
+                        title: String(localized: "New Rule"),
+                        draft: newDraft,
+                        options: options
+                    ) { rule in
+                        if rule.type == "MATCH" {
+                            viewModel.rules.append(rule)
+                        } else if let match = viewModel.rules.firstIndex(where: { $0.type == "MATCH" }) {
+                            viewModel.rules.insert(rule, at: match)
+                        } else {
+                            viewModel.rules.append(rule)
+                        }
                     }
                 }
             }
             .platformSheet(item: $editingRule, size: .small) { original in
-                KokoroCustomRuleEditView(
-                    title: String(localized: "Edit Rule"),
-                    draft: original,
-                    options: viewModel.options
-                ) { updated in
-                    if let index = viewModel.rules.firstIndex(where: { $0.id == updated.id }) {
-                        viewModel.rules[index] = updated
+                if let options = viewModel.options {
+                    KokoroCustomRuleEditView(
+                        title: String(localized: "Edit Rule"),
+                        draft: original,
+                        options: options
+                    ) { updated in
+                        if let index = viewModel.rules.firstIndex(where: { $0.id == updated.id }) {
+                            viewModel.rules[index] = updated
+                        }
                     }
-                }
-            }
-            .platformSheet(isPresented: $showRename, size: .small) {
-                KokoroRuleSetNameView(
-                    title: String(localized: "Rename Rule Set"),
-                    initialName: viewModel.ruleSet.name
-                ) { name in
-                    await viewModel.rename(to: name)
                 }
             }
             .platformSheet(
@@ -208,41 +90,50 @@
                     )
                 }
             }
-            .confirmationDialog(
-                "Delete Rule Set?",
-                isPresented: $showDeleteConfirmation,
-                titleVisibility: .visible
-            ) {
-                Button("Delete", role: .destructive) {
-                    Task {
-                        if await viewModel.delete() { dismiss() }
-                    }
-                }
-                Button("Cancel", role: .cancel) {}
-            } message: {
-                Text("This deletes the rule set from Kokoro and cannot be undone.")
-            }
         }
 
         @ToolbarContentBuilder
-        private var toolbarContent: some ToolbarContent {
+        private var rulesToolbarContent: some ToolbarContent {
             #if os(iOS)
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton().disabled(viewModel.rules.isEmpty)
+                }
+            #endif
+            #if os(macOS)
+                ToolbarItem(placement: .automatic) {
+                    Button {
+                        Task { await viewModel.reload() }
+                    } label: {
+                        Label("Reload", systemImage: "arrow.clockwise")
+                    }
+                    .disabled(viewModel.isLoading || viewModel.isSaving)
                 }
             #endif
             ToolbarItem(placement: .primaryAction) {
                 Button("Save") { Task { await viewModel.save() } }
                     .disabled(viewModel.isSaving || viewModel.validationMessage != nil)
             }
-            ToolbarItem(placement: .automatic) {
-                Menu {
-                    Button("Rename") { showRename = true }
-                        .disabled(viewModel.ruleSet.isDefault)
-                    Button("Delete", role: .destructive) { showDeleteConfirmation = true }
-                        .disabled(viewModel.ruleSet.isDefault)
-                } label: {
-                    Label("More", systemImage: "ellipsis.circle")
+        }
+
+        private var rulesContent: some View {
+            FormView {
+                rulesSection
+                statusSection
+            }
+            .disabled(viewModel.isSaving)
+            .toolbar { rulesToolbarContent }
+        }
+
+        private var unavailableContent: some View {
+            FormView {
+                Section {
+                    Text("The default rule set is unavailable.")
+                        .foregroundStyle(.secondary)
+                    FormButton {
+                        Task { await viewModel.reload() }
+                    } label: {
+                        Label("Reload", systemImage: "arrow.clockwise")
+                    }
                 }
             }
         }
@@ -310,17 +201,38 @@
         }
 
         private var statusSection: some View {
-            Section("Status") {
-                FormTextItem("Revision", String(viewModel.ruleSet.revision))
+            Section {
+                FormTextItem("Revision", String(viewModel.ruleSet?.revision ?? 0))
                 FormTextItem("Rule Count", String(viewModel.rules.count))
+            } header: {
+                Text("Status")
+            } footer: {
+                Text("These rules override the default routing behavior in generated Kokoro configurations.")
             }
         }
 
         private var newDraft: KokoroCustomRuleDraft {
-            let type = viewModel.options.ruleTypes.first ?? "DOMAIN-SUFFIX"
-            let target = viewModel.options.targets.first(where: { type != "MATCH" || $0 != "REJECT" }) ?? "DIRECT"
-            let payload = type == "RULE-SET" ? viewModel.options.domainRuleProviders.first?.name : nil
+            let type = viewModel.options?.ruleTypes.first ?? "DOMAIN-SUFFIX"
+            let targets = viewModel.options?.targets ?? []
+            let target = targets.first(where: { type != "MATCH" || $0 != "REJECT" }) ?? "DIRECT"
+            let payload = type == "RULE-SET" ? viewModel.options?.domainRuleProviders.first?.name : nil
             return KokoroCustomRuleDraft(type: type, payload: payload, target: target)
+        }
+
+        private var signedOutContent: some View {
+            FormView {
+                Section {
+                    FormButton {
+                        Task { await viewModel.signIn() }
+                    } label: {
+                        Label("Sign in with Kokoro", systemImage: "person.crop.circle.badge.checkmark")
+                    }
+                } header: {
+                    Text("Kokoro Account")
+                } footer: {
+                    Text("Sign in securely with osu! in your system browser to manage Custom Rules.")
+                }
+            }
         }
     }
 
@@ -503,53 +415,4 @@
         }
     }
 
-    @MainActor
-    private struct KokoroRuleSetNameView: View {
-        @Environment(\.dismiss) private var dismiss
-        @State private var name: String
-        @State private var isSaving = false
-        let title: String
-        let onSave: (String) async -> Bool
-
-        init(title: String, initialName: String, onSave: @escaping (String) async -> Bool) {
-            self.title = title
-            _name = State(initialValue: initialName)
-            self.onSave = onSave
-        }
-
-        var body: some View {
-            Form {
-                Section("Name") {
-                    TextField("Required", text: $name)
-                }
-            }
-            .navigationTitle(title)
-            #if os(iOS)
-                .navigationBarTitleDisplayMode(.inline)
-            #elseif os(macOS)
-                .formStyle(.grouped)
-            #endif
-            .disabled(isSaving)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") { dismiss() }
-                }
-                ToolbarItem(placement: .confirmationAction) {
-                    if isSaving {
-                        ProgressView()
-                    } else {
-                        Button("Save") {
-                            let normalized = name.trimmingCharacters(in: .whitespacesAndNewlines)
-                            Task {
-                                isSaving = true
-                                if await onSave(normalized) { dismiss() }
-                                isSaving = false
-                            }
-                        }
-                        .disabled(name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-                    }
-                }
-            }
-        }
-    }
 #endif
