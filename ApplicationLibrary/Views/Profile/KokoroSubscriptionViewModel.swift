@@ -20,6 +20,7 @@
         @Published var profileUpdateHours = 1
 
         private let authenticator = KokoroWebAuthenticator.shared
+        private let preloadStore = KokoroPreloadStore.shared
         private var signInTask: Task<Void, Error>?
         private var didLoad = false
 
@@ -58,7 +59,7 @@
             guard !didLoad else { return }
             didLoad = true
             guard await KokoroSession.shared.hasSession() else { return }
-            await loadSubscription()
+            await loadSubscription(forceRefresh: false)
         }
 
         func signIn() async {
@@ -69,7 +70,8 @@
                 let task = Task { try await authenticator.signIn() }
                 signInTask = task
                 try await task.value
-                try await fetchSubscriptionOptions()
+                await preloadStore.invalidateAll()
+                try await fetchSubscriptionOptions(forceRefresh: true)
             } catch is CancellationError {
                 return
             } catch {
@@ -156,11 +158,11 @@
             }
         }
 
-        private func loadSubscription() async {
+        private func loadSubscription(forceRefresh: Bool) async {
             isLoading = true
             defer { isLoading = false }
             do {
-                try await fetchSubscriptionOptions()
+                try await fetchSubscriptionOptions(forceRefresh: forceRefresh)
             } catch {
                 isSignedIn = await KokoroSession.shared.hasSession()
                 alert = AlertState(
@@ -169,8 +171,8 @@
             }
         }
 
-        private func fetchSubscriptionOptions() async throws {
-            let loadedOptions = try await KokoroAPI.subscriptionOptions()
+        private func fetchSubscriptionOptions(forceRefresh: Bool) async throws {
+            let loadedOptions = try await preloadStore.subscriptionOptions(forceRefresh: forceRefresh)
             guard loadedOptions.formats.contains(where: {
                 $0.value == "sing-box" && ($0.targetVersion == nil || $0.targetVersion == "1.14")
             }) else {

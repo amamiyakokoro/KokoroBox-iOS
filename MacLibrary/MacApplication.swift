@@ -49,6 +49,14 @@ public struct MacApplication: Scene {
                     Task {
                         await initialize()
                     }
+                    Task {
+                        await KokoroPreloadStore.shared.preloadIfNeeded()
+                    }
+                }
+                .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
+                    Task {
+                        await KokoroPreloadStore.shared.preloadIfNeeded()
+                    }
                 }
                 .environment(\.showMenuBarExtra, $applicationState.showMenuBarExtra)
                 .environment(\.menuBarExtraSpeedMode, $applicationState.menuBarExtraSpeedMode)

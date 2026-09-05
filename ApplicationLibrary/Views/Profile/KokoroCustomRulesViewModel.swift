@@ -43,6 +43,7 @@
         @Published private(set) var remoteConflict: KokoroRuleSet?
 
         private let authenticator = KokoroWebAuthenticator.shared
+        private let preloadStore = KokoroPreloadStore.shared
         private var signInTask: Task<Void, Error>?
         private var didLoad = false
 
@@ -65,14 +66,18 @@
             guard !didLoad else { return }
             didLoad = true
             guard await KokoroSession.shared.hasSession() else { return }
-            await reload()
+            await loadRules(forceRefresh: false)
         }
 
         func reload() async {
+            await loadRules(forceRefresh: true)
+        }
+
+        private func loadRules(forceRefresh: Bool) async {
             isLoading = true
             defer { isLoading = false }
             do {
-                try await fetchDefaultRuleSetAndOptions()
+                try await fetchDefaultRuleSetAndOptions(forceRefresh: forceRefresh)
                 isSignedIn = true
             } catch {
                 isSignedIn = await KokoroSession.shared.hasSession()
@@ -89,7 +94,8 @@
                 signInTask = task
                 try await task.value
                 isSignedIn = true
-                try await fetchDefaultRuleSetAndOptions()
+                await preloadStore.invalidateAll()
+                try await fetchDefaultRuleSetAndOptions(forceRefresh: true)
             } catch is CancellationError {
                 return
             } catch {
@@ -109,7 +115,7 @@
         }
 
         func refreshOptions() async throws {
-            options = try await KokoroAPI.customRulesOptions()
+            options = try await preloadStore.customRuleOptions(forceRefresh: true)
         }
 
         func save() async {
@@ -126,6 +132,7 @@
                     expectedRevision: ruleSet.revision,
                     rules: targetRules
                 )
+                await preloadStore.invalidateCustomRuleState()
                 apply(updated)
             } catch KokoroAPIError.networkTimeout {
                 await reconcileUnknownSave(targetRules)
@@ -202,7 +209,7 @@
         }
 
         private func currentRemoteSet() async throws -> KokoroRuleSet {
-            let state = try await KokoroAPI.customRules()
+            let state = try await preloadStore.customRules(forceRefresh: true)
             guard let remote = state.defaultRuleSet else {
                 throw KokoroCustomRulesClientError.defaultRuleSetUnavailable
             }
@@ -214,9 +221,9 @@
             rules = updated.rules.map(KokoroCustomRuleDraft.init)
         }
 
-        private func fetchDefaultRuleSetAndOptions() async throws {
-            async let state = KokoroAPI.customRules()
-            async let options = KokoroAPI.customRulesOptions()
+        private func fetchDefaultRuleSetAndOptions(forceRefresh: Bool) async throws {
+            async let state = preloadStore.customRules(forceRefresh: forceRefresh)
+            async let options = preloadStore.customRuleOptions(forceRefresh: forceRefresh)
             let (loadedState, loadedOptions) = try await (state, options)
             self.options = loadedOptions
             guard let defaultRuleSet = loadedState.defaultRuleSet else {

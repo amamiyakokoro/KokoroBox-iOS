@@ -13,6 +13,8 @@ The screen opens the `default` rules directly without a rule-set selection layer
 
 The editor preserves the server's array order. Type, target, provider, and limit choices come from `/options`; regional targets and provider names are not compiled into the app. Before saving, the client refreshes options and validates the complete local draft. Saving sends one `PUT /app/custom-rules/sets/{default_set_id}/rules` with `expected_revision` and the complete ordered array. An empty array clears the default rules. A successful response replaces the local set and revision in full.
 
+When a saved Kokoro session exists, the app preloads account, subscription-option, rule-state, and rule-option resources after launch and when returning to the foreground. A shared single-flight store keeps successful values in memory for five minutes, so opening Kokoro Settings, subscription creation, or Custom Rules reuses the in-progress request or fresh value. Nothing is persisted outside the existing Keychain credentials. Login, logout, and rule mutations invalidate the relevant cache before later reads.
+
 ## Conflict and unknown-result handling
 
 A `409` never causes an automatic retry. The client first reloads the current remote set and asks the user to choose one of the following before saving again:
@@ -40,6 +42,6 @@ Server validation remains authoritative. Unknown response fields are ignored.
 
 ## Verification
 
-Run `swift test` to test production model decoding, case-insensitive `default` selection when other sets are present, ordered rules, the exact replacement request, explicit `null` MATCH payloads, dynamic options validation, structured `409` revisions, `Retry-After`, and unknown-result content comparison. The package also reruns all existing OAuth and refresh tests.
+Run `swift test` to test production model decoding, case-insensitive `default` selection when other sets are present, ordered rules, the exact replacement request, explicit `null` MATCH payloads, dynamic options validation, structured `409` revisions, `Retry-After`, unknown-result content comparison, preload single-flight behavior, cache invalidation, and the signed-out preload guard. The package also reruns all existing OAuth and refresh tests.
 
 Unsigned iOS Simulator and macOS arm64 builds verify that the shared SwiftUI editor compiles on both platforms. Before release, a signed-device/live-backend pass must still verify real account data, website synchronization, target/provider changes, concurrent website edits, rate limiting, and a deliberately interrupted save. Local tests do not prove those external behaviors.

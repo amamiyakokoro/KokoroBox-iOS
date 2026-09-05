@@ -234,6 +234,9 @@ struct MainView: View {
 
     private var mainBody: some View {
         tabViewContent
+            .task {
+                await KokoroPreloadStore.shared.preloadIfNeeded()
+            }
             .onAppear {
                 updateButtonVisibility()
             }
@@ -288,6 +291,9 @@ struct MainView: View {
             .onChangeCompat(of: scenePhase) { newValue in
                 if newValue == .active {
                     environments.postReload()
+                    Task {
+                        await KokoroPreloadStore.shared.preloadIfNeeded()
+                    }
                 }
             }
             .onChangeCompat(of: selection) { newValue in

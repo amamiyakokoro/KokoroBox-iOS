@@ -8,6 +8,7 @@
         @Published private(set) var user: KokoroUser?
 
         private let authenticator = KokoroWebAuthenticator.shared
+        private let preloadStore = KokoroPreloadStore.shared
         private var signInTask: Task<Void, Error>?
         private var didLoad = false
 
@@ -15,14 +16,18 @@
             guard !didLoad else { return }
             didLoad = true
             guard await KokoroSession.shared.hasSession() else { return }
-            await reload()
+            await loadAccount(forceRefresh: false)
         }
 
         func reload() async {
+            await loadAccount(forceRefresh: true)
+        }
+
+        private func loadAccount(forceRefresh: Bool) async {
             isLoading = true
             defer { isLoading = false }
             do {
-                user = try await KokoroAPI.currentUser()
+                user = try await preloadStore.currentUser(forceRefresh: forceRefresh)
                 isSignedIn = true
             } catch {
                 isSignedIn = await KokoroSession.shared.hasSession()
@@ -38,7 +43,8 @@
                 let task = Task { try await authenticator.signIn() }
                 signInTask = task
                 try await task.value
-                user = try await KokoroAPI.currentUser()
+                await preloadStore.invalidateAll()
+                user = try await preloadStore.currentUser(forceRefresh: true)
                 isSignedIn = true
             } catch is CancellationError {
                 return
@@ -57,6 +63,7 @@
         func signOut() async {
             isLoading = true
             await KokoroSession.shared.revoke()
+            await preloadStore.invalidateAll()
             user = nil
             isSignedIn = false
             isLoading = false
