@@ -7,7 +7,6 @@
     final class KokoroSubscriptionViewModel: BaseViewModel {
         @Published var isSignedIn = false
         @Published var isSaving = false
-        @Published var user: KokoroUser?
         @Published var options: KokoroSubscriptionOptions?
 
         @Published var selectedProtocol = ""
@@ -59,7 +58,7 @@
             guard !didLoad else { return }
             didLoad = true
             guard await KokoroSession.shared.hasSession() else { return }
-            await loadAccount()
+            await loadSubscription()
         }
 
         func signIn() async {
@@ -70,7 +69,7 @@
                 let task = Task { try await authenticator.signIn() }
                 signInTask = task
                 try await task.value
-                try await fetchAccountAndOptions()
+                try await fetchSubscriptionOptions()
             } catch is CancellationError {
                 return
             } catch {
@@ -81,18 +80,6 @@
         }
 
         func cancelSignIn() { signInTask?.cancel() }
-
-        func signOut() async {
-            isLoading = true
-            await KokoroSession.shared.revoke()
-            user = nil
-            options = nil
-            isSignedIn = false
-            selectedProtocol = ""
-            selectedPlan = ""
-            selectedISP = ""
-            isLoading = false
-        }
 
         func selectPlan(_ plan: String) {
             selectedPlan = plan
@@ -169,11 +156,11 @@
             }
         }
 
-        private func loadAccount() async {
+        private func loadSubscription() async {
             isLoading = true
             defer { isLoading = false }
             do {
-                try await fetchAccountAndOptions()
+                try await fetchSubscriptionOptions()
             } catch {
                 isSignedIn = await KokoroSession.shared.hasSession()
                 alert = AlertState(
@@ -182,16 +169,13 @@
             }
         }
 
-        private func fetchAccountAndOptions() async throws {
-            async let user = KokoroAPI.currentUser()
-            async let options = KokoroAPI.subscriptionOptions()
-            let (loadedUser, loadedOptions) = try await (user, options)
+        private func fetchSubscriptionOptions() async throws {
+            let loadedOptions = try await KokoroAPI.subscriptionOptions()
             guard loadedOptions.formats.contains(where: {
                 $0.value == "sing-box" && ($0.targetVersion == nil || $0.targetVersion == "1.14")
             }) else {
                 throw KokoroAPIError.unsupportedConfiguration
             }
-            self.user = loadedUser
             self.options = loadedOptions
             isSignedIn = true
             applyDefaults(loadedOptions)

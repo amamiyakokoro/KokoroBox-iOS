@@ -41,7 +41,6 @@
                         Text("Sign in securely with osu! in your system browser. This app never receives your osu! password.")
                     }
                 } else {
-                    accountSection
                     subscriptionSection
                     routeSection
                     updateSection
@@ -51,49 +50,6 @@
                             createButton
                         }
                     #endif
-
-                    Section {
-                        FormButton(role: .destructive) {
-                            Task { await viewModel.signOut() }
-                        } label: {
-                            Label("Sign Out", systemImage: "rectangle.portrait.and.arrow.right")
-                        }
-                    }
-                }
-            }
-        }
-
-        @ViewBuilder
-        private var accountSection: some View {
-            if let user = viewModel.user {
-                Section("Account") {
-                    HStack(spacing: 12) {
-                        if let avatar = user.avatarUrl.flatMap(URL.init(string:)) {
-                            AsyncImage(url: avatar) { image in
-                                image.resizable().scaledToFill()
-                            } placeholder: {
-                                Image(systemName: "person.crop.circle.fill")
-                                    .foregroundStyle(.secondary)
-                            }
-                            .frame(width: 40, height: 40)
-                            .clipShape(Circle())
-                        }
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text(verbatim: user.username ?? "osu! \(user.osuId)")
-                                .font(.headline)
-                            Text(verbatim: user.plans.joined(separator: ", "))
-                                .font(.subheadline)
-                                .foregroundStyle(.secondary)
-                        }
-                    }
-                    FormTextItem("Traffic Used", Self.byteCount(user.trafficUsage))
-                    FormTextItem(
-                        "Bandwidth Limit",
-                        user.bandwidthLimit == 0 ? String(localized: "Unlimited") : Self.byteCount(user.bandwidthLimit)
-                    )
-                    if let expiration = user.subscriptionExpiresAt {
-                        FormTextItem("Expires", expiration.replacingOccurrences(of: "T", with: " "))
-                    }
                 }
             }
         }
@@ -250,10 +206,6 @@
             } else {
                 dismiss()
             }
-        }
-
-        private static func byteCount(_ count: Int64) -> String {
-            ByteCountFormatter.string(fromByteCount: count, countStyle: .binary)
         }
 
         private static func localizedISPLabel(_ option: KokoroISPOption) -> String {

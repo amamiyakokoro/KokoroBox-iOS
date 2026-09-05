@@ -4,7 +4,7 @@ KokoroBox manages the signed-in user's server-side `default` rule set with the e
 
 ## Client flow
 
-The Custom Rules screen is available directly from Settings on iOS, iPadOS, and macOS. If no Kokoro session exists, the screen starts the existing system-browser PKCE login flow before loading data. It loads these resources together:
+The Custom Rules screen is available from **Settings → Kokoro Settings** on iOS, iPadOS, and macOS. Kokoro Settings owns account status, subscription usage, sign-in, and sign-out; the subscription creation screen only contains profile-generation options. If no Kokoro session exists, Kokoro Settings starts the existing system-browser PKCE login flow before loading data. The Custom Rules editor loads these resources together:
 
 - `GET /app/custom-rules` to locate the case-insensitive `default` set and read its ordered rules, ID, and revision.
 - `GET /app/custom-rules/options` for currently supported rule types, targets, domain providers, and limits.

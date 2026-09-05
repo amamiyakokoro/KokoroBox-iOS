@@ -2895,6 +2895,22 @@
         }
       }
     },
+    "Custom Rules override the default routing behavior in generated Kokoro configurations." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自定规则会覆盖 Kokoro 生成配置中的默认路由行为。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自訂規則會覆寫 Kokoro 產生配置中的預設路由行為。"
+          }
+        }
+      }
+    },
     "Custom Rules" : {
       "localizations" : {
         "zh-Hans" : {
@@ -7134,6 +7150,22 @@
         }
       }
     },
+    "Kokoro account information is unavailable." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kokoro 账户信息当前不可用。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kokoro 帳號資訊目前無法使用。"
+          }
+        }
+      }
+    },
     "Kokoro Account" : {
       "localizations" : {
         "zh-Hans" : {
@@ -7427,6 +7459,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kokoro 登入遭拒，或此帳號尚未獲得授權。"
+          }
+        }
+      }
+    },
+    "Kokoro Settings" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kokoro 设置"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kokoro 設定"
           }
         }
       }
@@ -7763,6 +7811,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "淺色主題"
+          }
+        }
+      }
+    },
+    "load Kokoro account" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "加载 Kokoro 账户"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "載入 Kokoro 帳號"
           }
         }
       }
