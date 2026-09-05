@@ -1606,6 +1606,90 @@
         }
       }
     },
+    "China Mobile" : {
+      "localizations" : {
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "چاینا موبایل"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "China Mobile"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "中国移动"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "中國移動"
+          }
+        }
+      }
+    },
+    "China Telecom" : {
+      "localizations" : {
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "چاینا تلکام"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "China Telecom"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "中国电信"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "中國電信"
+          }
+        }
+      }
+    },
+    "China Unicom" : {
+      "localizations" : {
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "چاینا یونیکام"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "China Unicom"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "中国联通"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "中國聯通"
+          }
+        }
+      }
+    },
     "Choose" : {
       "localizations" : {
         "fa" : {
@@ -2500,6 +2584,34 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "核心"
+          }
+        }
+      }
+    },
+    "Could not access the Kokoro session in Keychain: %@" : {
+      "localizations" : {
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "دسترسی به نشست Kokoro در Keychain ممکن نبود: %@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось получить доступ к сеансу Kokoro в Связке ключей: %@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法访问钥匙串中的 Kokoro 会话：%@"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法存取鑰匙圈中的 Kokoro 工作階段：%@"
           }
         }
       }
@@ -4710,6 +4822,34 @@
         }
       }
     },
+    "Failed to create Kokoro subscription" : {
+      "localizations" : {
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ایجاد اشتراک Kokoro ناموفق بود"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось создать подписку Kokoro"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法创建 Kokoro 订阅"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法建立 Kokoro 訂閱"
+          }
+        }
+      }
+    },
     "Failed to decode QRS data" : {
       "localizations" : {
         "fa" : {
@@ -4734,6 +4874,34 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "解碼 QRS 數據失敗"
+          }
+        }
+      }
+    },
+    "Failed to load Kokoro subscription" : {
+      "localizations" : {
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بارگذاری اشتراک Kokoro ناموفق بود"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось загрузить подписку Kokoro"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法载入 Kokoro 订阅"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法載入 Kokoro 訂閱"
           }
         }
       }
@@ -4790,6 +4958,34 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "保存規則失敗"
+          }
+        }
+      }
+    },
+    "Failed to sign in to Kokoro" : {
+      "localizations" : {
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ورود به Kokoro ناموفق بود"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось войти в Kokoro"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法登录 Kokoro"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法登入 Kokoro"
           }
         }
       }
@@ -5014,90 +5210,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "檔案"
-          }
-        }
-      }
-    },
-    "Failed to create Kokoro subscription" : {
-      "localizations" : {
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ایجاد اشتراک Kokoro ناموفق بود"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Не удалось создать подписку Kokoro"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "无法创建 Kokoro 订阅"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "無法建立 Kokoro 訂閱"
-          }
-        }
-      }
-    },
-    "Failed to load Kokoro subscription" : {
-      "localizations" : {
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "بارگذاری اشتراک Kokoro ناموفق بود"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Не удалось загрузить подписку Kokoro"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "无法载入 Kokoro 订阅"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "無法載入 Kokoro 訂閱"
-          }
-        }
-      }
-    },
-    "Failed to sign in to Kokoro" : {
-      "localizations" : {
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ورود به Kokoro ناموفق بود"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Не удалось войти в Kokoro"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "无法登录 Kokoro"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "無法登入 Kokoro"
           }
         }
       }
@@ -6920,230 +7032,6 @@
         }
       }
     },
-    "China Mobile" : {
-      "localizations" : {
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "چاینا موبایل"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "China Mobile"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "中国移动"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "中國移動"
-          }
-        }
-      }
-    },
-    "China Telecom" : {
-      "localizations" : {
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "چاینا تلکام"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "China Telecom"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "中国电信"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "中國電信"
-          }
-        }
-      }
-    },
-    "China Unicom" : {
-      "localizations" : {
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "چاینا یونیکام"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "China Unicom"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "中国联通"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "中國聯通"
-          }
-        }
-      }
-    },
-    "Mirror" : {
-      "localizations" : {
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "آینه"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Зеркало"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "镜像"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "鏡像"
-          }
-        }
-      }
-    },
-    "Origin" : {
-      "localizations" : {
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "منبع اصلی"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Исходный источник"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "原始来源"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "原始來源"
-          }
-        }
-      }
-    },
-    "Other ISP" : {
-      "localizations" : {
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "سایر ارائه‌دهندگان اینترنت"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Другой интернет-провайдер"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "其他网络运营商"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "其他網路供應商"
-          }
-        }
-      }
-    },
-    "Proxy" : {
-      "localizations" : {
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "پروکسی"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Прокси"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "代理"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "代理"
-          }
-        }
-      }
-    },
-    "Could not access the Kokoro session in Keychain: %@" : {
-      "localizations" : {
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "دسترسی به نشست Kokoro در Keychain ممکن نبود: %@"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Не удалось получить доступ к сеансу Kokoro в Связке ключей: %@"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "无法访问钥匙串中的 Kokoro 会话：%@"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "無法存取鑰匙圈中的 Kokoro 工作階段：%@"
-          }
-        }
-      }
-    },
     "Kokoro does not currently offer a compatible sing-box subscription." : {
       "localizations" : {
         "fa" : {
@@ -7172,34 +7060,6 @@
         }
       }
     },
-    "Kokoro request failed (HTTP %lld)." : {
-      "localizations" : {
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "درخواست Kokoro ناموفق بود (HTTP %lld)."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Запрос Kokoro завершился ошибкой (HTTP %lld)."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kokoro 请求失败（HTTP %lld）。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kokoro 請求失敗（HTTP %lld）。"
-          }
-        }
-      }
-    },
     "Kokoro request failed (HTTP %lld): %@" : {
       "localizations" : {
         "fa" : {
@@ -7224,6 +7084,34 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kokoro 請求失敗（HTTP %1$lld）：%2$@"
+          }
+        }
+      }
+    },
+    "Kokoro request failed (HTTP %lld)." : {
+      "localizations" : {
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "درخواست Kokoro ناموفق بود (HTTP %lld)."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Запрос Kokoro завершился ошибкой (HTTP %lld)."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kokoro 请求失败（HTTP %lld）。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kokoro 請求失敗（HTTP %lld）。"
           }
         }
       }
@@ -7369,6 +7257,7 @@
       }
     },
     "Kokoro sign-in failed: %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fa" : {
           "stringUnit" : {
@@ -8256,6 +8145,34 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "按流量計費連線"
+          }
+        }
+      }
+    },
+    "Mirror" : {
+      "localizations" : {
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "آینه"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Зеркало"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "镜像"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "鏡像"
           }
         }
       }
@@ -9516,6 +9433,34 @@
         }
       }
     },
+    "Origin" : {
+      "localizations" : {
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "منبع اصلی"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Исходный источник"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "原始来源"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "原始來源"
+          }
+        }
+      }
+    },
     "OS" : {
       "localizations" : {
         "fa" : {
@@ -9540,6 +9485,34 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "作業系統"
+          }
+        }
+      }
+    },
+    "Other ISP" : {
+      "localizations" : {
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سایر ارائه‌دهندگان اینترنت"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Другой интернет-провайдер"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "其他网络运营商"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "其他網路供應商"
           }
         }
       }
@@ -10297,6 +10270,34 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "為服務提供軟記憶體限制。服務將執行多個程序以嘗試保持在此記憶體限制範圍內。"
+          }
+        }
+      }
+    },
+    "Proxy" : {
+      "localizations" : {
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پروکسی"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Прокси"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "代理"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "代理"
           }
         }
       }
@@ -11864,34 +11865,6 @@
         }
       }
     },
-    "Sign in to Kokoro again to continue." : {
-      "localizations" : {
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "برای ادامه دوباره وارد Kokoro شوید."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Чтобы продолжить, войдите в Kokoro ещё раз."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "请重新登录 Kokoro 以继续。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "請重新登入 Kokoro 以繼續。"
-          }
-        }
-      }
-    },
     "Sign in securely with osu! in your system browser. This app never receives your osu! password." : {
       "localizations" : {
         "fa" : {
@@ -11916,6 +11889,34 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "透過系統瀏覽器使用 osu! 安全登入。本 App 永遠不會取得你的 osu! 密碼。"
+          }
+        }
+      }
+    },
+    "Sign in to Kokoro again to continue." : {
+      "localizations" : {
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "برای ادامه دوباره وارد Kokoro شوید."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Чтобы продолжить, войдите в Kokoro ещё раз."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请重新登录 Kokoro 以继续。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "請重新登入 Kokoro 以繼續。"
           }
         }
       }
