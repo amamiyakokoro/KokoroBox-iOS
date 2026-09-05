@@ -10,32 +10,17 @@ An Apple-platform sing-box client with native Kokoro subscription support.
 
 </div>
 
-## About
+KokoroBox is an experimental Apple-platform client based on [sing-box for Apple](https://github.com/SagerNet/sing-box-for-apple), with first-party Kokoro account and subscription support. Its primary bundle identifier is `com.amamiyakokoro.box`.
 
-KokoroBox is an experimental Apple-platform client for [sing-box](https://sing-box.sagernet.org/), maintained for the Kokoro service. It is based on the upstream sing-box for Apple applications and adds first-party Kokoro account and subscription integration.
+## Features
 
-The installed display name is **KokoroBox**. The primary application bundle identifier is `com.amamiyakokoro.box`.
+- Native clients for iOS, iPadOS, macOS, and tvOS
+- Local and remote sing-box profiles with validation before activation
+- Kokoro subscriptions with server-driven plan, ISP, protocol, routing, and update options
+- System-browser osu! OAuth with mandatory PKCE S256 and Keychain token storage
+- Apple Network Extension and standalone macOS modes
 
-## Highlights
-
-- **Native Apple experience** — platform-specific apps for iOS, iPadOS, macOS, and tvOS
-- **sing-box profiles** — local and remote profile management with validation before activation
-- **Kokoro integration** — system-browser OAuth with mandatory PKCE S256 and server-driven subscription options
-- **Secure credentials** — Apple Keychain storage with automatic access-token refresh
-- **Network integration** — Apple Network Extension and standalone macOS system modes
-
-## Kokoro subscriptions
-
-KokoroBox can create and maintain sing-box profiles directly from a Kokoro account:
-
-- Secure osu! sign-in through the system browser with a fresh state and PKCE verifier for every attempt
-- Server-driven plan, ISP, protocol, routing, and update options
-- VMess, AnyTLS, and Hysteria 2 subscription profiles when enabled by the server
-- Configuration validation before replacing the active local profile
-
-Kokoro browser sign-in is available in the iOS, iPadOS, and macOS clients. The tvOS target does not expose the Kokoro sign-in screen.
-
-Access tokens, refresh tokens, subscription credentials, and complete subscription URLs must never be included in logs, screenshots, analytics, or issue reports.
+Kokoro sign-in is available on iOS, iPadOS, and macOS. See the [OAuth integration guide](docs/kokoro-oauth.md) for implementation and verification details.
 
 ## Applications
 
@@ -46,25 +31,16 @@ Access tokens, refresh tokens, subscription credentials, and complete subscripti
 | macOS standalone | `SFM.System` | `KokoroBoxM.app` |
 | tvOS             | `SFT`        | `KokoroBox.app`  |
 
-## Build from source
+## Build
 
-Client maintainers: see the [Kokoro OAuth integration and verification guide](docs/kokoro-oauth.md) for PKCE S256 and callback handling.
-
-### Requirements
-
-- A recent Xcode release with the required platform SDKs
-- A compatible `Libbox.xcframework` at the repository root
-- An Apple Developer team and matching provisioning profiles for signed, on-device builds
-- `make` and `xcbeautify` when using the provided command-line targets
-
-Clone the repository with its submodules:
+Requires a recent Xcode, a compatible `Libbox.xcframework`, and an Apple Developer team for signed builds.
 
 ```bash
 git clone --recurse-submodules https://github.com/amamiyakokoro/KokoroBox-iOS.git
 cd KokoroBox-iOS
 ```
 
-Open `sing-box.xcodeproj` in Xcode and select the scheme for the platform you want to build, or use one of the common local build commands:
+Open `sing-box.xcodeproj` and select a scheme, or use:
 
 ```bash
 make build_ios
@@ -73,35 +49,14 @@ make build_macos_standalone
 make build_tvos
 ```
 
-Run the focused Kokoro OAuth and session tests without Xcode signing:
+Run the Kokoro OAuth and session tests with:
 
 ```bash
 swift test
 ```
 
-Code signing, application groups, Network Extension capabilities, and provisioning profiles must belong to your own Apple Developer team. Release and notarization targets in the `Makefile` additionally require the corresponding Apple distribution certificates and signing identities.
+Signing identities, App Groups, Network Extension capabilities, and provisioning profiles must belong to your Apple Developer team.
 
-## Project structure
+## License
 
-| Path                              | Purpose                                              |
-| --------------------------------- | ---------------------------------------------------- |
-| `ApplicationLibrary`              | Shared application services and views                |
-| `Library`                         | Shared database, network, update, and utility code   |
-| `SFI`                             | iOS and iPadOS application                           |
-| `SFM`                             | macOS application                                    |
-| `SFM.System`                      | Standalone macOS application and packaging resources |
-| `SFT`                             | tvOS application                                     |
-| `Extension` and `SystemExtension` | Network extension implementations                    |
-| `Frameworks`                      | Embedded editor and parsing frameworks               |
-
-## Contributing
-
-Bug reports and focused pull requests are welcome. Please use [GitHub Issues](https://github.com/amamiyakokoro/KokoroBox-iOS/issues) for reproducible bugs and feature proposals, and update the documentation when behavior changes.
-
-Never commit access tokens, subscription URLs, signing certificates, provisioning profiles, OAuth secrets, or generated private configuration files.
-
-## Upstream and license
-
-KokoroBox is derived from [SagerNet/sing-box-for-apple](https://github.com/SagerNet/sing-box-for-apple). The original [SFI](https://sing-box.sagernet.org/installation/clients/sfi/) and [SFM](https://sing-box.sagernet.org/installation/clients/sfm/) documentation remains useful for platform-specific sing-box behavior.
-
-The project is distributed under the [GNU General Public License version 3 or later](LICENSE). Individual dependencies remain subject to their respective licenses.
+[GNU General Public License v3 or later](LICENSE). Dependencies retain their respective licenses.
