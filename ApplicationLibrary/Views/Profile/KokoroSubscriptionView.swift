@@ -220,6 +220,7 @@
                 .disabled(viewModel.isSaving)
                 .alert($viewModel.alert)
                 .task { await viewModel.loadIfNeeded() }
+                .onDisappear { viewModel.cancelSignIn() }
             }
         #else
             private var iOSBody: some View {
@@ -229,6 +230,7 @@
                     .disabled(viewModel.isSaving)
                     .alert($viewModel.alert)
                     .task { await viewModel.loadIfNeeded() }
+                    .onDisappear { viewModel.cancelSignIn() }
             }
         #endif
 

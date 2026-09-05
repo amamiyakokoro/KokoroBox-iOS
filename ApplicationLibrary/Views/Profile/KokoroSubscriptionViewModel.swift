@@ -20,7 +20,8 @@
         @Published var profileAutoUpdate = true
         @Published var profileUpdateHours = 1
 
-        private let authenticator = KokoroWebAuthenticator()
+        private let authenticator = KokoroWebAuthenticator.shared
+        private var signInTask: Task<Void, Error>?
         private var didLoad = false
 
         var protocolOptions: [KokoroProtocolOption] {
@@ -62,17 +63,24 @@
         }
 
         func signIn() async {
+            guard signInTask == nil else { return }
             isLoading = true
-            defer { isLoading = false }
+            defer { isLoading = false; signInTask = nil }
             do {
-                try await authenticator.signIn()
+                let task = Task { try await authenticator.signIn() }
+                signInTask = task
+                try await task.value
                 try await fetchAccountAndOptions()
+            } catch is CancellationError {
+                return
             } catch {
                 alert = AlertState(
                     errorMessage: "\(String(localized: "Failed to sign in to Kokoro"))\n\(error.localizedDescription)"
                 )
             }
         }
+
+        func cancelSignIn() { signInTask?.cancel() }
 
         func signOut() async {
             isLoading = true

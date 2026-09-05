@@ -23,6 +23,9 @@
 			</array>
 		</dict>
 	</array>
+	<!-- Keep the in-memory OAuth transaction in the original application instance. -->
+	<key>LSMultipleInstancesProhibited</key>
+	<true/>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

@@ -1,141 +1,149 @@
 #if !os(tvOS)
     import AuthenticationServices
     import Foundation
-    import Library
-    import Security
+    #if SWIFT_PACKAGE
+        import KokoroAuth
+    #else
+        import Library
+    #endif
     #if os(iOS)
         import UIKit
     #elseif os(macOS)
         import AppKit
     #endif
 
-    enum KokoroAuthenticationError: LocalizedError {
-        case alreadyInProgress
-        case couldNotStart
-        case invalidCallback
-        case stateMismatch
-        case accessDenied
-        case server(String)
-
-        var errorDescription: String? {
-            switch self {
-            case .alreadyInProgress:
-                return String(localized: "A Kokoro sign-in is already in progress.")
-            case .couldNotStart:
-                return String(localized: "Could not open the Kokoro sign-in page.")
-            case .invalidCallback:
-                return String(localized: "Kokoro returned an invalid sign-in callback.")
-            case .stateMismatch:
-                return String(localized: "Kokoro sign-in could not be verified. Please try again.")
-            case .accessDenied:
-                return String(localized: "Kokoro sign-in was denied or this account is not authorized.")
-            case let .server(message):
-                return String(localized: "Kokoro sign-in failed: \(message)")
-            }
-        }
+    @MainActor
+    protocol KokoroBrowserSession: AnyObject {
+        var presentationContextProvider: (any ASWebAuthenticationPresentationContextProviding)? { get set }
+        var prefersEphemeralWebBrowserSession: Bool { get set }
+        func start() -> Bool
+        func cancel()
     }
 
-    @MainActor
-    final class KokoroWebAuthenticator: NSObject, ASWebAuthenticationPresentationContextProviding {
-        private var authenticationSession: ASWebAuthenticationSession?
+    extension ASWebAuthenticationSession: KokoroBrowserSession {}
 
-        func signIn() async throws {
-            guard authenticationSession == nil else {
-                throw KokoroAuthenticationError.alreadyInProgress
-            }
-            let state = try Self.randomState()
-            let loginURL = try KokoroAPI.loginURL(state: state)
-            let callbackURL = try await callback(from: loginURL)
-            let code = try Self.authorizationCode(from: callbackURL, expectedState: state)
-            try await KokoroSession.shared.exchangeAuthorizationCode(code)
+    @MainActor
+    public final class KokoroWebAuthenticator: NSObject, ASWebAuthenticationPresentationContextProviding {
+        public static let shared = KokoroWebAuthenticator()
+        private var authenticationSession: (any KokoroBrowserSession)?
+        private var transaction = KokoroLoginTransaction()
+        private var activeID: UUID?
+        private var continuation: CheckedContinuation<KokoroAuthorization, Error>?
+        private var expiryTask: Task<Void, Never>?
+        private let makeSession: (URL, @escaping (URL?, Error?) -> Void) -> any KokoroBrowserSession
+        private let exchange: (KokoroAuthorization) async throws -> Void
+        private let lifetimeNanoseconds: UInt64
+
+        init(
+            makeSession: @escaping (URL, @escaping (URL?, Error?) -> Void) -> any KokoroBrowserSession = {
+                ASWebAuthenticationSession(url: $0, callbackURLScheme: "kokoro", completionHandler: $1)
+            },
+            exchange: @escaping (KokoroAuthorization) async throws -> Void = {
+                try await KokoroSession.shared.exchangeAuthorizationCode($0)
+            },
+            lifetimeNanoseconds: UInt64 = UInt64(KokoroPendingLogin.lifetime * 1_000_000_000)
+        ) {
+            self.makeSession = makeSession
+            self.exchange = exchange
+            self.lifetimeNanoseconds = lifetimeNanoseconds
+            super.init()
         }
 
-        private func callback(from loginURL: URL) async throws -> URL {
+        func signIn() async throws {
+            guard activeID == nil else { throw KokoroAuthenticationError.alreadyInProgress }
+            try Task.checkCancellation()
+            let id = UUID()
+            let login = try transaction.begin()
+            activeID = id
+            defer { cleanup(id: id) }
+            let loginURL = try login.loginURL()
+            try await withTaskCancellationHandler {
+                let authorization = try await callback(from: loginURL, id: id)
+                try Task.checkCancellation()
+                try await exchange(authorization)
+            } onCancel: {
+                Task { @MainActor in
+                    self.finish(.failure(CancellationError()), id: id)
+                }
+            }
+        }
+
+        /// Called by both warm and cold onOpenURL delivery, before profile import/error handling.
+        /// After a process restart there is no verifier; reject and ask for a new login.
+        @discardableResult
+        public func handleCallback(_ url: URL) -> Bool {
+            guard url.scheme?.lowercased() == "kokoro" else { return false }
+            guard let id = activeID, continuation != nil else { return false }
+            receive(url, id: id)
+            return true
+        }
+
+        private func receive(_ url: URL, id: UUID) {
+            guard activeID == id, continuation != nil else { return }
+            do {
+                finish(.success(try transaction.consume(url)), id: id)
+            } catch {
+                finish(.failure(error), id: id)
+            }
+        }
+
+        private func callback(from loginURL: URL, id: UUID) async throws -> KokoroAuthorization {
             try await withCheckedThrowingContinuation { continuation in
-                let session = ASWebAuthenticationSession(url: loginURL, callbackURLScheme: "kokoro") { [weak self] callbackURL, error in
+                self.continuation = continuation
+                let session = makeSession(loginURL) { [weak self] url, error in
                     Task { @MainActor in
-                        self?.authenticationSession = nil
+                        guard let self else { return }
                         if let error {
-                            continuation.resume(throwing: error)
-                        } else if let callbackURL {
-                            continuation.resume(returning: callbackURL)
+                            let cancelled = (error as? ASWebAuthenticationSessionError)?.code == .canceledLogin
+                            self.finish(.failure(cancelled ? CancellationError() : KokoroAuthenticationError.couldNotStart), id: id)
+                        } else if let url {
+                            self.receive(url, id: id)
                         } else {
-                            continuation.resume(throwing: KokoroAuthenticationError.invalidCallback)
+                            self.finish(.failure(KokoroAuthenticationError.invalidCallback), id: id)
                         }
                     }
                 }
                 session.presentationContextProvider = self
                 session.prefersEphemeralWebBrowserSession = false
                 authenticationSession = session
+                expiryTask = Task { [weak self] in
+                    do { try await Task.sleep(nanoseconds: self?.lifetimeNanoseconds ?? 0) }
+                    catch { return }
+                    self?.finish(.failure(KokoroAuthenticationError.expired), id: id)
+                }
                 if !session.start() {
-                    authenticationSession = nil
-                    continuation.resume(throwing: KokoroAuthenticationError.couldNotStart)
+                    finish(.failure(KokoroAuthenticationError.couldNotStart), id: id)
                 }
             }
         }
 
-        func presentationAnchor(for _: ASWebAuthenticationSession) -> ASPresentationAnchor {
+        private func finish(_ result: Result<KokoroAuthorization, Error>, id: UUID) {
+            guard activeID == id, let continuation else { return }
+            self.continuation = nil
+            transaction.cancel()
+            expiryTask?.cancel()
+            expiryTask = nil
+            let session = authenticationSession
+            authenticationSession = nil
+            session?.cancel()
+            continuation.resume(with: result)
+        }
+
+        private func cleanup(id: UUID) {
+            guard activeID == id else { return }
+            finish(.failure(CancellationError()), id: id)
+            transaction.cancel()
+            activeID = nil
+        }
+
+        public func presentationAnchor(for _: ASWebAuthenticationSession) -> ASPresentationAnchor {
             #if os(iOS)
                 let scenes = UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }
-                if let window = scenes.flatMap(\.windows).first(where: \.isKeyWindow) ?? scenes.flatMap(\.windows).first {
-                    return window
-                }
-                return ASPresentationAnchor()
+                return scenes.flatMap(\.windows).first(where: \.isKeyWindow)
+                    ?? scenes.flatMap(\.windows).first ?? ASPresentationAnchor()
             #elseif os(macOS)
                 return NSApplication.shared.keyWindow ?? NSApplication.shared.windows.first ?? ASPresentationAnchor()
             #endif
-        }
-
-        private static func authorizationCode(from callbackURL: URL, expectedState: String) throws -> String {
-            guard callbackURL.scheme?.lowercased() == "kokoro",
-                  callbackURL.host?.lowercased() == "oauth",
-                  callbackURL.path == "/callback",
-                  let components = URLComponents(url: callbackURL, resolvingAgainstBaseURL: false)
-            else {
-                throw KokoroAuthenticationError.invalidCallback
-            }
-
-            let states = components.queryItems?.filter { $0.name == "state" }.compactMap(\.value) ?? []
-            guard states.count == 1, constantTimeEqual(states[0], expectedState) else {
-                throw KokoroAuthenticationError.stateMismatch
-            }
-
-            if let error = components.queryItems?.first(where: { $0.name == "error" })?.value {
-                if error == "access_denied" {
-                    throw KokoroAuthenticationError.accessDenied
-                }
-                throw KokoroAuthenticationError.server(error)
-            }
-
-            let codes = components.queryItems?.filter { $0.name == "code" }.compactMap(\.value) ?? []
-            guard codes.count == 1, !codes[0].isEmpty else {
-                throw KokoroAuthenticationError.invalidCallback
-            }
-            return codes[0]
-        }
-
-        private static func randomState() throws -> String {
-            var bytes = [UInt8](repeating: 0, count: 32)
-            let status = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
-            guard status == errSecSuccess else {
-                throw KokoroAPIError.keychain(status: status)
-            }
-            return Data(bytes).base64EncodedString()
-                .replacingOccurrences(of: "+", with: "-")
-                .replacingOccurrences(of: "/", with: "_")
-                .replacingOccurrences(of: "=", with: "")
-        }
-
-        private static func constantTimeEqual(_ lhs: String, _ rhs: String) -> Bool {
-            let lhsBytes = Array(lhs.utf8)
-            let rhsBytes = Array(rhs.utf8)
-            var difference = lhsBytes.count ^ rhsBytes.count
-            for index in 0 ..< max(lhsBytes.count, rhsBytes.count) {
-                let lhsByte = index < lhsBytes.count ? lhsBytes[index] : 0
-                let rhsByte = index < rhsBytes.count ? rhsBytes[index] : 0
-                difference |= Int(lhsByte ^ rhsByte)
-            }
-            return difference == 0
         }
     }
 #endif

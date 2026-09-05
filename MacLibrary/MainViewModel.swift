@@ -41,6 +41,12 @@ public class MainViewModel: BaseViewModel {
     }
 
     public func openURL(_ url: URL, environments: ExtensionEnvironments) {
+        if url.scheme?.lowercased() == "kokoro" {
+            if !KokoroWebAuthenticator.shared.handleCallback(url) {
+                alert = AlertState(errorMessage: String(localized: "Sign in to Kokoro again to continue."))
+            }
+            return
+        }
         if url.schemeAction == "taildrop" {
             environments.pendingTaildropEndpointTag = url.schemeQueryValue("endpoint") ?? ""
             selection = .tools

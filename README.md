@@ -44,6 +44,8 @@ Access tokens, refresh tokens, subscription credentials, and complete subscripti
 
 ## Build from source
 
+Client maintainers: see the [Kokoro OAuth integration and verification guide](docs/kokoro-oauth.md) for PKCE S256 and callback handling.
+
 ### Requirements
 
 - A recent Xcode release with the required platform SDKs

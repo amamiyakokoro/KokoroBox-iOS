@@ -172,11 +172,13 @@ public enum KokoroAPI {
         return encoder
     }()
 
-    public static func loginURL(state: String) throws -> URL {
+    static func loginURL(state: String, codeChallenge: String) throws -> URL {
         var components = URLComponents(url: endpoint("app/auth/login"), resolvingAgainstBaseURL: false)
         components?.queryItems = [
             URLQueryItem(name: "redirect_uri", value: redirectURI),
             URLQueryItem(name: "state", value: state),
+            URLQueryItem(name: "code_challenge", value: codeChallenge),
+            URLQueryItem(name: "code_challenge_method", value: "S256"),
         ]
         guard let url = components?.url else {
             throw KokoroAPIError.invalidResponse
@@ -263,7 +265,7 @@ public enum KokoroAPI {
 public actor KokoroSession {
     public static let shared = KokoroSession()
 
-    private struct Credentials: Codable, Sendable {
+    struct Credentials: Codable, Sendable {
         let accessToken: String
         let accessTokenExpiresAt: Date
         let refreshToken: String
@@ -274,6 +276,7 @@ public actor KokoroSession {
         let grantType: String
         let code: String?
         let redirectURI: String?
+        let codeVerifier: String?
         let refreshToken: String?
     }
 
@@ -298,19 +301,45 @@ public actor KokoroSession {
     private var credentials: Credentials?
     private var didLoadCredentials = false
     private var refreshTask: Task<Credentials, Error>?
+    private var generation = UUID()
+    private let transport: (URLRequest) async throws -> (Data, HTTPURLResponse)
+    private let load: () throws -> Credentials?
+    private let save: (Credentials) throws -> Void
+    private let delete: () -> Void
+
+    private init() {
+        transport = Self.perform
+        load = { try KeychainStore.load(Credentials.self) }
+        save = { try KeychainStore.save($0) }
+        delete = { KeychainStore.delete() }
+    }
+
+    // Internal dependency seams let tests exercise the real session without real credentials/network.
+    init(transport: @escaping (URLRequest) async throws -> (Data, HTTPURLResponse),
+         load: @escaping () throws -> Credentials?, save: @escaping (Credentials) throws -> Void,
+         delete: @escaping () -> Void) {
+        self.transport = transport
+        self.load = load
+        self.save = save
+        self.delete = delete
+    }
 
     public func hasSession() -> Bool {
         loadCredentialsIfNeeded()
         return credentials != nil
     }
 
-    public func exchangeAuthorizationCode(_ code: String) async throws {
-        let tokenResponse = try await Self.requestToken(TokenRequest(
+    public func exchangeAuthorizationCode(_ authorization: KokoroAuthorization) async throws {
+        let expectedGeneration = generation
+        let tokenResponse = try await requestToken(TokenRequest(
             grantType: "authorization_code",
-            code: code,
-            redirectURI: KokoroAPI.redirectURI,
+            code: authorization.code,
+            redirectURI: authorization.redirectURI,
+            codeVerifier: authorization.codeVerifier,
             refreshToken: nil
         ))
+        try Task.checkCancellation()
+        guard generation == expectedGeneration else { throw KokoroAPIError.noSession }
         try replaceCredentials(with: tokenResponse)
     }
 
@@ -321,12 +350,12 @@ public actor KokoroSession {
         let accessToken = try await validAccessToken()
         var request = originalRequest
         request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
-        var result = try await Self.perform(request)
+        var result = try await transport(request)
 
         if result.1.statusCode == 401 {
             let refreshed = try await credentialsAfterUnauthorized(rejectedAccessToken: accessToken)
             request.setValue("Bearer \(refreshed.accessToken)", forHTTPHeaderField: "Authorization")
-            result = try await Self.perform(request)
+            result = try await transport(request)
             if result.1.statusCode == 401 {
                 clearCredentials()
             }
@@ -338,14 +367,15 @@ public actor KokoroSession {
 
     public func revoke() async {
         loadCredentialsIfNeeded()
-        defer { clearCredentials() }
-        guard let credentials else { return }
+        let previousCredentials = credentials
+        clearCredentials()
+        guard let credentials = previousCredentials else { return }
 
         var request = URLRequest(url: KokoroAPI.endpoint("app/auth/revoke"))
         request.httpMethod = "POST"
         request.timeoutInterval = 30
         request.setValue("Bearer \(credentials.accessToken)", forHTTPHeaderField: "Authorization")
-        _ = try? await Self.perform(request)
+        _ = try? await transport(request)
     }
 
     private func validAccessToken() async throws -> String {
@@ -387,25 +417,32 @@ public actor KokoroSession {
         }
 
         let currentRefreshToken = credentials.refreshToken
+        let expectedGeneration = generation
         let task = Task {
-            let response = try await Self.requestToken(TokenRequest(
+            let response = try await self.requestToken(TokenRequest(
                 grantType: "refresh_token",
                 code: nil,
                 redirectURI: nil,
+                codeVerifier: nil,
                 refreshToken: currentRefreshToken
             ))
-            return Self.credentials(from: response)
+            try Task.checkCancellation()
+            guard self.generation == expectedGeneration else { throw KokoroAPIError.noSession }
+            let refreshed = Self.credentials(from: response)
+            // The shared task completes only after the entire credential pair is persisted.
+            try self.save(refreshed)
+            self.credentials = refreshed
+            return refreshed
         }
         refreshTask = task
         do {
             let refreshed = try await task.value
-            try KeychainStore.save(refreshed)
-            self.credentials = refreshed
-            refreshTask = nil
+            if generation == expectedGeneration { refreshTask = nil }
             return refreshed
         } catch {
-            refreshTask = nil
-            if case let KokoroAPIError.http(status, _) = error, status == 401 {
+            if generation == expectedGeneration { refreshTask = nil }
+            if generation == expectedGeneration,
+               case let KokoroAPIError.http(status, _) = error, status == 401 {
                 clearCredentials()
             }
             throw error
@@ -414,7 +451,10 @@ public actor KokoroSession {
 
     private func replaceCredentials(with response: TokenResponse) throws {
         let credentials = Self.credentials(from: response)
-        try KeychainStore.save(credentials)
+        try save(credentials)
+        generation = UUID()
+        refreshTask?.cancel()
+        refreshTask = nil
         self.credentials = credentials
         didLoadCredentials = true
     }
@@ -432,50 +472,64 @@ public actor KokoroSession {
         guard !didLoadCredentials else { return }
         didLoadCredentials = true
         do {
-            credentials = try KeychainStore.load(Credentials.self)
+            credentials = try load()
         } catch {
-            KeychainStore.delete()
+            delete()
             credentials = nil
         }
     }
 
     private func clearCredentials() {
+        generation = UUID()
         credentials = nil
         refreshTask?.cancel()
         refreshTask = nil
         didLoadCredentials = true
-        KeychainStore.delete()
+        delete()
     }
 
-    private static func requestToken(_ tokenRequest: TokenRequest) async throws -> TokenResponse {
+    private func requestToken(_ tokenRequest: TokenRequest) async throws -> TokenResponse {
         var request = URLRequest(url: KokoroAPI.endpoint("app/auth/token"))
         request.httpMethod = "POST"
         request.timeoutInterval = 30
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = try encoder.encode(tokenRequest)
-        let result = try await perform(request)
-        try validate(result)
+        request.httpBody = try Self.encoder.encode(tokenRequest)
+        let result = try await transport(request)
+        try Self.validate(result, includeDetail: false)
         do {
-            return try decoder.decode(TokenResponse.self, from: result.0)
+            return try Self.decoder.decode(TokenResponse.self, from: result.0)
         } catch {
             throw KokoroAPIError.invalidResponse
         }
     }
 
     private static func perform(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
-        let (data, response) = try await URLSession.shared.data(
-            for: request,
-            delegate: KokoroURLSessionDelegate.shared
-        )
+        let data: Data
+        let response: URLResponse
+        do {
+            (data, response) = try await urlSession.data(for: request, delegate: KokoroURLSessionDelegate.shared)
+        } catch {
+            // URLSession NSError.userInfo can contain a full failing URL.
+            if error is CancellationError || (error as? URLError)?.code == .cancelled { throw CancellationError() }
+            throw KokoroAPIError.invalidResponse
+        }
         guard let response = response as? HTTPURLResponse else {
             throw KokoroAPIError.invalidResponse
         }
         return (data, response)
     }
 
-    private static func validate(_ result: (Data, HTTPURLResponse)) throws {
+    private static let urlSession: URLSession = {
+        let config = URLSessionConfiguration.ephemeral
+        config.urlCache = nil
+        config.httpCookieStorage = nil
+        config.urlCredentialStorage = nil
+        return URLSession(configuration: config)
+    }()
+
+    private static func validate(_ result: (Data, HTTPURLResponse), includeDetail: Bool = true) throws {
         guard (200 ..< 300).contains(result.1.statusCode) else {
-            throw KokoroAPIError.http(status: result.1.statusCode, detail: errorDetail(from: result.0))
+            throw KokoroAPIError.http(status: result.1.statusCode, detail: includeDetail ? errorDetail(from: result.0) : nil)
         }
     }
 
