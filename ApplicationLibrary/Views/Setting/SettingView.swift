@@ -188,10 +188,10 @@ public struct SettingView: View {
     public var body: some View {
         FormView {
             Section {
-                Tabs.app.navigationLink
                 #if !os(tvOS)
                     Tabs.kokoroSettings.navigationLink
                 #endif
+                Tabs.app.navigationLink
                 Tabs.core.navigationLink
                 #if !os(tvOS)
                     Tabs.packetTunnel.navigationLink
