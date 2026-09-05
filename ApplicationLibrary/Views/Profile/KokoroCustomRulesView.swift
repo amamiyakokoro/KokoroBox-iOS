@@ -94,11 +94,6 @@
 
         @ToolbarContentBuilder
         private var rulesToolbarContent: some ToolbarContent {
-            #if os(iOS)
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton().disabled(viewModel.rules.isEmpty)
-                }
-            #endif
             #if os(macOS)
                 ToolbarItem(placement: .automatic) {
                     Button {
@@ -181,6 +176,10 @@
                 HStack {
                     Text("Rules")
                     Spacer()
+                    #if os(iOS)
+                        EditButton()
+                            .disabled(viewModel.rules.isEmpty)
+                    #endif
                     Button {
                         isAddingRule = true
                     } label: {
