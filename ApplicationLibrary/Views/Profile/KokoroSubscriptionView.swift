@@ -167,11 +167,20 @@
                 Section("Updates") {
                     Toggle("Update Rule Providers", isOn: $viewModel.ruleProviderAutoUpdate)
                     Toggle("Update Profile Automatically", isOn: $viewModel.profileAutoUpdate)
-                    FormItem(String(localized: "Profile Update Interval")) {
+                    // Keep the title out of the stepper's horizontal layout so
+                    // long translations and larger text do not squeeze the value.
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Profile Update Interval")
+                            .fixedSize(horizontal: false, vertical: true)
                         Stepper(value: $viewModel.profileUpdateHours, in: viewModel.profileUpdateRange) {
                             Text("\(viewModel.profileUpdateHours) hours")
                                 .monospacedDigit()
+                                .foregroundStyle(.secondary)
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.75)
                         }
+                        .accessibilityLabel(Text("Profile Update Interval"))
+                        .accessibilityValue(Text("\(viewModel.profileUpdateHours) hours"))
                     }
                 }
             }
