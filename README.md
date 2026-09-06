@@ -6,7 +6,7 @@
 
 Native sing-box client for Apple platforms with Kokoro integration.
 
-**Client:** 1.14.4 (5) · **Core:** 1.15.0-alpha.2-kokoro
+**Client:** 1.14.4 (6) · **Core:** 1.15.0-alpha.2-kokoro
 
 </div>
 
