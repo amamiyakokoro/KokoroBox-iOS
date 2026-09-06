@@ -2,7 +2,7 @@ import Foundation
 import Libbox
 
 public class HTTPClient {
-    private static var userAgent: String {
+    public static var defaultUserAgent: String {
         var userAgent = Variant.applicationName
         userAgent += " (sing-box "
         userAgent += LibboxVersion()
@@ -19,12 +19,12 @@ public class HTTPClient {
         client.modernTLS()
     }
 
-    public func getString(_ url: String?, headers: [String: String] = [:]) throws -> String {
+    public func getString(_ url: String?, headers: [String: String] = [:], userAgent: String? = nil) throws -> String {
         #if DEBUG
             precondition(!Thread.isMainThread, "HTTPClient.getString(...) must not be called on the main thread")
         #endif
         let request = client.newRequest()!
-        request.setUserAgent(HTTPClient.userAgent)
+        request.setUserAgent(try HTTPUserAgent.normalizeCustom(userAgent) ?? HTTPClient.defaultUserAgent)
         for (key, value) in headers {
             request.setHeader(key, value: value)
         }
@@ -34,22 +34,22 @@ public class HTTPClient {
         return content.value
     }
 
-    public func getStringAsync(_ url: String?) async throws -> String {
-        try await Self.getStringAsync(url)
+    public func getStringAsync(_ url: String?, userAgent: String? = nil) async throws -> String {
+        try await Self.getStringAsync(url, userAgent: userAgent)
     }
 
-    public static func getStringAsync(_ url: String?) async throws -> String {
+    public static func getStringAsync(_ url: String?, userAgent: String? = nil) async throws -> String {
         try await BlockingIO.run {
-            try HTTPClient().getString(url)
+            try HTTPClient().getString(url, userAgent: userAgent)
         }
     }
 
-    public func writeTo(_ url: String?, path: String, progress: ((Int64, Int64) -> Void)? = nil) throws {
+    public func writeTo(_ url: String?, path: String, userAgent: String? = nil, progress: ((Int64, Int64) -> Void)? = nil) throws {
         #if DEBUG
             precondition(!Thread.isMainThread, "HTTPClient.writeTo(...) must not be called on the main thread")
         #endif
         let request = client.newRequest()!
-        request.setUserAgent(HTTPClient.userAgent)
+        request.setUserAgent(try HTTPUserAgent.normalizeCustom(userAgent) ?? HTTPClient.defaultUserAgent)
         try request.setURL(url)
         let response = try request.execute()
         if let progress {
@@ -60,9 +60,9 @@ public class HTTPClient {
         }
     }
 
-    public static func writeToAsync(_ url: String?, path: String, progress: ((Int64, Int64) -> Void)? = nil) async throws {
+    public static func writeToAsync(_ url: String?, path: String, userAgent: String? = nil, progress: ((Int64, Int64) -> Void)? = nil) async throws {
         try await BlockingIO.run {
-            try HTTPClient().writeTo(url, path: path, progress: progress)
+            try HTTPClient().writeTo(url, path: path, userAgent: userAgent, progress: progress)
         }
     }
 

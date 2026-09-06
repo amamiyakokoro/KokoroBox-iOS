@@ -15,9 +15,10 @@ public class Profile: Record, Identifiable, ObservableObject {
     @Published public var remoteURL: String?
     @Published public var autoUpdate: Bool
     @Published public var autoUpdateInterval: Int32
+    @Published public var userAgent: String
     public var lastUpdated: Date?
 
-    public init(id: Int64? = nil, name: String, order: UInt32 = 0, type: ProfileType, path: String, remoteURL: String? = nil, autoUpdate: Bool = false, autoUpdateInterval: Int32 = 0, lastUpdated: Date? = nil) {
+    public init(id: Int64? = nil, name: String, order: UInt32 = 0, type: ProfileType, path: String, remoteURL: String? = nil, autoUpdate: Bool = false, autoUpdateInterval: Int32 = 0, userAgent: String = "", lastUpdated: Date? = nil) {
         self.id = id
         self.name = name
         self.order = order
@@ -26,6 +27,7 @@ public class Profile: Record, Identifiable, ObservableObject {
         self.remoteURL = remoteURL
         self.autoUpdate = autoUpdate
         self.autoUpdateInterval = autoUpdateInterval
+        self.userAgent = userAgent
         self.lastUpdated = lastUpdated
         super.init()
     }
@@ -47,6 +49,7 @@ public class Profile: Record, Identifiable, ObservableObject {
         remoteURL = row[Columns.remoteURL] ?? ""
         autoUpdate = row[Columns.autoUpdate] ?? false
         autoUpdateInterval = row[Columns.autoUpdateInterval] ?? 0
+        userAgent = row[Columns.userAgent] ?? ""
         lastUpdated = row[Columns.lastUpdated] ?? Date()
         try super.init(row: row)
     }
@@ -60,6 +63,7 @@ public class Profile: Record, Identifiable, ObservableObject {
         container[Columns.remoteURL] = remoteURL
         container[Columns.autoUpdate] = autoUpdate
         container[Columns.autoUpdateInterval] = autoUpdateInterval
+        container[Columns.userAgent] = userAgent
         container[Columns.lastUpdated] = lastUpdated
     }
 
@@ -78,6 +82,7 @@ public struct ProfilePreview: Identifiable, Hashable {
     public let remoteURL: String?
     public let autoUpdate: Bool
     public let autoUpdateInterval: Int32
+    public let userAgent: String
     public let lastUpdated: Date?
     public let origin: Profile
 
@@ -90,6 +95,7 @@ public struct ProfilePreview: Identifiable, Hashable {
         remoteURL = profile.remoteURL
         autoUpdate = profile.autoUpdate
         autoUpdateInterval = profile.autoUpdateInterval
+        userAgent = profile.userAgent
         lastUpdated = profile.lastUpdated
         origin = profile
     }

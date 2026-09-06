@@ -47,6 +47,10 @@ public struct EditProfileView: View {
                             .keyboardType(.URL)
                         #endif
                     }
+                    FormItem(String(localized: "User-Agent")) {
+                        TextField("Use app default", text: $profile.userAgent)
+                            .multilineTextAlignment(.trailing)
+                    }
                     Toggle("Auto Update", isOn: $profile.autoUpdate)
                     FormItem(String(localized: "Auto Update Interval")) {
                         TextField("Auto Update Interval", text: $profile.autoUpdateInterval.stringBinding(defaultValue: 60), prompt: Text("In Minutes"))
@@ -94,6 +98,9 @@ public struct EditProfileView: View {
             .onChangeCompat(of: profile.remoteURL) {
                 viewModel.markAsChanged()
             }
+            .onChangeCompat(of: profile.userAgent) {
+                viewModel.markAsChanged()
+            }
             .onChangeCompat(of: profile.autoUpdate) {
                 viewModel.markAsChanged()
             }
@@ -107,6 +114,9 @@ public struct EditProfileView: View {
                     viewModel.markAsChanged()
                 }
                 .onChangeCompat(of: profile.remoteURL) {
+                    viewModel.markAsChanged()
+                }
+                .onChangeCompat(of: profile.userAgent) {
                     viewModel.markAsChanged()
                 }
                 .onChangeCompat(of: profile.autoUpdate) {

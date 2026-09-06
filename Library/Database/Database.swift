@@ -78,6 +78,11 @@ enum Database {
                     t.column("secret", .text).notNull().defaults(to: "")
                 }
             }
+            migrator.registerMigration("add_profile_user_agent") { db in
+                try db.alter(table: "profiles") { t in
+                    t.add(column: "userAgent", .text).notNull().defaults(to: "")
+                }
+            }
             try migrator.migrate(database)
             return database
         } catch {

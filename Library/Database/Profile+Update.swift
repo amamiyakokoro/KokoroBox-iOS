@@ -10,9 +10,9 @@ public extension Profile {
         let url = remoteURL
         let remoteContent: String
         if let url, KokoroAPI.isAuthenticatedConfigurationURL(url) {
-            remoteContent = try await KokoroAPI.downloadConfiguration(from: url)
+            remoteContent = try await KokoroAPI.downloadConfiguration(from: url, userAgent: userAgent)
         } else {
-            remoteContent = try await HTTPClient.getStringAsync(url)
+            remoteContent = try await HTTPClient.getStringAsync(url, userAgent: userAgent)
         }
         try await BlockingIO.run {
             var error: NSError?

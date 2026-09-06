@@ -9158,6 +9158,22 @@
         }
       }
     },
+    "Use app default" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用 App 默认值"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用 App 預設值"
+          }
+        }
+      }
+    },
     "Use Remote Version" : {
       "localizations" : {
         "zh-Hans" : {
@@ -9186,6 +9202,55 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "使用 + 按鈕共享此 Mac 上的本機 USB 裝置。"
+          }
+        }
+      }
+    },
+    "User-Agent" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "User-Agent"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "User-Agent"
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
+    "User-Agent cannot contain control characters or line breaks." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "User-Agent 不能包含控制字符或换行。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "User-Agent 不能包含控制字元或換行。"
+          }
+        }
+      }
+    },
+    "User-Agent must be 512 characters or fewer." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "User-Agent 不得超过 512 个字符。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "User-Agent 不得超過 512 個字元。"
           }
         }
       }

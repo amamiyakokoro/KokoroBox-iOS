@@ -216,13 +216,16 @@ public enum KokoroAPI {
         return try await decodeAuthorized(KokoroResolvedSubscription.self, request: request)
     }
 
-    public static func downloadConfiguration(from urlString: String) async throws -> String {
+    public static func downloadConfiguration(from urlString: String, userAgent: String? = nil) async throws -> String {
         guard isAuthenticatedConfigurationURL(urlString), let url = URL(string: urlString) else {
             throw KokoroAPIError.invalidConfigurationURL
         }
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.timeoutInterval = 30
+        if let userAgent = try HTTPUserAgent.normalizeCustom(userAgent) {
+            request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
+        }
         let (data, response) = try await KokoroSession.shared.authorizedData(for: request)
         let contentType = response.value(forHTTPHeaderField: "Content-Type")?.lowercased() ?? ""
         guard contentType.hasPrefix("application/json") else {

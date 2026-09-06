@@ -38,6 +38,7 @@ public final class EditProfileViewModel: BaseViewModel {
 
     public func saveProfile(_ profile: Profile, environments: ExtensionEnvironments) async {
         do {
+            profile.userAgent = try HTTPUserAgent.normalizeCustom(profile.userAgent) ?? ""
             _ = try await ProfileManager.update(profile)
             #if os(iOS) || os(tvOS)
                 try UIProfileUpdateTask.configure()

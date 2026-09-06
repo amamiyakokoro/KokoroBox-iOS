@@ -118,6 +118,10 @@ public struct NewProfileView: View {
                             .keyboardType(.URL)
                         #endif
                     }
+                    FormItem(String(localized: "User-Agent")) {
+                        TextField("Use app default", text: $viewModel.userAgent)
+                            .multilineTextAlignment(.trailing)
+                    }
                     Toggle("Auto Update", isOn: $viewModel.autoUpdate)
                     FormItem(String(localized: "Auto Update Interval")) {
                         TextField("Auto Update Interval", text: $viewModel.autoUpdateInterval.stringBinding(defaultValue: 60), prompt: Text("In Minutes"))

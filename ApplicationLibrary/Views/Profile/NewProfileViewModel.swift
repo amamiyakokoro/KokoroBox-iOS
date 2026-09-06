@@ -18,6 +18,7 @@ public final class NewProfileViewModel: BaseViewModel {
     @Published public var remotePath = ""
     @Published public var autoUpdate = true
     @Published public var autoUpdateInterval: Int32 = 60
+    @Published public var userAgent = ""
     @Published public var pickerPresented = false
 
     public let isImport: Bool
@@ -43,6 +44,7 @@ public final class NewProfileViewModel: BaseViewModel {
         fileImport = false
         fileURL = nil
         remotePath = ""
+        userAgent = ""
     }
 
     public func createProfile(
@@ -104,6 +106,7 @@ public final class NewProfileViewModel: BaseViewModel {
         let remotePath = await remotePath
         let autoUpdate = await autoUpdate
         let autoUpdateInterval = await autoUpdateInterval
+        let userAgent = try HTTPUserAgent.normalizeCustom(await userAgent) ?? ""
 
         if profileType == .local {
             let profileConfigDirectory = FilePath.sharedDirectory.appendingPathComponent("configs", isDirectory: true)
@@ -146,7 +149,7 @@ public final class NewProfileViewModel: BaseViewModel {
             }
             savePath = remotePath
         } else if profileType == .remote {
-            let remoteContent = try await HTTPClient.getStringAsync(remotePath)
+            let remoteContent = try await HTTPClient.getStringAsync(remotePath, userAgent: userAgent)
             try await BlockingIO.run {
                 var error: NSError?
                 LibboxCheckConfig(remoteContent, &error)
@@ -175,6 +178,7 @@ public final class NewProfileViewModel: BaseViewModel {
             remoteURL: remoteURL,
             autoUpdate: autoUpdate,
             autoUpdateInterval: autoUpdateInterval,
+            userAgent: userAgent,
             lastUpdated: lastUpdated
         )
         try await ProfileManager.create(profile)
