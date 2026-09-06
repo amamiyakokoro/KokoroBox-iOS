@@ -10,18 +10,6 @@
             "value" : "Send with Taildrop"
           }
         },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ارسال با Taildrop"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Отправить через Taildrop"
-          }
-        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
