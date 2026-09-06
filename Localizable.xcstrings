@@ -3441,6 +3441,25 @@
         }
       }
     },
+    "Hang" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "卡顿"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "卡頓"
+          }
+        }
+      }
+    },
+    "Hang (Swift)" : {
+      "shouldTranslate" : false
+    },
     "Helper Service" : {
       "localizations" : {
         "zh-Hans" : {
