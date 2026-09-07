@@ -287,7 +287,7 @@ private enum DiagnosticsReader {
             NetworkInterfaceDetails(
                 name: name,
                 addresses: addresses.sorted(),
-                mtu: interfaceMTU(name)
+                mtu: nil
             )
         }
         .sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
@@ -372,22 +372,4 @@ private enum DiagnosticsReader {
         return String(cString: host)
     }
 
-    private static func interfaceMTU(_ name: String) -> Int? {
-        let descriptor = socket(AF_INET, SOCK_DGRAM, 0)
-        guard descriptor >= 0 else { return nil }
-        defer { close(descriptor) }
-
-        var request = ifreq()
-        withUnsafeMutablePointer(to: &request.ifr_name) { destination in
-            name.withCString { source in
-                strncpy(
-                    UnsafeMutableRawPointer(destination).assumingMemoryBound(to: CChar.self),
-                    source,
-                    Int(IFNAMSIZ)
-                )
-            }
-        }
-        guard ioctl(descriptor, UInt(SIOCGIFMTU), &request) == 0 else { return nil }
-        return Int(request.ifr_mtu)
-    }
 }
