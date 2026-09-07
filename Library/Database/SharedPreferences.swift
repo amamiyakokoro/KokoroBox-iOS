@@ -94,9 +94,17 @@ public enum SharedPreferences {
     public static let excludeDefaultRoute = Preference<Bool>("exclude_default_route", defaultValue: false)
     public static let autoRouteUseSubRangesByDefault = Preference<Bool>("auto_route_use_sub_ranges_by_default", defaultValue: false)
     public static let excludeAPNsRoute = Preference<Bool>("exclude_apple_push_notification_services", defaultValue: false)
+    public static let blockChinaICloudMail = Preference<Bool>("block_china_icloud_mail", defaultValue: false)
+    public static let blockQUIC = Preference<Bool>("block_quic", defaultValue: false)
 
     public static func resetProfileOverride() async {
-        try? await batchDelete([excludeDefaultRoute.name, autoRouteUseSubRangesByDefault.name, excludeAPNsRoute.name])
+        try? await batchDelete([
+            excludeDefaultRoute.name,
+            autoRouteUseSubRangesByDefault.name,
+            excludeAPNsRoute.name,
+            blockChinaICloudMail.name,
+            blockQUIC.name,
+        ])
     }
 
     // Connections Filter

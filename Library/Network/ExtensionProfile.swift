@@ -239,7 +239,12 @@ public class ExtensionProfile: ObservableObject {
             ])
         }
 
-        let configContent = try await profile.readAsync()
+        let originalConfigContent = try await profile.readAsync()
+        let configContent = try ProfileConfigurationPatch.applying(
+            to: originalConfigContent,
+            blockChinaICloudMail: await SharedPreferences.blockChinaICloudMail.get(),
+            blockQUIC: await SharedPreferences.blockQUIC.get()
+        )
         options["configContent"] = NSString(string: configContent)
 
         #if os(macOS)

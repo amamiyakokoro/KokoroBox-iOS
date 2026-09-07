@@ -8,6 +8,8 @@ public struct ProfileOverrideView: View {
     @State private var excludeDefaultRoute = false
     @State private var autoRouteUseSubRangesByDefault = false
     @State private var excludeAPNsRoute = false
+    @State private var blockChinaICloudMail = false
+    @State private var blockQUIC = false
 
     public init() {}
     public var body: some View {
@@ -36,6 +38,16 @@ public struct ProfileOverrideView: View {
 
                     FormToggle("Exclude APNs Route", "Append `push.apple.com` to `bypass_domain`, and `17.0.0.0/8` to `route_exclude_address`.", $excludeAPNsRoute) { newValue in
                         await SharedPreferences.excludeAPNsRoute.set(newValue)
+                        await reloadService()
+                    }
+
+                    FormToggle("Block China iCloud Mail", "Insert a `geoip-cn` TCP port 993 reject rule before `sniff`.", $blockChinaICloudMail) { newValue in
+                        await SharedPreferences.blockChinaICloudMail.set(newValue)
+                        await reloadService()
+                    }
+
+                    FormToggle("Block QUIC", "Insert a UDP port 443 reject rule before `sniff`.", $blockQUIC) { newValue in
+                        await SharedPreferences.blockQUIC.set(newValue)
                         await reloadService()
                     }
 
@@ -75,6 +87,8 @@ public struct ProfileOverrideView: View {
         excludeDefaultRoute = await SharedPreferences.excludeDefaultRoute.get()
         autoRouteUseSubRangesByDefault = await SharedPreferences.autoRouteUseSubRangesByDefault.get()
         excludeAPNsRoute = await SharedPreferences.excludeAPNsRoute.get()
+        blockChinaICloudMail = await SharedPreferences.blockChinaICloudMail.get()
+        blockQUIC = await SharedPreferences.blockQUIC.get()
         isLoading = false
     }
 }

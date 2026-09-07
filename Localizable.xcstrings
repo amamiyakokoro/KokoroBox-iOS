@@ -1,6 +1,56 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Block China iCloud Mail" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "屏蔽中国区 iCloud 邮件" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "封鎖中國區 iCloud 郵件" }
+        }
+      }
+    },
+    "Block QUIC" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "屏蔽 QUIC" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "封鎖 QUIC" }
+        }
+      }
+    },
+    "Insert a `geoip-cn` TCP port 993 reject rule before `sniff`." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "在 `sniff` 之前插入 `geoip-cn` 的 TCP 993 拒绝规则。" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "在 `sniff` 之前插入 `geoip-cn` 的 TCP 993 拒絕規則。" }
+        }
+      }
+    },
+    "Insert a UDP port 443 reject rule before `sniff`." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "在 `sniff` 之前插入 UDP 443 拒绝规则。" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "在 `sniff` 之前插入 UDP 443 拒絕規則。" }
+        }
+      }
+    },
+    "The selected profile is not a valid JSON configuration." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "所选配置不是有效的 JSON 配置。" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "所選配置不是有效的 JSON 配置。" }
+        }
+      }
+    },
     "Default Route" : {
       "localizations" : {
         "zh-Hans" : {
