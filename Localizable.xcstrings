@@ -1,6 +1,136 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Default Route" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "默认路由" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "預設路由" }
+        }
+      }
+    },
+    "Diagnostics" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "诊断" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "診斷" }
+        }
+      }
+    },
+    "DNS Servers" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "DNS 服务器" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "DNS 伺服器" }
+        }
+      }
+    },
+    "Gateway" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "网关" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "閘道" }
+        }
+      }
+    },
+    "Local Routes" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "本地路由" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "本機路由" }
+        }
+      }
+    },
+    "Network Information" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "网络信息" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "網絡資訊" }
+        }
+      }
+    },
+    "Network Interfaces" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "网络接口" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "網路介面" }
+        }
+      }
+    },
+    "No active network interfaces." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "没有活动的网络接口。" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "沒有作用中的網路介面。" }
+        }
+      }
+    },
+    "Primary Interface" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "主要接口" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "主要介面" }
+        }
+      }
+    },
+    "Proxy & DNS" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "代理与 DNS" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "代理與 DNS" }
+        }
+      }
+    },
+    "Proxy Settings" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "代理设置" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "代理設定" }
+        }
+      }
+    },
+    "Route Summary" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "路由摘要" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "路由摘要" }
+        }
+      }
+    },
+    "System DNS information is unavailable to sandboxed apps." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "沙盒应用无法读取系统 DNS 信息。" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "沙盒 App 無法讀取系統 DNS 資訊。" }
+        }
+      }
+    },
     "[age](https://github.com/filosottile/age) is a modern and secure asymmetric encryption tool. When enabled, the zip file is encrypted with this project's public key so it can be posted publicly, e.g. in GitHub issues." : {
       "localizations" : {
         "zh-Hans" : {

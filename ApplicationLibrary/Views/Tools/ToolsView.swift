@@ -151,6 +151,11 @@ public struct ToolsView: View {
             // remote control API does not reach.
             if environments.remoteServer == nil {
                 Section("Debug") {
+                    FormNavigationLink {
+                        DiagnosticsView()
+                    } label: {
+                        Label("Diagnostics", systemImage: "stethoscope")
+                    }
                     #if os(iOS)
                         NavigationLink(isActive: $showCrashReportList) {
                             CrashReportListView()
