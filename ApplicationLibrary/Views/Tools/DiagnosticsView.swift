@@ -1,4 +1,3 @@
-import CFNetwork
 import Foundation
 import SwiftUI
 
@@ -6,10 +5,8 @@ import SwiftUI
     import Darwin
 #endif
 #if os(iOS)
+    import CoreLocation
     import NetworkExtension
-#endif
-#if os(macOS)
-    import SystemConfiguration
 #endif
 
 @MainActor
@@ -23,11 +20,6 @@ public struct DiagnosticsView: View {
                     NetworkInterfacesDiagnosticsView()
                 } label: {
                     Label("Network Interfaces", systemImage: "wifi")
-                }
-                FormNavigationLink {
-                    ProxyDNSDiagnosticsView()
-                } label: {
-                    Label("Proxy & DNS", systemImage: "network.badge.shield.half.filled")
                 }
             }
         }
@@ -74,69 +66,36 @@ private struct NetworkInterfacesDiagnosticsView: View {
 }
 
 @MainActor
-private struct ProxyDNSDiagnosticsView: View {
-    @StateObject private var viewModel = ProxyDNSDiagnosticsViewModel()
-
-    var body: some View {
-        FormView {
-            Section("Proxy Settings") {
-                FormTextItem("HTTP", viewModel.proxy.http)
-                FormTextItem("HTTPS", viewModel.proxy.https)
-                FormTextItem("PAC", viewModel.proxy.pac)
-            }
-
-            Section("DNS Servers") {
-                if viewModel.dnsServers.isEmpty {
-                    Text("System DNS information is unavailable to sandboxed apps.")
-                        .foregroundStyle(.secondary)
-                } else {
-                    ForEach(viewModel.dnsServers, id: \.self) { server in
-                        Text(verbatim: server)
-                    }
-                }
-            }
-
-            Section("Action") {
-                FormButton {
-                    viewModel.refresh()
-                } label: {
-                    Label("Refresh", systemImage: "arrow.clockwise")
-                }
-            }
-        }
-        .navigationTitle("Proxy & DNS")
-        .onAppear {
-            viewModel.refresh()
-        }
-    }
-}
-
-@MainActor
 private final class NetworkInterfacesDiagnosticsViewModel: BaseViewModel {
     @Published private(set) var wifi = WiFiDetails.unavailable
     @Published private(set) var interfaces: [NetworkInterfaceDetails] = []
+    #if os(iOS)
+        private let wifiAuthorization = WiFiAuthorizationRequester()
+    #endif
+
+    override init() {
+        super.init()
+        #if os(iOS)
+            wifiAuthorization.onAuthorizationChanged = { [weak self] in
+                Task { await self?.refresh() }
+            }
+        #endif
+    }
 
     func refresh() async {
         guard !isLoading else { return }
         isLoading = true
         defer { isLoading = false }
 
+        #if os(iOS)
+            wifiAuthorization.requestWhenInUseAuthorizationIfNeeded()
+        #endif
         interfaces = DiagnosticsReader.networkInterfaces()
         wifi = await DiagnosticsReader.wifiDetails()
     }
 }
 
 @MainActor
-private final class ProxyDNSDiagnosticsViewModel: ObservableObject {
-    @Published private(set) var proxy = ProxyDetails.unavailable
-    @Published private(set) var dnsServers: [String] = []
-
-    func refresh() {
-        proxy = DiagnosticsReader.proxyDetails()
-        dnsServers = DiagnosticsReader.dnsServers()
-    }
-}
-
 private struct WiFiDetails {
     let ssid: String
     let bssid: String
@@ -159,18 +118,6 @@ private struct NetworkInterfaceDetails: Identifiable {
         guard let mtu else { return addressText }
         return "IP: \(addressText), MTU: \(mtu)"
     }
-}
-
-private struct ProxyDetails {
-    let http: String
-    let https: String
-    let pac: String
-
-    static let unavailable = ProxyDetails(
-        http: String(localized: "Unavailable"),
-        https: String(localized: "Unavailable"),
-        pac: String(localized: "Unavailable")
-    )
 }
 
 @ViewBuilder
@@ -231,41 +178,6 @@ private enum DiagnosticsReader {
         .sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
     }
 
-    static func proxyDetails() -> ProxyDetails {
-        guard let settings = CFNetworkCopySystemProxySettings() as? [String: Any] else {
-            return .unavailable
-        }
-
-        return ProxyDetails(
-            http: proxyDescription(settings, enable: "HTTPEnable", host: "HTTPProxy", port: "HTTPPort"),
-            https: proxyDescription(settings, enable: "HTTPSEnable", host: "HTTPSProxy", port: "HTTPSPort"),
-            pac: automaticProxyDescription(settings)
-        )
-    }
-
-    static func dnsServers() -> [String] {
-        #if os(macOS)
-            guard let store = SCDynamicStoreCreate(nil, "KokoroBox.Diagnostics" as CFString, nil, nil),
-                  let settings = SCDynamicStoreCopyValue(store, "State:/Network/Global/DNS" as CFString) as? [String: Any]
-            else { return [] }
-            return settings["ServerAddresses"] as? [String] ?? []
-        #else
-            return []
-        #endif
-    }
-
-    private static func proxyDescription(_ settings: [String: Any], enable: String, host: String, port: String) -> String {
-        guard (settings[enable] as? NSNumber)?.boolValue == true else { return String(localized: "Disabled") }
-        guard let host = settings[host] as? String, !host.isEmpty else { return String(localized: "Enabled") }
-        guard let port = settings[port] as? NSNumber else { return host }
-        return "\(host):\(port.intValue)"
-    }
-
-    private static func automaticProxyDescription(_ settings: [String: Any]) -> String {
-        guard (settings["ProxyAutoConfigEnable"] as? NSNumber)?.boolValue == true else { return String(localized: "Disabled") }
-        return settings["ProxyAutoConfigURLString"] as? String ?? String(localized: "Enabled")
-    }
-
     private static func numericAddress(_ address: UnsafeMutablePointer<sockaddr>) -> String? {
         let family = Int32(address.pointee.sa_family)
         guard family == AF_INET || family == AF_INET6 else { return nil }
@@ -285,3 +197,27 @@ private enum DiagnosticsReader {
     }
 
 }
+
+#if os(iOS)
+    @MainActor
+    private final class WiFiAuthorizationRequester: NSObject, CLLocationManagerDelegate {
+        private let locationManager = CLLocationManager()
+        var onAuthorizationChanged: (() -> Void)?
+
+        override init() {
+            super.init()
+            locationManager.delegate = self
+        }
+
+        func requestWhenInUseAuthorizationIfNeeded() {
+            guard locationManager.authorizationStatus == .notDetermined else { return }
+            locationManager.requestWhenInUseAuthorization()
+        }
+
+        nonisolated func locationManagerDidChangeAuthorization(_: CLLocationManager) {
+            Task { @MainActor in
+                self.onAuthorizationChanged?()
+            }
+        }
+    }
+#endif

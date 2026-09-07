@@ -77,6 +77,8 @@
 			</dict>
 		</array>
 	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>KokoroBox uses Location permission to show the current Wi-Fi SSID and BSSID in Diagnostics, without reading your location.</string>
 	<key>NSUbiquitousContainers</key>
 	<dict>
 		<key>iCloud.$(BASE_PACKAGE_IDENTIFIER)</key>
