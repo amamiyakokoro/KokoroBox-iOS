@@ -71,6 +71,18 @@ final class KokoroCustomRulesTests: XCTestCase {
         XCTAssertNil(replace.value(forHTTPHeaderField: "Authorization"))
     }
 
+    func testKokoroSubscriptionRequestsUseVersionedClientUserAgent() {
+        XCTAssertEqual(KokoroAPI.subscriptionUserAgent(version: "1.14.4"), "KokoroBox-iOS/1.14.4")
+
+        let request = KokoroAPI.subscriptionRequest(
+            path: "app/subscription/resolve",
+            method: "POST",
+            appVersion: "1.14.4"
+        )
+        XCTAssertRequest(request, method: "POST", path: "/api/app/subscription/resolve")
+        XCTAssertEqual(request.value(forHTTPHeaderField: "User-Agent"), "KokoroBox-iOS/1.14.4")
+    }
+
     func testValidatorAcceptsDynamicOptionsAndValidOrder() throws {
         let rules = [
             KokoroCustomRuleInput(type: "RULE-SET", payload: "geosite-private", target: "REJECT"),

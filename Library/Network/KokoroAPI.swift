@@ -210,7 +210,7 @@ public enum KokoroAPI {
     }
 
     public static func resolveSubscription(_ settings: KokoroResolveRequest) async throws -> KokoroResolvedSubscription {
-        var request = request(path: "app/subscription/resolve", method: "POST")
+        var request = subscriptionRequest(path: "app/subscription/resolve", method: "POST")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try encoder.encode(settings)
         return try await decodeAuthorized(KokoroResolvedSubscription.self, request: request)
@@ -223,9 +223,10 @@ public enum KokoroAPI {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.timeoutInterval = 30
-        if let userAgent = try HTTPUserAgent.normalizeCustom(userAgent) {
-            request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
-        }
+        request.setValue(
+            try HTTPUserAgent.normalizeCustom(userAgent) ?? subscriptionUserAgent(),
+            forHTTPHeaderField: "User-Agent"
+        )
         let (data, response) = try await KokoroSession.shared.authorizedData(for: request)
         let contentType = response.value(forHTTPHeaderField: "Content-Type")?.lowercased() ?? ""
         guard contentType.hasPrefix("application/json") else {
@@ -277,6 +278,17 @@ public enum KokoroAPI {
         request.httpMethod = method
         request.timeoutInterval = 30
         return request
+    }
+
+    static func subscriptionRequest(path: String, method: String = "GET", appVersion: String? = nil) -> URLRequest {
+        var request = request(path: path, method: method)
+        request.setValue(subscriptionUserAgent(version: appVersion), forHTTPHeaderField: "User-Agent")
+        return request
+    }
+
+    static func subscriptionUserAgent(version: String? = nil) -> String {
+        let appVersion = version ?? (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String) ?? "unknown"
+        return "KokoroBox-iOS/\(appVersion)"
     }
 }
 
