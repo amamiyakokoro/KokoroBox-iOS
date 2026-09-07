@@ -29,11 +29,6 @@ public struct DiagnosticsView: View {
                 } label: {
                     Label("Proxy & DNS", systemImage: "network.badge.shield.half.filled")
                 }
-                FormNavigationLink {
-                    RoutingDiagnosticsView()
-                } label: {
-                    Label("Route Summary", systemImage: "point.topleft.down.curvedto.point.bottomright.up")
-                }
             }
         }
         .navigationTitle("Diagnostics")
@@ -117,43 +112,6 @@ private struct ProxyDNSDiagnosticsView: View {
 }
 
 @MainActor
-private struct RoutingDiagnosticsView: View {
-    @StateObject private var viewModel = RoutingDiagnosticsViewModel()
-
-    var body: some View {
-        FormView {
-            Section("Default Route") {
-                FormTextItem("Primary Interface", viewModel.primaryInterface)
-                FormTextItem("Gateway", viewModel.gateway)
-            }
-
-            Section("Local Routes") {
-                if viewModel.interfaces.isEmpty {
-                    Text("No active network interfaces.")
-                        .foregroundStyle(.secondary)
-                } else {
-                    ForEach(viewModel.interfaces) { interface in
-                        diagnosticItem(interface.name, interface.addresses.joined(separator: ", "))
-                    }
-                }
-            }
-
-            Section("Action") {
-                FormButton {
-                    viewModel.refresh()
-                } label: {
-                    Label("Refresh", systemImage: "arrow.clockwise")
-                }
-            }
-        }
-        .navigationTitle("Route Summary")
-        .onAppear {
-            viewModel.refresh()
-        }
-    }
-}
-
-@MainActor
 private final class NetworkInterfacesDiagnosticsViewModel: BaseViewModel {
     @Published private(set) var wifi = WiFiDetails.unavailable
     @Published private(set) var interfaces: [NetworkInterfaceDetails] = []
@@ -176,20 +134,6 @@ private final class ProxyDNSDiagnosticsViewModel: ObservableObject {
     func refresh() {
         proxy = DiagnosticsReader.proxyDetails()
         dnsServers = DiagnosticsReader.dnsServers()
-    }
-}
-
-@MainActor
-private final class RoutingDiagnosticsViewModel: ObservableObject {
-    @Published private(set) var primaryInterface = String(localized: "Unavailable")
-    @Published private(set) var gateway = String(localized: "Unavailable")
-    @Published private(set) var interfaces: [NetworkInterfaceDetails] = []
-
-    func refresh() {
-        let route = DiagnosticsReader.routeSummary()
-        primaryInterface = route.primaryInterface
-        gateway = route.gateway
-        interfaces = route.interfaces
     }
 }
 
@@ -227,12 +171,6 @@ private struct ProxyDetails {
         https: String(localized: "Unavailable"),
         pac: String(localized: "Unavailable")
     )
-}
-
-private struct RouteSummary {
-    let primaryInterface: String
-    let gateway: String
-    let interfaces: [NetworkInterfaceDetails]
 }
 
 @ViewBuilder
@@ -313,32 +251,6 @@ private enum DiagnosticsReader {
             return settings["ServerAddresses"] as? [String] ?? []
         #else
             return []
-        #endif
-    }
-
-    static func routeSummary() -> RouteSummary {
-        let interfaces = networkInterfaces()
-        #if os(macOS)
-            guard let store = SCDynamicStoreCreate(nil, "KokoroBox.Diagnostics" as CFString, nil, nil),
-                  let settings = SCDynamicStoreCopyValue(store, "State:/Network/Global/IPv4" as CFString) as? [String: Any]
-            else {
-                return RouteSummary(
-                    primaryInterface: String(localized: "Unavailable"),
-                    gateway: String(localized: "Unavailable"),
-                    interfaces: interfaces
-                )
-            }
-            return RouteSummary(
-                primaryInterface: settings["PrimaryInterface"] as? String ?? String(localized: "Unavailable"),
-                gateway: settings["Router"] as? String ?? String(localized: "Unavailable"),
-                interfaces: interfaces
-            )
-        #else
-            return RouteSummary(
-                primaryInterface: String(localized: "Unavailable"),
-                gateway: String(localized: "Unavailable"),
-                interfaces: interfaces
-            )
         #endif
     }
 
