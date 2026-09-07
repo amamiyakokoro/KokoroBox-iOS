@@ -41,7 +41,7 @@ public struct ProfileOverrideView: View {
                         await reloadService()
                     }
 
-                    FormToggle("Block China iCloud Mail", "Insert a `geoip-cn` TCP port 993 reject rule before `sniff`.", $blockChinaICloudMail) { newValue in
+                    FormToggle("Block China iCloud Mail", "Add the `geoip-cn` rule set and insert a TCP port 993 reject rule before `sniff`.", $blockChinaICloudMail) { newValue in
                         await SharedPreferences.blockChinaICloudMail.set(newValue)
                         await reloadService()
                     }

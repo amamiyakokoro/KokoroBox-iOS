@@ -19,14 +19,29 @@ public enum ProfileConfigurationPatch {
 
         var route = root["route"] as? [String: Any] ?? [:]
         var rules = route["rules"] as? [[String: Any]] ?? []
+        var ruleSets = route["rule_set"] as? [[String: Any]] ?? []
         var additions: [[String: Any]] = []
+        var didChange = false
+        var didChangeRuleSets = false
 
-        if blockChinaICloudMail, !rules.contains(where: isChinaICloudMailRule) {
-            additions.append([
-                "port": 993,
-                "rule_set": "geoip-cn",
-                "action": "reject",
-            ])
+        if blockChinaICloudMail {
+            if !ruleSets.contains(where: isChinaICloudMailRuleSet) {
+                ruleSets.append([
+                    "tag": "geoip-cn",
+                    "type": "remote",
+                    "format": "binary",
+                    "url": "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs",
+                ])
+                didChange = true
+                didChangeRuleSets = true
+            }
+            if !rules.contains(where: isChinaICloudMailRule) {
+                additions.append([
+                    "port": 993,
+                    "rule_set": "geoip-cn",
+                    "action": "reject",
+                ])
+            }
         }
         if blockQUIC, !rules.contains(where: isQUICBlockRule) {
             additions.append([
@@ -36,10 +51,17 @@ public enum ProfileConfigurationPatch {
             ])
         }
 
-        guard !additions.isEmpty else { return configuration }
-        let insertionIndex = rules.firstIndex(where: { ($0["action"] as? String) == "sniff" }) ?? rules.endIndex
-        rules.insert(contentsOf: additions, at: insertionIndex)
-        route["rules"] = rules
+        if !additions.isEmpty {
+            let insertionIndex = rules.firstIndex(where: { ($0["action"] as? String) == "sniff" }) ?? rules.endIndex
+            rules.insert(contentsOf: additions, at: insertionIndex)
+            route["rules"] = rules
+            didChange = true
+        }
+
+        guard didChange else { return configuration }
+        if didChangeRuleSets {
+            route["rule_set"] = ruleSets
+        }
         root["route"] = route
 
         let patchedData = try JSONSerialization.data(withJSONObject: root, options: [.prettyPrinted, .sortedKeys])
@@ -53,6 +75,10 @@ public enum ProfileConfigurationPatch {
         numberValue(rule["port"]) == 993
             && (rule["rule_set"] as? String) == "geoip-cn"
             && (rule["action"] as? String) == "reject"
+    }
+
+    private static func isChinaICloudMailRuleSet(_ ruleSet: [String: Any]) -> Bool {
+        (ruleSet["tag"] as? String) == "geoip-cn"
     }
 
     private static func isQUICBlockRule(_ rule: [String: Any]) -> Bool {

@@ -1,6 +1,16 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Add the `geoip-cn` rule set and insert a TCP port 993 reject rule before `sniff`." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "添加 `geoip-cn` 规则集，并在 `sniff` 之前插入 TCP 993 拒绝规则。" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "加入 `geoip-cn` 規則集，並在 `sniff` 之前插入 TCP 993 拒絕規則。" }
+        }
+      }
+    },
     "Block China iCloud Mail" : {
       "localizations" : {
         "zh-Hans" : {
