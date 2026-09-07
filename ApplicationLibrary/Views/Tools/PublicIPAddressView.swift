@@ -40,7 +40,6 @@ public struct PublicIPAddressView: View {
 @MainActor
 private final class PublicIPAddressViewModel: BaseViewModel {
     @Published private(set) var address: String?
-    @Published private(set) var isLoading = false
 
     func refresh() async {
         guard !isLoading else { return }
