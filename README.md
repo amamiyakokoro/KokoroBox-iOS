@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="SFI/Assets.xcassets/AppIcon.appiconset/1024.png" width="112" alt="KokoroBox icon">
+<img src="docs/assets/kokorobox-icon.png" width="112" alt="KokoroBox icon">
 
 # KokoroBox
 
