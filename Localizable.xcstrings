@@ -1552,6 +1552,22 @@
         }
       }
     },
+    "Could not retrieve the public IP address." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法获取公网 IP 地址。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法取得公網 IP 位址。"
+          }
+        }
+      }
+    },
     "Could not open the Kokoro sign-in page." : {
       "localizations" : {
         "zh-Hans" : {
@@ -4039,6 +4055,22 @@
         }
       }
     },
+    "IP Address" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "IP 地址"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "IP 位址"
+          }
+        }
+      }
+    },
     "IP Version" : {
       "localizations" : {
         "zh-Hans" : {
@@ -6251,6 +6283,22 @@
         }
       }
     },
+    "Public IP" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "公网 IP"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "公網 IP"
+          }
+        }
+      }
+    },
     "QRS" : {
       "localizations" : {
         "zh-Hant" : {
@@ -6483,6 +6531,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "中繼"
+          }
+        }
+      }
+    },
+    "Refresh" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "刷新"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新整理"
           }
         }
       }

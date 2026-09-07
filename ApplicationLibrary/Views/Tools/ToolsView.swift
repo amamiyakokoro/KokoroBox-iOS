@@ -131,6 +131,11 @@ public struct ToolsView: View {
 
             Section("Network") {
                 FormNavigationLink {
+                    PublicIPAddressView()
+                } label: {
+                    Label("IP Address", systemImage: "globe")
+                }
+                FormNavigationLink {
                     NetworkQualityView()
                 } label: {
                     Label("Network Quality", systemImage: "network")
