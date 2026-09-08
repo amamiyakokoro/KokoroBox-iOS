@@ -1928,6 +1928,7 @@
       }
     },
     "Default Route" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3415,6 +3416,7 @@
       }
     },
     "Gateway" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3639,9 +3641,6 @@
         }
       }
     },
-    "HTTP" : {
-
-    },
     "http://..." : {
       "localizations" : {
         "zh-Hant" : {
@@ -3655,9 +3654,6 @@
     },
     "HTTP/3" : {
       "shouldTranslate" : false
-    },
-    "HTTPS" : {
-
     },
     "https://sing-box.sagernet.org/" : {
       "localizations" : {
@@ -4796,6 +4792,7 @@
       }
     },
     "Local Routes" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -6100,9 +6097,6 @@
         }
       }
     },
-    "PAC" : {
-
-    },
     "Packet Tunnel" : {
       "localizations" : {
         "zh-Hans" : {
@@ -6297,6 +6291,7 @@
       }
     },
     "Primary Interface" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -6505,6 +6500,7 @@
       }
     },
     "Proxy & DNS" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -6521,6 +6517,7 @@
       }
     },
     "Proxy Settings" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -7113,6 +7110,7 @@
       "shouldTranslate" : false
     },
     "Route Summary" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -8299,6 +8297,7 @@
       }
     },
     "System DNS information is unavailable to sandboxed apps." : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
