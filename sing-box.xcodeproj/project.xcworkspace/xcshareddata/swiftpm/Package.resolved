@@ -1,5 +1,5 @@
 {
-  "originHash" : "baa95ce1e934513ab77c8410de894ac2731612b5a5e603f7d6cc8ba6b5f8a4d9",
+  "originHash" : "791198c42597f0d2883a4d6dff208eebefc92881525b592e5026ca3f914af200",
   "pins" : [
     {
       "identity" : "binarycodable",
@@ -177,8 +177,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/lukepistrol/SwiftLintPlugin",
       "state" : {
-        "revision" : "a3877065a7d72ee40e1fa64e13b9e33e846c667c",
-        "version" : "0.63.1"
+        "revision" : "b384a67cf45d9989aed5aab23e226cbc7bc2cd54",
+        "version" : "0.65.0"
       }
     },
     {
