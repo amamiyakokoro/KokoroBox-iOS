@@ -33,7 +33,7 @@ swift test
 
 Signed builds require a compatible `Libbox.xcframework`, an Apple Developer team, and matching App Group, Network Extension, and provisioning settings. Run Kokoro API and authentication tests with `swift test`.
 
-Implementation details: [OAuth and PKCE](docs/kokoro-oauth.md) · [Custom Rules](docs/kokoro-custom-rules.md)
+Implementation details: [OAuth and PKCE](docs/kokoro-oauth.md) · [Custom Rules](docs/kokoro-custom-rules.md) · [Privacy Policy](PRIVACY_POLICY.md)
 
 ## License
 
