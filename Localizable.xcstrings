@@ -3574,6 +3574,9 @@
         }
       }
     },
+    "Hang (Go)" : {
+      "shouldTranslate" : false
+    },
     "Hang (Swift)" : {
       "shouldTranslate" : false
     },

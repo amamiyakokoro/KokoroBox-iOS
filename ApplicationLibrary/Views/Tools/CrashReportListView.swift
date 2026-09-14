@@ -123,6 +123,9 @@ public struct CrashReportListView: View {
                     Button("Hang (Swift)") {
                         Thread.sleep(forTimeInterval: 5)
                     }
+                    Button("Hang (Go)") {
+                        LibboxTriggerGoHang(5)
+                    }
                 }
                 if let profile = environments.extensionProfile, profile.status.isConnectedStrict {
                     Section("NetworkExtension") {
@@ -246,6 +249,9 @@ public struct CrashReportListView: View {
                                 }
                                 Button("Hang (Swift)") {
                                     Thread.sleep(forTimeInterval: 5)
+                                }
+                                Button("Hang (Go)") {
+                                    LibboxTriggerGoHang(5)
                                 }
                             }
                             if let profile = environments.extensionProfile {
