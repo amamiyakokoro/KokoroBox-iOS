@@ -6,7 +6,7 @@
 
 Native sing-box client for Apple platforms with Kokoro integration.
 
-**Client:** 1.14.4 (10) · **Core:** 1.15.0-alpha.2-kokoro
+**Client:** 1.14.4 (14) · **Core:** 1.15.0-alpha.2-kokoro
 
 </div>
 
@@ -14,9 +14,10 @@ KokoroBox is based on [sing-box for Apple](https://github.com/SagerNet/sing-box-
 
 ## Features
 
-- Local and remote sing-box profiles with validation before activation
-- Server-driven Kokoro subscriptions and Custom Rules
+- Local and remote sing-box profiles with validation, custom User-Agent support, and safe configuration reloads
+- Server-driven Kokoro subscriptions and default Custom Rules editing
 - System-browser osu! OAuth with mandatory PKCE S256 and Keychain token storage
+- Public IP, network quality, STUN, interface, route-table, and runtime diagnostics
 - Network Extension and standalone macOS modes
 
 ## Build
