@@ -11,10 +11,10 @@ An Account Holder or Admin must complete these one-time tasks:
 1. Accept all current Apple Developer and App Store Connect agreements.
 2. Confirm that the App Store Connect app record for `com.amamiyakokoro.box` exists.
 3. Confirm that the main app and every embedded extension App ID has the capabilities required by the project, including the App Group and Network Extension entitlements.
-4. In **Users and Access → Integrations → App Store Connect API**, create a Team API key with sufficient access to upload builds and use cloud-managed distribution signing.
+4. In **Users and Access → Integrations → App Store Connect API**, create a Team API key with the **Admin** role. Cloud-managed app distribution is granted to Account Holder and Admin roles by default; a Developer-role Team key cannot be granted that additional user permission after the key is created.
 5. Download the `.p8` private key immediately and record its Key ID and Issuer ID. Apple only provides the private-key download once.
 
-Admin and Account Holder roles can use cloud-managed distribution certificates by default. If a Developer role is used, an Account Holder or Admin must also grant access to the Cloud Managed Distribution Certificate.
+For this unattended workflow, use an Admin-role Team key. App Store Connect API key access levels cannot be edited after creation; replace and revoke a lower-privilege key rather than attempting to reuse it.
 
 Do not commit the `.p8` file, paste it into an issue, or send it through chat.
 
