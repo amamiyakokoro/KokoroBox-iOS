@@ -1,0 +1,174 @@
+name: iOS App Store Connect
+
+run-name: iOS 1.14.4 (${{ inputs.build_number }})${{ inputs.upload && ' — upload' || ' — archive only' }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_number:
+        description: App Store Connect build number (must be unused)
+        required: true
+        type: string
+      upload:
+        description: Upload the signed archive to App Store Connect
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ios-app-store-connect
+  cancel-in-progress: false
+
+jobs:
+  archive:
+    name: Archive${{ inputs.upload && ' and upload' || '' }}
+    runs-on: xcode-27
+    timeout-minutes: 120
+    environment: app-store-connect
+    env:
+      DISABLE_SWIFTLINT: "1"
+      CORE_VERSION: 1.15.0-alpha.6
+
+    steps:
+      - name: Check out KokoroBox
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          submodules: recursive
+
+      - name: Check out sing-box core
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          repository: SagerNet/sing-box
+          ref: v1.15.0-alpha.6
+          path: core-src
+
+      - name: Set up Go
+        uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6
+        with:
+          go-version-file: core-src/go.mod
+          cache-dependency-path: core-src/go.sum
+
+      - name: Validate build number and toolchain
+        env:
+          BUILD_NUMBER: ${{ inputs.build_number }}
+        run: |
+          if [[ ! "$BUILD_NUMBER" =~ ^[1-9][0-9]*$ ]]; then
+            echo "build_number must be a positive integer" >&2
+            exit 1
+          fi
+          xcodebuild -version
+          go version
+
+      - name: Build Libbox
+        working-directory: core-src
+        run: |
+          go install github.com/sagernet/gomobile/cmd/gomobile@v0.1.12
+          go install github.com/sagernet/gomobile/cmd/gobind@v0.1.12
+          go run ./cmd/internal/build_libbox \
+            -target apple \
+            -platform ios,iossimulator,macos
+          mv Libbox.xcframework ../Libbox.xcframework
+
+      - name: Verify Libbox
+        run: |
+          for slice in \
+            ios-arm64 \
+            ios-arm64_x86_64-simulator \
+            macos-arm64_x86_64
+          do
+            test -d "Libbox.xcframework/$slice"
+          done
+          strings \
+            Libbox.xcframework/macos-arm64_x86_64/Libbox.framework/Versions/A/Libbox \
+            | grep -F "$CORE_VERSION" >/dev/null
+
+      - name: Run tests
+        run: swift test
+
+      - name: Prepare App Store Connect authentication key
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_PRIVATE_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
+        run: |
+          if [[ -z "$ASC_KEY_ID" || -z "$ASC_ISSUER_ID" || -z "$ASC_PRIVATE_KEY" ]]; then
+            echo "Missing App Store Connect environment secrets" >&2
+            exit 1
+          fi
+          umask 077
+          key_directory="$RUNNER_TEMP/private_keys"
+          key_path="$key_directory/AuthKey_${ASC_KEY_ID}.p8"
+          mkdir -p "$key_directory"
+          printf '%s' "$ASC_PRIVATE_KEY" > "$key_path"
+          echo "ASC_KEY_PATH=$key_path" >> "$GITHUB_ENV"
+
+      - name: Archive iOS app
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          BUILD_NUMBER: ${{ inputs.build_number }}
+        run: |
+          xcodebuild archive \
+            -project sing-box.xcodeproj \
+            -scheme KokoroBoxI \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath "$RUNNER_TEMP/KokoroBoxI.xcarchive" \
+            -derivedDataPath "$RUNNER_TEMP/DerivedData" \
+            -clonedSourcePackagesDirPath "$RUNNER_TEMP/SourcePackages" \
+            -skipPackagePluginValidation \
+            -hideShellScriptEnvironment \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$ASC_KEY_PATH" \
+            -authenticationKeyID "$ASC_KEY_ID" \
+            -authenticationKeyIssuerID "$ASC_ISSUER_ID" \
+            CURRENT_PROJECT_VERSION="$BUILD_NUMBER"
+
+      - name: Export signed IPA
+        if: ${{ !inputs.upload }}
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+        run: |
+          xcodebuild -exportArchive \
+            -archivePath "$RUNNER_TEMP/KokoroBoxI.xcarchive" \
+            -exportPath "$RUNNER_TEMP/export" \
+            -exportOptionsPlist SFI/AppStoreExport.plist \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$ASC_KEY_PATH" \
+            -authenticationKeyID "$ASC_KEY_ID" \
+            -authenticationKeyIssuerID "$ASC_ISSUER_ID"
+
+      - name: Store signed IPA
+        if: ${{ !inputs.upload }}
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        with:
+          name: KokoroBoxI-1.14.4-${{ inputs.build_number }}
+          path: ${{ runner.temp }}/export/*.ipa
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Upload to App Store Connect
+        if: ${{ inputs.upload }}
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+        run: |
+          xcodebuild -exportArchive \
+            -archivePath "$RUNNER_TEMP/KokoroBoxI.xcarchive" \
+            -exportPath "$RUNNER_TEMP/upload" \
+            -exportOptionsPlist SFI/Upload.plist \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$ASC_KEY_PATH" \
+            -authenticationKeyID "$ASC_KEY_ID" \
+            -authenticationKeyIssuerID "$ASC_ISSUER_ID"
+
+      - name: Clean up authentication key
+        if: ${{ always() }}
+        run: |
+          if [[ -n "${ASC_KEY_PATH:-}" ]]; then
+            rm -f "$ASC_KEY_PATH"
+          fi
