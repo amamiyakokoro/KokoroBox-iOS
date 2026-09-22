@@ -6,6 +6,19 @@ import Library
 #endif
 
 #if os(iOS) || os(tvOS)
+    private final class BackgroundTaskCompletion: @unchecked Sendable {
+        private let lock = NSLock()
+        private var completed = false
+
+        func finish(_ task: BGTask, success: Bool) {
+            lock.lock()
+            defer { lock.unlock() }
+            guard !completed else { return }
+            completed = true
+            task.setTaskCompleted(success: success)
+        }
+    }
+
     public class UIProfileUpdateTask: BGAppRefreshTask {
         private static let taskSchedulerPermittedIdentifier = AppConfiguration.backgroundTaskID
 
@@ -23,50 +36,57 @@ import Library
                 }
                 registered = true
             }
-            Task {
-                BGTaskScheduler.shared.cancelAllTaskRequests()
-                let profiles = try await ProfileManager.listAutoUpdateEnabled()
-                if profiles.isEmpty {
-                    return
-                }
-                try scheduleUpdate(ProfileUpdateTask.calculateEarliestBeginDate(profiles))
-            }
-            Task {
-                if await UIApplication.shared.backgroundRefreshStatus != .available {
-                    await updateOnce()
-                }
+            Task { @MainActor in
+                await refreshAndSchedule()
             }
         }
 
-        private nonisolated static func updateOnce() async {
-            NSLog("update profiles at start since background refresh unavailable")
-            let profiles: [Profile]
+        public static func applicationDidBecomeActive() {
+            Task { @MainActor in
+                await refreshAndSchedule()
+            }
+        }
+
+        @MainActor
+        private static func refreshAndSchedule() async {
+            BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: taskSchedulerPermittedIdentifier)
+            _ = await ProfileUpdateTask.updateDueProfiles()
             do {
-                profiles = try await ProfileManager.listAutoUpdateEnabled()
+                try await ProfileUpdateTask.configure()
+                let profiles = try await ProfileManager.listAutoUpdateEnabled()
+                guard !profiles.isEmpty else { return }
+                try scheduleUpdate(ProfileUpdateTask.calculateEarliestBeginDate(profiles))
             } catch {
-                return
+                NSLog("schedule profile update task failed: \(error.localizedDescription)")
             }
-            if profiles.isEmpty {
-                return
-            }
-            _ = await ProfileUpdateTask.updateProfiles(profiles)
         }
 
         private nonisolated static func getAndUpdateProfiles(_ task: BGTask) async {
-            let profiles: [Profile]
-            do {
-                profiles = try await ProfileManager.listAutoUpdateEnabled()
-            } catch {
-                return
+            let completion = BackgroundTaskCompletion()
+            let updateTask = Task {
+                let success = await ProfileUpdateTask.updateDueProfiles()
+                if !Task.isCancelled {
+                    await rescheduleBackgroundUpdate()
+                    completion.finish(task, success: success)
+                }
             }
-            if profiles.isEmpty {
-                return
-            }
-            let success = await ProfileUpdateTask.updateProfiles(profiles)
-            try? scheduleUpdate(ProfileUpdateTask.calculateEarliestBeginDate(profiles))
-            task.setTaskCompleted(success: success)
             task.expirationHandler = {
-                try? scheduleUpdate(nil)
+                updateTask.cancel()
+                completion.finish(task, success: false)
+                Task {
+                    await rescheduleBackgroundUpdate()
+                }
+            }
+            await updateTask.value
+        }
+
+        private nonisolated static func rescheduleBackgroundUpdate() async {
+            do {
+                let profiles = try await ProfileManager.listAutoUpdateEnabled()
+                guard !profiles.isEmpty else { return }
+                try scheduleUpdate(ProfileUpdateTask.calculateEarliestBeginDate(profiles))
+            } catch {
+                NSLog("reschedule profile update task failed: \(error.localizedDescription)")
             }
         }
 

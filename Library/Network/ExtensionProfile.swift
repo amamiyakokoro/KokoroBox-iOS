@@ -164,6 +164,7 @@ public class ExtensionProfile: ObservableObject {
             return
         }
         guard let manager else { return }
+        await updateRemoteProfileBeforeConnectIfNeeded()
         try await fetchProfile()
         manager.isEnabled = true
         let alwaysOn = await SharedPreferences.alwaysOn.get()
@@ -196,6 +197,21 @@ public class ExtensionProfile: ObservableObject {
         try await manager.saveToPreferences()
         let options = try await prepareStartOptions()
         try manager.connection.startVPNTunnel(options: options)
+    }
+
+    private func updateRemoteProfileBeforeConnectIfNeeded() async {
+        guard await SharedPreferences.updateProfileBeforeConnect.get() else {
+            return
+        }
+        let profileID = await SharedPreferences.selectedProfileID.get()
+        do {
+            guard let profile = try await ProfileManager.get(profileID), profile.type == .remote else {
+                return
+            }
+            try await profile.updateRemoteProfile()
+        } catch {
+            logger.warning("update remote profile before connecting failed; using last valid configuration: \(error.localizedDescription)")
+        }
     }
 
     public func reloadService() async throws {

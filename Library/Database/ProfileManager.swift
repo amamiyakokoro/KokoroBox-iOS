@@ -76,7 +76,10 @@ public enum ProfileManager {
 
     public nonisolated static func listAutoUpdateEnabled() async throws -> [Profile] {
         try await Database.read { db in
-            try Profile.filter(Column("autoUpdate") == true).order(Column("order").asc).fetchAll(db)
+            try Profile
+                .filter(Column("autoUpdate") == true && Column("type") == ProfileType.remote.rawValue)
+                .order(Column("order").asc)
+                .fetchAll(db)
         }
     }
 

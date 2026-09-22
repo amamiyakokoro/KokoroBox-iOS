@@ -96,6 +96,7 @@ public enum SharedPreferences {
     public static let excludeAPNsRoute = Preference<Bool>("exclude_apple_push_notification_services", defaultValue: false)
     public static let blockChinaICloudMail = Preference<Bool>("block_china_icloud_mail", defaultValue: false)
     public static let blockQUIC = Preference<Bool>("block_quic", defaultValue: false)
+    public static let updateProfileBeforeConnect = Preference<Bool>("update_profile_before_connect", defaultValue: false)
 
     public static func resetProfileOverride() async {
         try? await batchDelete([
@@ -104,6 +105,7 @@ public enum SharedPreferences {
             excludeAPNsRoute.name,
             blockChinaICloudMail.name,
             blockQUIC.name,
+            updateProfileBeforeConnect.name,
         ])
     }
 

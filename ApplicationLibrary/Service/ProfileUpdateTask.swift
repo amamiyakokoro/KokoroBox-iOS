@@ -8,52 +8,63 @@ public enum ProfileUpdateTask {
     private static var timer: Timer?
 
     public static func configure() async throws {
-        timer?.invalidate()
-        timer = nil
         let profiles = try await ProfileManager.listAutoUpdateEnabled()
-        if profiles.isEmpty {
-            return
-        }
-        var updateInterval = profiles.map { it in
-            it.autoUpdateIntervalOrDefault
-        }.min()!
-        if updateInterval < minUpdateInterval {
-            updateInterval = minUpdateInterval
-        }
-        let newTimer = Timer(fire: calculateEarliestBeginDate(profiles), interval: updateInterval, repeats: true) { _ in
-            Task {
-                await getAndupdateProfiles()
+        await MainActor.run {
+            timer?.invalidate()
+            timer = nil
+            guard !profiles.isEmpty else {
+                return
             }
+            let updateInterval = max(
+                profiles.map(\.autoUpdateIntervalOrDefault).min() ?? defaultUpdateInterval,
+                minUpdateInterval
+            )
+            let newTimer = Timer(fire: calculateEarliestBeginDate(profiles), interval: updateInterval, repeats: true) { _ in
+                Task {
+                    await updateDueProfiles()
+                }
+            }
+            RunLoop.main.add(newTimer, forMode: .common)
+            timer = newTimer
         }
-        RunLoop.main.add(newTimer, forMode: .common)
-        timer = newTimer
     }
 
     static func calculateEarliestBeginDate(_ profiles: [Profile]) -> Date {
         let nowTime = Date.now
-        var earliestBeginDate = profiles.map { it in
-            it.lastUpdated!.addingTimeInterval(it.autoUpdateIntervalOrDefault)
-        }.min()!
+        var earliestBeginDate = profiles.map { profile in
+            guard let lastUpdated = profile.lastUpdated else {
+                return nowTime
+            }
+            return lastUpdated.addingTimeInterval(profile.autoUpdateIntervalOrDefault)
+        }.min() ?? nowTime
         if earliestBeginDate <= nowTime {
             earliestBeginDate = nowTime
         }
         return earliestBeginDate
     }
 
-    private nonisolated static func getAndupdateProfiles() async {
+    @discardableResult
+    public nonisolated static func updateDueProfiles() async -> Bool {
         do {
-            _ = try await updateProfiles(ProfileManager.listAutoUpdateEnabled())
+            let success = await updateProfiles(try await ProfileManager.listAutoUpdateEnabled())
             NSLog("profile update task succeed")
+            return success
         } catch {
             NSLog("profile update task failed: \(error.localizedDescription)")
+            return false
         }
     }
 
     static func updateProfiles(_ profiles: [Profile]) async -> Bool {
         var success = true
         for profile in profiles {
+            if Task.isCancelled {
+                return false
+            }
             let profileName = profile.name
-            if profile.lastUpdated! > Date(timeIntervalSinceNow: -profile.autoUpdateIntervalOrDefault) {
+            if let lastUpdated = profile.lastUpdated,
+               lastUpdated > Date(timeIntervalSinceNow: -profile.autoUpdateIntervalOrDefault)
+            {
                 continue
             }
             do {

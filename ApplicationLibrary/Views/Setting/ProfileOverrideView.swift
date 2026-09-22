@@ -10,6 +10,7 @@ public struct ProfileOverrideView: View {
     @State private var excludeAPNsRoute = false
     @State private var blockChinaICloudMail = false
     @State private var blockQUIC = false
+    @State private var updateProfileBeforeConnect = false
 
     public init() {}
     public var body: some View {
@@ -22,6 +23,15 @@ public struct ProfileOverrideView: View {
                 }
             } else {
                 FormView {
+                    FormToggle(
+                        "Update Profile Before Connecting",
+                        "Download and validate the selected remote profile before connecting. If the update fails, the last valid configuration is used.",
+                        $updateProfileBeforeConnect,
+                        header: "Remote Profiles"
+                    ) { newValue in
+                        await SharedPreferences.updateProfileBeforeConnect.set(newValue)
+                    }
+
                     FormToggle("Hide VPN Icon", "Append `0.0.0.0/31` and `::/127` to `route_exclude_address` if not exists.", $excludeDefaultRoute) { newValue in
                         await SharedPreferences.excludeDefaultRoute.set(newValue)
                         await reloadService()
@@ -89,6 +99,7 @@ public struct ProfileOverrideView: View {
         excludeAPNsRoute = await SharedPreferences.excludeAPNsRoute.get()
         blockChinaICloudMail = await SharedPreferences.blockChinaICloudMail.get()
         blockQUIC = await SharedPreferences.blockQUIC.get()
+        updateProfileBeforeConnect = await SharedPreferences.updateProfileBeforeConnect.get()
         isLoading = false
     }
 }

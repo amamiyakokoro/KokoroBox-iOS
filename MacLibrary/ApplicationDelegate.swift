@@ -106,4 +106,11 @@ open class ApplicationDelegate: NSObject, NSApplicationDelegate, UNUserNotificat
         }
         return true
     }
+
+    public func applicationDidBecomeActive(_: Notification) {
+        Task {
+            _ = await ProfileUpdateTask.updateDueProfiles()
+            try? await ProfileUpdateTask.configure()
+        }
+    }
 }

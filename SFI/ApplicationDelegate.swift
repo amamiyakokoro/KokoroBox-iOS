@@ -85,6 +85,10 @@ class ApplicationDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCe
         }
     }
 
+    func applicationDidBecomeActive(_: UIApplication) {
+        UIProfileUpdateTask.applicationDidBecomeActive()
+    }
+
     private nonisolated func setupBackground() async {
         if #available(iOS 16.0, *) {
             do {
