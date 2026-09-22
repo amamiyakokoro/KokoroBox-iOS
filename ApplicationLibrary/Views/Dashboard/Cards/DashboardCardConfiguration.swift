@@ -60,6 +60,10 @@ public final class DashboardCardConfiguration: ObservableObject {
         guard !saved.isEmpty else { return DashboardCard.defaultCards }
 
         var cards = saved.compactMap { migrateCardName($0) }.compactMap { DashboardCard(rawValue: $0) }
+        let savedOrder = await SharedPreferences.dashboardCardOrder.get()
+        if !savedOrder.contains(DashboardCard.exitIP.rawValue), !cards.contains(.exitIP) {
+            cards.append(.exitIP)
+        }
         if !cards.contains(.profile) {
             cards.append(.profile)
         }

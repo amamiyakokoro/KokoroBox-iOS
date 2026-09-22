@@ -2876,6 +2876,22 @@
     "excludeLocalNetworks" : {
       "shouldTranslate" : false
     },
+    "Exit IP" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "出口 IP"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "出口 IP"
+          }
+        }
+      }
+    },
     "Exit Node" : {
       "localizations" : {
         "zh-Hans" : {

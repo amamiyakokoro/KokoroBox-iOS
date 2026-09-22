@@ -67,7 +67,7 @@ public struct OverviewView: View {
 
     private func shouldShowCard(_ card: DashboardCard) -> Bool {
         switch card {
-        case .status, .connections, .uploadTraffic, .downloadTraffic, .clashMode:
+        case .status, .connections, .uploadTraffic, .downloadTraffic, .exitIP, .clashMode:
             return Variant.screenshotMode || profile.status.isConnected
         case .httpProxy:
             return (Variant.screenshotMode || profile.status.isConnectedStrict) && systemProxyAvailable
@@ -91,6 +91,8 @@ public struct OverviewView: View {
         case .downloadTraffic:
             DownloadTrafficCard()
                 .environmentObject(environments.commandClient)
+        case .exitIP:
+            ExitIPCard()
         case .httpProxy:
             HTTPProxyCard(
                 systemProxyAvailable: $systemProxyAvailable,

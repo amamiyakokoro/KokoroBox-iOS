@@ -1,5 +1,5 @@
 import Foundation
-import Network
+import Library
 import SwiftUI
 
 @MainActor
@@ -14,8 +14,18 @@ public struct PublicIPAddressView: View {
                 FormTextItem("Public IP", "globe") {
                     if viewModel.isLoading {
                         ProgressView()
+                    } else if let info = viewModel.info {
+                        HStack(spacing: 8) {
+                            if let countryCode = info.countryCode {
+                                CountryFlagImage(countryCode: countryCode, size: 24)
+                                Text(verbatim: countryCode)
+                                    .fontWeight(.semibold)
+                            }
+                            Text(verbatim: info.address)
+                                .font(.body.monospaced())
+                        }
                     } else {
-                        Text(verbatim: viewModel.address ?? "-")
+                        Text(verbatim: "-")
                     }
                 }
             }
@@ -38,54 +48,29 @@ public struct PublicIPAddressView: View {
 }
 
 @MainActor
-private final class PublicIPAddressViewModel: BaseViewModel {
-    @Published private(set) var address: String?
+final class PublicIPAddressViewModel: BaseViewModel {
+    @Published private(set) var info: PublicIPInfo?
 
-    func refresh() async {
+    private let service: PublicIPInfoService
+
+    init(service: PublicIPInfoService = PublicIPInfoService()) {
+        self.service = service
+        super.init()
+    }
+
+    func refresh(reportErrors: Bool = true) async {
         guard !isLoading else { return }
         isLoading = true
         defer { isLoading = false }
 
         do {
-            address = try await Self.fetchAddress()
+            info = try await service.fetch()
         } catch is CancellationError {
             return
         } catch {
-            alert = AlertState(errorMessage: String(localized: "Could not retrieve the public IP address."))
+            if reportErrors {
+                alert = AlertState(errorMessage: String(localized: "Could not retrieve the public IP address."))
+            }
         }
     }
-
-    private nonisolated static func fetchAddress() async throws -> String {
-        var request = URLRequest(url: URL(string: "https://api.ip.sb/ip")!)
-        request.timeoutInterval = 15
-        request.setValue("text/plain", forHTTPHeaderField: "Accept")
-
-        let (data, response) = try await session.data(for: request)
-        guard let response = response as? HTTPURLResponse,
-              (200 ..< 300).contains(response.statusCode),
-              let text = String(data: data, encoding: .utf8)
-        else {
-            throw PublicIPAddressError.invalidResponse
-        }
-
-        let address = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard address.utf8.count <= 45,
-              IPv4Address(address) != nil || IPv6Address(address) != nil
-        else {
-            throw PublicIPAddressError.invalidResponse
-        }
-        return address
-    }
-
-    private static let session: URLSession = {
-        let configuration = URLSessionConfiguration.ephemeral
-        configuration.urlCache = nil
-        configuration.httpCookieStorage = nil
-        configuration.urlCredentialStorage = nil
-        return URLSession(configuration: configuration)
-    }()
-}
-
-private enum PublicIPAddressError: Error {
-    case invalidResponse
 }

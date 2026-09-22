@@ -6,6 +6,7 @@ public enum DashboardCard: String, CaseIterable, Identifiable, Codable, Hashable
     case connections
     case uploadTraffic
     case downloadTraffic
+    case exitIP
     case httpProxy
     case clashMode
     case profile
@@ -24,6 +25,8 @@ public enum DashboardCard: String, CaseIterable, Identifiable, Codable, Hashable
             return "Upload"
         case .downloadTraffic:
             return "Download"
+        case .exitIP:
+            return "Exit IP"
         case .httpProxy:
             return "System HTTP Proxy"
         case .clashMode:
@@ -43,6 +46,8 @@ public enum DashboardCard: String, CaseIterable, Identifiable, Codable, Hashable
             return "arrow.up.circle.fill"
         case .downloadTraffic:
             return "arrow.down.circle.fill"
+        case .exitIP:
+            return "globe.asia.australia.fill"
         case .httpProxy:
             return "network"
         case .clashMode:
@@ -58,7 +63,7 @@ public enum DashboardCard: String, CaseIterable, Identifiable, Codable, Hashable
             return .traffic
         case .status, .connections:
             return .statistics
-        case .httpProxy, .clashMode, .profile:
+        case .exitIP, .httpProxy, .clashMode, .profile:
             return nil
         }
     }
@@ -84,7 +89,7 @@ public enum DashboardCard: String, CaseIterable, Identifiable, Codable, Hashable
     }
 
     public static var defaultOrder: [DashboardCard] {
-        [.uploadTraffic, .downloadTraffic, .status, .connections, .httpProxy, .clashMode, .profile]
+        [.uploadTraffic, .downloadTraffic, .exitIP, .status, .connections, .httpProxy, .clashMode, .profile]
     }
 }
 

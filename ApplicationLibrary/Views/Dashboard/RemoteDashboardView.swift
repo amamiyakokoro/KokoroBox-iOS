@@ -163,7 +163,7 @@ public struct RemoteDashboardView: View {
         switch card {
         case .status, .connections, .uploadTraffic, .downloadTraffic, .clashMode:
             return true
-        case .httpProxy, .profile:
+        case .exitIP, .httpProxy, .profile:
             return false
         }
     }
@@ -181,7 +181,7 @@ public struct RemoteDashboardView: View {
             DownloadTrafficCard()
         case .clashMode:
             ClashModeCard()
-        case .httpProxy, .profile:
+        case .exitIP, .httpProxy, .profile:
             EmptyView()
         }
     }
