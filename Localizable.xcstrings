@@ -3592,6 +3592,18 @@
     },
     "Hang" : {
       "localizations" : {
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هنگ"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Зависание"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
