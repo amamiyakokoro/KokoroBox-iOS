@@ -14,10 +14,10 @@ KokoroBox is based on [sing-box for Apple](https://github.com/SagerNet/sing-box-
 
 ## Features
 
-- Local and remote sing-box profiles with validation, custom User-Agent support, and safe configuration reloads
+- Local and remote profiles with validation, automatic updates, custom User-Agent, and safe reloads
 - Server-driven Kokoro subscriptions and default Custom Rules editing
 - System-browser osu! OAuth with mandatory PKCE S256 and Keychain token storage
-- Public IP, network quality, STUN, interface, route-table, and runtime diagnostics
+- Exit IP with country flags, network quality, STUN, interface, route-table, and runtime diagnostics
 - Network Extension and standalone macOS modes
 
 ## Build
@@ -32,7 +32,7 @@ make build_macos
 swift test
 ```
 
-Signed builds require a compatible `Libbox.xcframework`, an Apple Developer team, and matching App Group, Network Extension, and provisioning settings. Run Kokoro API and authentication tests with `swift test`.
+The Makefile requires `xcbeautify`. Signed builds need a compatible `Libbox.xcframework`, an Apple Developer team, and matching App Group, Network Extension, and provisioning settings.
 
 Implementation details: [OAuth and PKCE](docs/kokoro-oauth.md) · [Custom Rules](docs/kokoro-custom-rules.md) · [App Store Connect CI](docs/app-store-connect-ci.md) · [Privacy Policy](PRIVACY_POLICY.md)
 
