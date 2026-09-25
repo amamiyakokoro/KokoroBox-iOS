@@ -6,7 +6,7 @@ The workflow is manual by design. It never runs for pull requests or ordinary pu
 
 ## 1. Apple setup
 
-An Account Holder or Admin must complete these one-time tasks:
+An Account Holder or Admin must:
 
 1. Accept all current Apple Developer and App Store Connect agreements.
 2. Confirm that the App Store Connect app record for `com.amamiyakokoro.box` exists.
@@ -14,9 +14,7 @@ An Account Holder or Admin must complete these one-time tasks:
 4. In **Users and Access → Integrations → App Store Connect API**, create a Team API key with the **Admin** role. Cloud-managed app distribution is granted to Account Holder and Admin roles by default; a Developer-role Team key cannot be granted that additional user permission after the key is created.
 5. Download the `.p8` private key immediately and record its Key ID and Issuer ID. Apple only provides the private-key download once.
 
-For this unattended workflow, use an Admin-role Team key. App Store Connect API key access levels cannot be edited after creation; replace and revoke a lower-privilege key rather than attempting to reuse it.
-
-Do not commit the `.p8` file, paste it into an issue, or send it through chat.
+Use an Admin-role Team key for this unattended workflow. Key access levels cannot be edited; replace and revoke an unsuitable key. Keep the `.p8` private.
 
 ## 2. GitHub setup
 
@@ -34,7 +32,7 @@ Add a required reviewer and restrict deployment branches to `dev` if those contr
 | `ASC_ISSUER_ID` | App Store Connect Issuer ID |
 | `ASC_PRIVATE_KEY` | Complete raw contents of the downloaded `.p8` file |
 
-The workflow expects the raw multiline `.p8` content, not Base64.
+Use the raw multiline `.p8` content, not Base64.
 
 ## 3. First archive validation
 

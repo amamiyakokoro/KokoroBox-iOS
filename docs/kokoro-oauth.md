@@ -1,6 +1,6 @@
 # Kokoro OAuth integration (Apple client)
 
-This client uses the public API base `https://amamiyakoko.ro/api` and the exact callback URI `kokoro://oauth/callback`. All code grants require PKCE **S256**. There is no plain, missing-verifier, platform-specific URI, Universal Link, App Link, or loopback fallback. Client code must not contain `API_SECRET`, `APP_AUTH_SECRET`, or `OSU_CLIENT_SECRET`.
+This client uses `https://amamiyakoko.ro/api` and the exact callback `kokoro://oauth/callback`. All code grants require PKCE **S256**; no alternate callback or PKCE fallback is supported. Client code must not contain `API_SECRET`, `APP_AUTH_SECRET`, or `OSU_CLIENT_SECRET`.
 
 ## Login transaction
 
@@ -12,7 +12,7 @@ Each login makes two separate `SecRandomCopyBytes` calls, each for 32 bytes, the
 BASE64URL_NO_PADDING(SHA256(ASCII(code_verifier)))
 ```
 
-The hash input is the verifier string, not its decoded random bytes or a hexadecimal digest. A URL builder constructs `/app/auth/login` with exactly these parameters:
+Hash the verifier string, not its decoded bytes or a hexadecimal digest. `/app/auth/login` uses:
 
 | Parameter | Value |
 | --- | --- |
@@ -35,11 +35,11 @@ Cold launch intentionally does **not** recover pending login. A process restart 
 
 On macOS both app variants set `LSMultipleInstancesProhibited`, and the browser flow stays with the originating OS authentication session. No custom cross-process code forwarding is used. A manually launched process with no pending login rejects callbacks. Multiple different Kokoro clients sharing the scheme are still subject to the backend's single-client-per-device assumption.
 
-See Apple's [ASWebAuthenticationSession documentation](https://developer.apple.com/documentation/authenticationservices/aswebauthenticationsession) and [Launch Services keys](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/LaunchServicesKeys.html). These describe the intended OS behavior; compiling and testing the coordinator does not verify OS delivery on a device.
+See Apple's [ASWebAuthenticationSession documentation](https://developer.apple.com/documentation/authenticationservices/aswebauthenticationsession) and [Launch Services keys](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/LaunchServicesKeys.html) for OS delivery behavior.
 
 ## Token exchange and refresh
 
-Only a validated callback produces a `KokoroAuthorization` value. The session sends one JSON POST to `/app/auth/token`:
+Only a validated callback produces `KokoroAuthorization`. The session sends one JSON POST to `/app/auth/token`:
 
 ```json
 {
@@ -54,13 +54,7 @@ HTTP 400 (including expired/used codes or mismatched/missing verifier) and 422 (
 
 `access_token`, `refresh_token`, `expires_in`, and `refresh_expires_in` retain their existing handling. Both tokens and their expiry dates are encoded into one Keychain item (`kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly`), using update/add of the complete item.
 
-Refresh sends only:
-
-```json
-{"grant_type":"refresh_token","refresh_token":"<current refresh token>"}
-```
-
-Concurrent refresh requests share one task. That task persists the rotated credential pair before releasing any waiter; a storage failure fails waiting requests. An access-protected request can refresh on its first 401 and replay once. Refresh 401 clears credentials. Logout invalidates in-flight refresh/exchange work so it cannot restore the revoked session.
+Refresh sends `grant_type=refresh_token` and the current refresh token, never a verifier. Concurrent requests share one task that persists the rotated pair before releasing waiters. A protected request can refresh on its first 401 and replay once; refresh 401 clears credentials. Logout invalidates in-flight refresh and exchange work.
 
 ## Sensitive data handling
 
@@ -88,12 +82,3 @@ Before release, manually verify on a signed iPhone/iPad and both macOS variants:
 6. Keychain rotation persists across relaunch, refresh works with real backend expiry, and diagnostic exports contain no authentication secrets.
 
 Mocked callback and Keychain tests are not evidence of OS callback delivery, real Keychain entitlement behavior, or a live end-to-end OAuth exchange.
-
-### Local validation, 2026-09-05
-
-- `swift test`: 30 tests passed, zero failures, including the Custom Rules API and background preload suites.
-- `KokoroBoxI`: Debug build for generic iOS Simulator passed.
-- `KokoroBoxM` and `SFM.System`: Debug builds for macOS arm64 passed.
-- All three builds used `CODE_SIGNING_ALLOWED=NO`, pinned package resolution and `-skipPackagePluginValidation`. Existing concurrency, dependency and extension-version warnings remain.
-- App plist validation and `git diff --check` passed.
-- No signed-device callback, real-Keychain, or live osu!/Kokoro end-to-end test was performed. The manual checks above remain required.

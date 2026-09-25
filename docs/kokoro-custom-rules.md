@@ -1,6 +1,6 @@
 # Kokoro Custom Rules (Apple client)
 
-KokoroBox manages the signed-in user's server-side `default` rule set with the existing Kokoro App Bearer session. This is the only rule set applied as the default override when Kokoro generates a configuration. The client never sends a user ID, `proxy_uuid`, or management secret. Rules can contain private domains and process names, so request bodies, complete responses, and payloads must not be logged or attached to diagnostics.
+KokoroBox manages the signed-in user's server-side `default` rule set with the existing Bearer session. It is the only default override used for generated configurations. Never send a user ID, `proxy_uuid`, or management secret, or log rule payloads and responses.
 
 ## Client flow
 
@@ -13,7 +13,7 @@ The screen opens the `default` rules directly without a rule-set selection layer
 
 The editor preserves the server's array order. Type, target, provider, and limit choices come from `/options`; regional targets and provider names are not compiled into the app. Before saving, the client refreshes options and validates the complete local draft. Saving sends one `PUT /app/custom-rules/sets/{default_set_id}/rules` with `expected_revision` and the complete ordered array. An empty array clears the default rules. A successful response replaces the local set and revision in full.
 
-When a saved Kokoro session exists, the app preloads account, subscription-option, rule-state, and rule-option resources after launch and when returning to the foreground. A shared single-flight store keeps successful values in memory for five minutes, so opening Kokoro Settings, subscription creation, or Custom Rules reuses the in-progress request or fresh value. Nothing is persisted outside the existing Keychain credentials. Login, logout, and rule mutations invalidate the relevant cache before later reads.
+With a saved session, the app preloads account, subscription, and rule data at launch and foreground entry. A shared single-flight cache reuses successful values for five minutes; login, logout, and rule changes invalidate relevant entries. Only credentials persist in Keychain.
 
 ## Conflict and unknown-result handling
 
@@ -42,6 +42,6 @@ Server validation remains authoritative. Unknown response fields are ignored.
 
 ## Verification
 
-Run `swift test` to test production model decoding, case-insensitive `default` selection when other sets are present, ordered rules, the exact replacement request, explicit `null` MATCH payloads, dynamic options validation, structured `409` revisions, `Retry-After`, unknown-result content comparison, preload single-flight behavior, cache invalidation, and the signed-out preload guard. The package also reruns all existing OAuth and refresh tests.
+Run `swift test` for decoding, `default` selection, ordering, replacement requests, dynamic validation, conflicts, unknown outcomes, and cache behavior. The suite also covers OAuth and refresh.
 
 Unsigned iOS Simulator and macOS arm64 builds verify that the shared SwiftUI editor compiles on both platforms. Before release, a signed-device/live-backend pass must still verify real account data, website synchronization, target/provider changes, concurrent website edits, rate limiting, and a deliberately interrupted save. Local tests do not prove those external behaviors.
