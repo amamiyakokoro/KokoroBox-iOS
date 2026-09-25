@@ -1,6 +1,6 @@
 name: iOS App Store Connect
 
-run-name: iOS 1.14.4 (${{ inputs.build_number }})${{ inputs.upload && ' — upload' || ' — archive only' }}
+run-name: iOS 1.14.6 (${{ inputs.build_number }})${{ inputs.upload && ' — upload' || ' — archive only' }}
 
 on:
   workflow_dispatch:
@@ -30,7 +30,7 @@ jobs:
     environment: app-store-connect
     env:
       DISABLE_SWIFTLINT: "1"
-      CORE_VERSION: 1.15.0-alpha.6
+      CORE_VERSION: 1.15.0-alpha.8
 
     steps:
       - name: Check out KokoroBox
@@ -42,7 +42,7 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           repository: SagerNet/sing-box
-          ref: v1.15.0-alpha.6
+          ref: v1.15.0-alpha.8
           path: core-src
 
       - name: Set up Go
@@ -146,7 +146,7 @@ jobs:
         if: ${{ !inputs.upload }}
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
-          name: KokoroBoxI-1.14.4-${{ inputs.build_number }}
+          name: KokoroBoxI-1.14.6-${{ inputs.build_number }}
           path: ${{ runner.temp }}/export/*.ipa
           if-no-files-found: error
           retention-days: 7
