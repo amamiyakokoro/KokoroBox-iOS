@@ -57,6 +57,6 @@ Never reuse a build number that App Store Connect has already accepted. If an up
 - Runner: `xcode-27`
 - Core source: `SagerNet/sing-box` tag `v1.15.0-alpha.8`
 - Gomobile: `github.com/sagernet/gomobile` `v0.1.12`
-- Client marketing version: `1.14.6`
+- Client marketing version: `1.14.4`
 
 Update these values together when the client or core version changes.

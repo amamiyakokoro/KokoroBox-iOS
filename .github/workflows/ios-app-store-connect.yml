@@ -1,6 +1,6 @@
 name: iOS App Store Connect
 
-run-name: iOS 1.14.6 (${{ inputs.build_number }})${{ inputs.upload && ' — upload' || ' — archive only' }}
+run-name: iOS 1.14.4 (${{ inputs.build_number }})${{ inputs.upload && ' — upload' || ' — archive only' }}
 
 on:
   workflow_dispatch:
@@ -146,7 +146,7 @@ jobs:
         if: ${{ !inputs.upload }}
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
-          name: KokoroBoxI-1.14.6-${{ inputs.build_number }}
+          name: KokoroBoxI-1.14.4-${{ inputs.build_number }}
           path: ${{ runner.temp }}/export/*.ipa
           if-no-files-found: error
           retention-days: 7
