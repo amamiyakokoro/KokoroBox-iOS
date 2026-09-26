@@ -55,7 +55,7 @@
 	<false/>
 	<key>NSUbiquitousContainers</key>
 	<dict>
-		<key>iCloud.$(BASE_PACKAGE_IDENTIFIER)</key>
+		<key>iCloud.com.amamiyakokoro.box</key>
 		<dict>
 			<key>NSUbiquitousContainerIsDocumentScopePublic</key>
 			<true/>
