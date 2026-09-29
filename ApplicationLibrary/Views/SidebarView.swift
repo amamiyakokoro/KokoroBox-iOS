@@ -87,6 +87,7 @@ import SwiftUI
         @ObservedObject var environments: ExtensionEnvironments
         @EnvironmentObject private var sendManager: TaildropSendManager
         @State private var hasGroups = false
+        @State private var isConnected = false
 
         var body: some View {
             List(selection: $localSelection.optionalSelection) {
@@ -94,7 +95,9 @@ import SwiftUI
                 if hasGroups {
                     NavigationPage.groups.label.tag(NavigationPage.groups)
                 }
-                NavigationPage.connections.label.tag(NavigationPage.connections)
+                if isConnected {
+                    NavigationPage.connections.label.tag(NavigationPage.connections)
+                }
                 ForEach(NavigationPage.sidebarDefaultPages, id: \.self) { it in
                     it.label
                         .badge(it == .tools ? environments.toolsBadgeCount + sendManager.failedSessionCount : 0)
@@ -105,6 +108,7 @@ import SwiftUI
             .onAppear {
                 localSelection = selection
                 hasGroups = environments.commandClient.groups?.isEmpty == false
+                isConnected = environments.commandClient.isConnected
             }
             .onChangeCompat(of: selection) { newValue in
                 if localSelection != newValue {
@@ -121,6 +125,14 @@ import SwiftUI
             .onReceive(environments.commandClient.$groups) { groups in
                 hasGroups = groups?.isEmpty == false
                 if localSelection == .groups, groups?.isEmpty != false {
+                    Task { @MainActor in
+                        localSelection = .dashboard
+                    }
+                }
+            }
+            .onReceive(environments.commandClient.$isConnected) { newValue in
+                isConnected = newValue
+                if localSelection == .connections, !newValue {
                     Task { @MainActor in
                         localSelection = .dashboard
                     }
