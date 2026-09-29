@@ -16,13 +16,20 @@ public struct PublicIPAddressView: View {
                         ProgressView()
                     } else if let info = viewModel.info {
                         HStack(spacing: 8) {
-                            if let countryCode = info.countryCode {
-                                CountryFlagImage(countryCode: countryCode, size: 24)
-                                Text(verbatim: countryCode)
-                                    .fontWeight(.semibold)
-                            }
+                            #if !os(iOS)
+                                if let countryCode = info.countryCode {
+                                    CountryFlagImage(countryCode: countryCode, size: 24)
+                                    Text(verbatim: countryCode)
+                                        .fontWeight(.semibold)
+                                }
+                            #endif
                             Text(verbatim: info.address)
                                 .font(.body.monospaced())
+                                #if os(iOS)
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(0.5)
+                                    .layoutPriority(1)
+                                #endif
                         }
                     } else {
                         Text(verbatim: "-")
