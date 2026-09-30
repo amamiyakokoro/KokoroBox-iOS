@@ -4,6 +4,8 @@ The `iOS App Store Connect` GitHub Actions workflow builds the pinned sing-box c
 
 The workflow is manual by design. It never runs for pull requests or ordinary pushes, and upload is disabled unless the operator explicitly enables it.
 
+Archives are built without a development certificate. Before export, the workflow applies temporary ad hoc signatures to the app and every embedded extension with their resolved target entitlements, and verifies those entitlements. Xcode then replaces these signatures using automatic cloud distribution signing. This avoids creating a new development certificate on each fresh CI runner while preserving App Group, iCloud, and VPN capabilities.
+
 ## 1. Apple setup
 
 An Account Holder or Admin must:

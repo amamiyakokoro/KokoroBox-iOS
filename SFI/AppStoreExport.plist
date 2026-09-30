@@ -6,5 +6,9 @@
 	<string>export</string>
 	<key>method</key>
 	<string>app-store-connect</string>
+	<key>signingStyle</key>
+	<string>automatic</string>
+	<key>teamID</key>
+	<string>755TNLRN92</string>
 </dict>
 </plist>
