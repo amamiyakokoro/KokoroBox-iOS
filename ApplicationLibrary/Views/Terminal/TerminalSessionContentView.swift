@@ -10,24 +10,21 @@
         var isActive: Bool = true
         var onCloseSession: (() -> Void)?
         @Environment(\.dismiss) private var dismiss
+        @Environment(\.colorScheme) private var colorScheme
 
         var body: some View {
             ZStack {
-                #if os(iOS)
-                    Color(uiColor: .systemBackground)
-                        .ignoresSafeArea()
-                #elseif os(macOS)
-                    Color(nsColor: .windowBackgroundColor)
-                        .ignoresSafeArea()
-                #endif
+                backgroundColor
+                    .ignoresSafeArea()
                 if let terminalState = viewModel.terminalState {
                     TailsshTerminalSurfaceView(
                         state: terminalState,
                         extras: viewModel.extras,
                         isActive: isActive
                     )
+                    .opacity(viewModel.hasReceivedOutput ? 1 : 0)
                 }
-                if case .connecting = viewModel.phase {
+                if viewModel.phase == .connecting || (viewModel.phase == .running && !viewModel.hasReceivedOutput) {
                     VStack(spacing: 16) {
                         ProgressView()
                             .controlSize(.large)
@@ -80,24 +77,33 @@
             }
         }
 
+        private var backgroundColor: Color {
+            let themeColor = colorScheme == .dark ? viewModel.darkBackgroundColor : viewModel.lightBackgroundColor
+            #if os(iOS)
+                return themeColor ?? Color(uiColor: .systemBackground)
+            #else
+                return themeColor ?? Color(nsColor: .windowBackgroundColor)
+            #endif
+        }
+
         var displayedTitle: String {
             Self.displayTitle(
                 phase: viewModel.phase,
                 extrasTitle: viewModel.extras.title,
-                peerHostName: presentedSession.peerHostName
+                peerDisplayName: presentedSession.peerDisplayName
             )
         }
 
         static func displayTitle(
             phase: TerminalWrapperViewModel.Phase,
             extrasTitle: String,
-            peerHostName: String
+            peerDisplayName: String
         ) -> String {
             if case .connecting = phase {
-                return peerHostName
+                return peerDisplayName
             }
             let remote = extrasTitle.trimmingCharacters(in: .whitespaces)
-            return remote.isEmpty ? peerHostName : remote
+            return remote.isEmpty ? peerDisplayName : remote
         }
 
         static func bannerAttributedString(_ text: String) -> AttributedString {
