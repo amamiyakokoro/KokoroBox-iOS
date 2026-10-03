@@ -192,6 +192,7 @@ struct DashboardWidgetView: View {
 
             HStack(spacing: 0) {
                 shortcut("Profile", icon: "doc.text", page: "dashboard")
+                shortcut("Groups", icon: "rectangle.3.group", page: "groups")
                 shortcut("Connections", icon: "link", page: "connections")
                 WidgetServiceButton(isStarted: entry.isStarted)
             }

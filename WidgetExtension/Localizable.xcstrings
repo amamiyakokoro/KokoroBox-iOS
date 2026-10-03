@@ -1,26 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "Start VPN" : {
-      "localizations" : {
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "啟動 VPN"
-          }
-        }
-      }
-    },
-    "Stop VPN" : {
-      "localizations" : {
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "停止 VPN"
-          }
-        }
-      }
-    },
     "Connection dashboard" : {
       "localizations" : {
         "zh-Hant" : {
@@ -73,6 +53,7 @@
       }
     },
     "Kokoro" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hant" : {
           "stringUnit" : {
@@ -81,6 +62,9 @@
           }
         }
       }
+    },
+    "KokoroBox" : {
+
     },
     "Memory" : {
       "localizations" : {
@@ -209,12 +193,32 @@
         }
       }
     },
+    "Start VPN" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "啟動 VPN"
+          }
+        }
+      }
+    },
     "Stop" : {
       "localizations" : {
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "停止"
+          }
+        }
+      }
+    },
+    "Stop VPN" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "停止 VPN"
           }
         }
       }
@@ -291,6 +295,7 @@
       }
     },
     "VPN" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hant" : {
           "stringUnit" : {
@@ -301,6 +306,7 @@
       }
     },
     "VPN service" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hant" : {
           "stringUnit" : {
