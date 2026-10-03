@@ -110,7 +110,7 @@ struct SmallProxyWidgetView: View {
             VStack(alignment: .leading, spacing: 3) {
                 Text("KokoroBox")
                     .font(.system(size: 19, weight: .semibold))
-                Text(entry.mode.isEmpty ? "DEFAULT" : entry.mode.uppercased())
+                Text(entry.isStarted ? "RUNNING" : "STOPPED")
                     .font(.system(size: 10, weight: .semibold))
                     .foregroundStyle(.white.opacity(0.6))
             }
@@ -162,7 +162,7 @@ struct DashboardWidgetView: View {
                     Text("KokoroBox")
                         .font(.system(size: 17, weight: .semibold))
                         .lineLimit(1)
-                    Text(entry.isStarted ? (entry.mode.isEmpty ? "RUNNING" : entry.mode.uppercased()) : "STOPPED")
+                    Text(entry.isStarted ? "RUNNING" : "STOPPED")
                         .font(.system(size: 10, weight: .semibold))
                         .foregroundStyle(.white.opacity(0.6))
                 }
@@ -190,12 +190,15 @@ struct DashboardWidgetView: View {
             }
             .foregroundStyle(.white.opacity(0.65))
 
-            Text(entry.profileName)
-                .font(.system(size: 14, weight: .medium))
-                .lineLimit(1)
-                .truncationMode(.tail)
-                .frame(maxWidth: .infinity, minHeight: 32, alignment: .leading)
-                .foregroundStyle(.white.opacity(0.7))
+            HStack(spacing: 12) {
+                Text(entry.profileName)
+                    .font(.system(size: 14, weight: .medium))
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                    .frame(maxWidth: .infinity, minHeight: 32, alignment: .leading)
+                    .foregroundStyle(.white.opacity(0.7))
+                WidgetServiceButton(isStarted: entry.isStarted)
+            }
         }
         .foregroundStyle(.white.opacity(0.85))
         .widgetURL(URL(string: "sing-box://widget?page=dashboard"))
