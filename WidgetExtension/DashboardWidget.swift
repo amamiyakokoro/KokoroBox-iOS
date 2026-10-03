@@ -248,14 +248,6 @@ struct WidgetServiceButton: View {
     }
 }
 
-struct RefreshDashboardIntent: AppIntent {
-    static var title: LocalizedStringResource = "Update subscription"
-
-    func perform() async throws -> some IntentResult & OpensIntent {
-        return .result(opensIntent: OpenURLIntent(URL(string: "sing-box://widget?page=update-profile")!))
-    }
-}
-
 #Preview(as: .systemMedium) {
     DashboardWidget()
 } timeline: {

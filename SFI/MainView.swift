@@ -425,6 +425,9 @@ struct MainView: View {
                 environments.postReload()
             }
             .alert($alert)
+            .onReceive(NotificationCenter.default.publisher(for: WidgetSubscriptionUpdater.didFinish)) { _ in
+                environments.profileUpdate.send()
+            }
             .overlay {
                 if isUpdatingWidgetProfile {
                     ProgressView("Updating subscription")

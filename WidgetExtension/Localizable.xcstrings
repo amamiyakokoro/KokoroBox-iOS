@@ -161,6 +161,9 @@
         }
       }
     },
+    "RUNNING" : {
+
+    },
     "Selected proxy" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -234,6 +237,9 @@
           }
         }
       }
+    },
+    "STOPPED" : {
+
     },
     "Toggle" : {
       "localizations" : {

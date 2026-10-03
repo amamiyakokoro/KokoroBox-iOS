@@ -650,6 +650,13 @@
 			);
 			target = 3AF7B2012FF10003000A0001 /* ShareExtension.System */;
 		};
+		3AF8C00130000001000A0001 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				RefreshDashboardIntent.swift,
+			);
+			target = 3AEC20F22A459AB400A63465 /* KokoroBoxI */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -667,7 +674,7 @@
 		3ADDCFB72E8B72AB009ACE1D /* Extension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3ADDCFB92E8B72AB009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Extension; sourceTree = "<group>"; };
 		3ADDCFBE2E8B72B0009ACE1D /* SystemExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3ADDCFC12E8B72B0009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SystemExtension; sourceTree = "<group>"; };
 		3ADDCFC62E8B72B4009ACE1D /* IntentsExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3ADDCFC92E8B72B4009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = IntentsExtension; sourceTree = "<group>"; };
-		3ADDCFD52E8B72BC009ACE1D /* WidgetExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3ADDCFDA2E8B72BC009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = WidgetExtension; sourceTree = "<group>"; };
+		3ADDCFD52E8B72BC009ACE1D /* WidgetExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3AF8C00130000001000A0001 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 3ADDCFDA2E8B72BC009ACE1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = WidgetExtension; sourceTree = "<group>"; };
 		3AE595722F08C34000C13426 /* HelperService */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = HelperService; sourceTree = "<group>"; };
 		3AF7B0032FF10001000A0001 /* ShareExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3AF7B0042FF10001000A0001 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 3AF7B1152FF10002000A0001 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 3AF7B2152FF10003000A0001 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = ShareExtension; sourceTree = "<group>"; };
 		3AF7B1032FF10002000A0001 /* ActionExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3AF7B1042FF10002000A0001 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = ActionExtension; sourceTree = "<group>"; };
@@ -2382,6 +2389,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) KOKORO_WIDGET_EXTENSION";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2413,6 +2421,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) KOKORO_WIDGET_EXTENSION";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
