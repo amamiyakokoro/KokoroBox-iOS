@@ -25,6 +25,8 @@ struct MainView: View {
     @State private var alert: AlertState?
     @State private var showGroups = false
     @State private var showConnections = false
+    @State private var showKokoro = false
+    @State private var isUpdatingWidgetProfile = false
     @State private var buttonState = ButtonVisibilityState()
     @State private var initializedTabs: Set<NavigationPage> = []
     @State private var logsAccessoryHeight: CGFloat = 0
@@ -399,6 +401,16 @@ struct MainView: View {
             .sheet(isPresented: $showConnections) {
                 ConnectionsSheetContent()
             }
+            .sheet(isPresented: $showKokoro) {
+                NavigationStackCompat {
+                    KokoroSettingsView()
+                        .toolbar {
+                            ToolbarItem(placement: .cancellationAction) {
+                                Button("Close") { showKokoro = false }
+                            }
+                        }
+                }
+            }
             .onChangeCompat(of: buttonState.showGroupsButton) { newValue in
                 if !newValue {
                     showGroups = false
@@ -413,6 +425,13 @@ struct MainView: View {
                 environments.postReload()
             }
             .alert($alert)
+            .overlay {
+                if isUpdatingWidgetProfile {
+                    ProgressView("Updating subscription")
+                        .padding()
+                        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 12))
+                }
+            }
             .globalChecks()
             .onChangeCompat(of: scenePhase) { newValue in
                 if newValue == .active {
@@ -565,6 +584,9 @@ struct MainView: View {
             return
         }
         if url.scheme?.lowercased() == "sing-box", url.schemeAction == "widget" {
+            showGroups = false
+            showConnections = false
+            showKokoro = false
             switch url.schemeQueryValue("page") {
             case "groups":
                 selection = .dashboard
@@ -574,6 +596,12 @@ struct MainView: View {
                 showConnections = true
             case "tools":
                 selection = .tools
+            case "kokoro":
+                selection = .settings
+                showKokoro = true
+            case "update-profile":
+                selection = .dashboard
+                Task { await updateWidgetSubscription() }
             default:
                 selection = .dashboard
             }
@@ -596,6 +624,29 @@ struct MainView: View {
             }
         } else {
             alert = AlertState(errorMessage: String(localized: "Handled unknown URL \(url.absoluteString)"))
+        }
+    }
+
+    @MainActor
+    private func updateWidgetSubscription() async {
+        guard !isUpdatingWidgetProfile else { return }
+        isUpdatingWidgetProfile = true
+        defer { isUpdatingWidgetProfile = false }
+        do {
+            let profileID = await SharedPreferences.selectedProfileID.get()
+            guard let profile = try await ProfileManager.get(profileID) else {
+                alert = AlertState(errorMessage: String(localized: "No profile"))
+                return
+            }
+            guard profile.type == .remote else {
+                alert = AlertState(errorMessage: String(localized: "The selected profile has no subscription to update."))
+                return
+            }
+            try await profile.updateRemoteProfile()
+            environments.profileUpdate.send()
+            alert = AlertState(title: String(localized: "Subscription updated"), message: profile.name)
+        } catch {
+            alert = AlertState(action: "update remote profile", error: error)
         }
     }
 }

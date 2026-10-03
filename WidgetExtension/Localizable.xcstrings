@@ -21,16 +21,6 @@
         }
       }
     },
-    "Download speed snapshot" : {
-      "localizations" : {
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "下載速度快照"
-          }
-        }
-      }
-    },
     "Downloaded" : {
       "localizations" : {
         "zh-Hant" : {
@@ -47,26 +37,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "代理"
-          }
-        }
-      }
-    },
-    "Memory snapshot" : {
-      "localizations" : {
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "記憶體用量快照"
-          }
-        }
-      }
-    },
-    "No proxy snapshot" : {
-      "localizations" : {
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "尚無代理快照"
           }
         }
       }
@@ -111,32 +81,12 @@
         }
       }
     },
-    "Profile, traffic snapshot and VPN controls." : {
-      "localizations" : {
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "配置、流量快照與 VPN 控制。"
-          }
-        }
-      }
-    },
     "Proxy" : {
       "localizations" : {
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "代理"
-          }
-        }
-      }
-    },
-    "Refresh VPN status" : {
-      "localizations" : {
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "重新整理 VPN 狀態"
           }
         }
       }
@@ -151,32 +101,7 @@
         }
       }
     },
-    "Selected proxy snapshot" : {
-      "localizations" : {
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "已選代理快照"
-          }
-        }
-      }
-    },
-    "sing-box" : {
-
-    },
-    "Snapshot" : {
-      "localizations" : {
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "快照"
-          }
-        }
-      }
-    },
-    "Snapshot updated at %@" : {
-
-    },
+    "sing-box" : {},
     "Start" : {
       "localizations" : {
         "zh-Hant" : {
@@ -247,16 +172,6 @@
         }
       }
     },
-    "Upload speed snapshot" : {
-      "localizations" : {
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "上傳速度快照"
-          }
-        }
-      }
-    },
     "Uploaded" : {
       "localizations" : {
         "zh-Hant" : {
@@ -283,6 +198,86 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "VPN 服務"
+          }
+        }
+      }
+    },
+    "Profile, traffic and VPN controls." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "配置、流量與 VPN 控制。"
+          }
+        }
+      }
+    },
+    "Selected proxy" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已選代理"
+          }
+        }
+      }
+    },
+    "No proxy data" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "尚無代理資料"
+          }
+        }
+      }
+    },
+    "Download speed" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "下載速度"
+          }
+        }
+      }
+    },
+    "Upload speed" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上傳速度"
+          }
+        }
+      }
+    },
+    "Memory" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "記憶體"
+          }
+        }
+      }
+    },
+    "Kokoro" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kokoro"
+          }
+        }
+      }
+    },
+    "Update subscription" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更新訂閱"
           }
         }
       }
