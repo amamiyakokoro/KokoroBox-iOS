@@ -18,7 +18,7 @@ struct DashboardEntry: TimelineEntry {
     var updatedAt: Date?
 
     static let preview = DashboardEntry(
-        date: .now, isStarted: true, profileName: "Kokoro", mode: "rule",
+        date: .now, isStarted: true, profileName: "Kokoro Hong Kong ANYTLS", mode: "rule",
         groupName: "Kokoro", selectedOutbound: "Hong Kong ANYTLS",
         download: "399 KB", upload: "277 KB", downloadSpeed: "1.5 KB/s",
         uploadSpeed: "0 KB/s", connections: "19", memory: "19 MB", updatedAt: .now
@@ -159,7 +159,7 @@ struct DashboardWidgetView: View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 3) {
-                    Text(entry.profileName)
+                    Text("KokoroBox")
                         .font(.system(size: 17, weight: .semibold))
                         .lineLimit(1)
                     Text(entry.isStarted ? (entry.mode.isEmpty ? "RUNNING" : entry.mode.uppercased()) : "STOPPED")
@@ -190,14 +190,12 @@ struct DashboardWidgetView: View {
             }
             .foregroundStyle(.white.opacity(0.65))
 
-            HStack(spacing: 0) {
-                shortcut("Profile", icon: "doc.text", page: "dashboard")
-                shortcut("Groups", icon: "rectangle.3.group", page: "groups")
-                shortcut("Connections", icon: "link", page: "connections")
-                WidgetServiceButton(isStarted: entry.isStarted)
-            }
-            .font(.system(size: 14, weight: .medium))
-            .foregroundStyle(.white.opacity(0.7))
+            Text(entry.profileName)
+                .font(.system(size: 14, weight: .medium))
+                .lineLimit(1)
+                .truncationMode(.tail)
+                .frame(maxWidth: .infinity, minHeight: 32, alignment: .leading)
+                .foregroundStyle(.white.opacity(0.7))
         }
         .foregroundStyle(.white.opacity(0.85))
         .widgetURL(URL(string: "sing-box://widget?page=dashboard"))
@@ -205,15 +203,6 @@ struct DashboardWidgetView: View {
 
     private func metric(_ symbol: String, _ value: String, label: LocalizedStringKey) -> some View {
         WidgetMetric(symbol: symbol, value: value, label: label)
-    }
-
-    private func shortcut(_ title: LocalizedStringKey, icon: String, page: String) -> some View {
-        Link(destination: URL(string: "sing-box://widget?page=\(page)")!) {
-            Label(title, systemImage: icon)
-                .lineLimit(1)
-                .minimumScaleFactor(0.7)
-                .frame(maxWidth: .infinity, minHeight: 32)
-        }
     }
 }
 
