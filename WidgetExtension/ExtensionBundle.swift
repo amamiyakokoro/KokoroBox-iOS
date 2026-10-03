@@ -4,6 +4,7 @@ import WidgetKit
 @main
 struct ExtensionBundle: WidgetBundle {
     var body: some Widget {
+        DashboardWidget()
         ServiceToggleControl()
     }
 }

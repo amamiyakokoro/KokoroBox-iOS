@@ -564,7 +564,20 @@ struct MainView: View {
             }
             return
         }
-        if url.schemeAction == "taildrop" {
+        if url.scheme?.lowercased() == "sing-box", url.schemeAction == "widget" {
+            switch url.schemeQueryValue("page") {
+            case "groups":
+                selection = .dashboard
+                showGroups = true
+            case "connections":
+                selection = .dashboard
+                showConnections = true
+            case "tools":
+                selection = .tools
+            default:
+                selection = .dashboard
+            }
+        } else if url.schemeAction == "taildrop" {
             environments.pendingTaildropEndpointTag = url.schemeQueryValue("endpoint") ?? ""
             selection = .tools
         } else if url.host == "import-remote-profile" {

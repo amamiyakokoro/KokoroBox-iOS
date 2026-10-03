@@ -126,6 +126,23 @@ import SwiftUI
                 }
             }
         }
+        #if os(iOS)
+        .onReceive(environments.commandClient.statusPublisher) { _ in
+            saveWidgetSnapshot()
+        }
+        .onChangeCompat(of: coordinator.selectedProfileID) { _ in
+            saveWidgetSnapshot(forceReload: true)
+        }
+        .onChangeCompat(of: coordinator.profileList) { _ in
+            saveWidgetSnapshot(forceReload: true)
+        }
+        .onChangeCompat(of: environments.commandClient.clashMode) { _ in
+            saveWidgetSnapshot(forceReload: true)
+        }
+        .onChangeCompat(of: profile.status) { _ in
+            saveWidgetSnapshot(forceReload: true)
+        }
+        #endif
         #if os(tvOS)
         .onReceive(environments.commandClient.$groups) { _ in
             Task { @MainActor in
@@ -150,6 +167,18 @@ import SwiftUI
             cardConfiguration: cardConfiguration
         )
     }
+
+    #if os(iOS)
+        private func saveWidgetSnapshot(forceReload: Bool = false) {
+            // A remote-control dashboard must never replace the local VPN widget's data.
+            guard environments.remoteServer == nil else { return }
+            DashboardWidgetSnapshot.save(
+                profileName: coordinator.profileList.first { $0.id == coordinator.selectedProfileID }?.name,
+                client: environments.commandClient,
+                forceReload: forceReload
+            )
+        }
+    #endif
 
     #if os(tvOS)
         private func updateButtonVisibility() {
