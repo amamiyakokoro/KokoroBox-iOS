@@ -106,33 +106,33 @@ struct SmallProxyWidgetView: View {
     let entry: DashboardEntry
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 5) {
-            Text("Proxy")
-                .font(.system(size: 19, weight: .semibold))
-            Text(entry.groupName.isEmpty ? entry.profileName : entry.groupName)
-                .font(.system(size: 13, weight: .semibold))
-                .lineLimit(1)
-                .minimumScaleFactor(0.8)
-            Text(entry.selectedOutbound.isEmpty ? String(localized: "Open app to view groups") : entry.selectedOutbound)
-                .font(.system(size: 13))
-                .foregroundStyle(.white.opacity(0.65))
-                .lineLimit(2)
-                .minimumScaleFactor(0.8)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .accessibilityLabel(Text("Selected proxy"))
-                .accessibilityValue(entry.selectedOutbound.isEmpty ? String(localized: "No proxy data") : entry.selectedOutbound)
+        VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: 3) {
+                Text("KokoroBox")
+                    .font(.system(size: 19, weight: .semibold))
+                Text(entry.mode.isEmpty ? "DEFAULT" : entry.mode.uppercased())
+                    .font(.system(size: 10, weight: .semibold))
+                    .foregroundStyle(.white.opacity(0.6))
+            }
+
+            Spacer(minLength: 0)
+
+            Grid(horizontalSpacing: 6, verticalSpacing: 7) {
+                GridRow {
+                    WidgetMetric(symbol: "arrow.down", value: entry.download, label: "Downloaded")
+                    WidgetMetric(symbol: "arrow.up", value: entry.upload, label: "Uploaded")
+                }
+                GridRow {
+                    WidgetMetric(symbol: "arrow.down.circle", value: entry.downloadSpeed, label: "Download speed")
+                    WidgetMetric(symbol: "arrow.up.circle", value: entry.uploadSpeed, label: "Upload speed")
+                }
+            }
+            .foregroundStyle(.white.opacity(0.65))
 
             Spacer(minLength: 0)
 
             HStack {
-                Toggle(isOn: entry.isStarted, intent: ToggleServiceControlIntent()) {
-                    Text("VPN")
-                }
-                .toggleStyle(.switch)
-                .labelsHidden()
-                .tint(.green)
-                .fixedSize()
-                .accessibilityLabel("VPN service")
+                WidgetServiceButton(isStarted: entry.isStarted)
 
                 Spacer(minLength: 0)
 
@@ -149,6 +149,7 @@ struct SmallProxyWidgetView: View {
         .foregroundStyle(.white.opacity(0.85))
         .widgetURL(URL(string: "sing-box://widget?page=dashboard"))
     }
+
 }
 
 struct DashboardWidgetView: View {
@@ -192,17 +193,9 @@ struct DashboardWidgetView: View {
             HStack(spacing: 0) {
                 shortcut("Profile", icon: "doc.text", page: "dashboard")
                 shortcut("Connections", icon: "link", page: "connections")
-                shortcut("Kokoro", icon: "person.crop.circle.badge.checkmark", page: "kokoro")
-                Toggle(isOn: entry.isStarted, intent: ToggleServiceControlIntent()) {
-                    Text("VPN")
-                }
-                .toggleStyle(.switch)
-                .labelsHidden()
-                .tint(.green)
-                .fixedSize()
-                .accessibilityLabel("VPN service")
+                WidgetServiceButton(isStarted: entry.isStarted)
             }
-            .font(.system(size: 11))
+            .font(.system(size: 14, weight: .medium))
             .foregroundStyle(.white.opacity(0.7))
         }
         .foregroundStyle(.white.opacity(0.85))
@@ -210,6 +203,25 @@ struct DashboardWidgetView: View {
     }
 
     private func metric(_ symbol: String, _ value: String, label: LocalizedStringKey) -> some View {
+        WidgetMetric(symbol: symbol, value: value, label: label)
+    }
+
+    private func shortcut(_ title: LocalizedStringKey, icon: String, page: String) -> some View {
+        Link(destination: URL(string: "sing-box://widget?page=\(page)")!) {
+            Label(title, systemImage: icon)
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
+                .frame(maxWidth: .infinity, minHeight: 32)
+        }
+    }
+}
+
+struct WidgetMetric: View {
+    let symbol: String
+    let value: String
+    let label: LocalizedStringKey
+
+    var body: some View {
         HStack(spacing: 4) {
             Image(systemName: symbol)
                 .frame(width: 13)
@@ -224,14 +236,22 @@ struct DashboardWidgetView: View {
         .accessibilityLabel(Text(label))
         .accessibilityValue(value)
     }
+}
 
-    private func shortcut(_ title: LocalizedStringKey, icon: String, page: String) -> some View {
-        Link(destination: URL(string: "sing-box://widget?page=\(page)")!) {
-            Label(title, systemImage: icon)
-                .lineLimit(1)
-                .minimumScaleFactor(0.7)
-                .frame(maxWidth: .infinity, minHeight: 28)
+struct WidgetServiceButton: View {
+    let isStarted: Bool
+
+    var body: some View {
+        Button(intent: ToggleServiceControlIntent(value: !isStarted)) {
+            Image(systemName: "power")
+                .font(.system(size: 17, weight: .semibold))
+                .foregroundStyle(.white)
+                .frame(width: 36, height: 36)
+                .background(isStarted ? Color.green : Color.white.opacity(0.18), in: Circle())
         }
+        .buttonStyle(.plain)
+        .accessibilityLabel(isStarted ? Text("Stop VPN") : Text("Start VPN"))
+        .accessibilityValue(isStarted ? Text("Running") : Text("Stopped"))
     }
 }
 

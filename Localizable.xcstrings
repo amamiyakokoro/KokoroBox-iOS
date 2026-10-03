@@ -1,36 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "Updating subscription" : {
-      "localizations" : {
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "正在更新訂閱"
-          }
-        }
-      }
-    },
-    "Subscription updated" : {
-      "localizations" : {
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "訂閱已更新"
-          }
-        }
-      }
-    },
-    "The selected profile has no subscription to update." : {
-      "localizations" : {
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "目前配置沒有可更新的訂閱。"
-          }
-        }
-      }
-    },
     "[age](https://github.com/filosottile/age) is a modern and secure asymmetric encryption tool. When enabled, the zip file is encrypted with this project's public key so it can be posted publicly, e.g. in GitHub issues." : {
       "localizations" : {
         "zh-Hans" : {
@@ -241,6 +211,7 @@
       }
     },
     "Add" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -252,54 +223,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "添加"
-          }
-        }
-      }
-    },
-    "Add DNS server IP" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "添加 DNS 服务器 IP"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "添加 DNS 伺服器 IP"
-          }
-        }
-      }
-    },
-    "Add domain" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "添加域名"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "添加域名"
-          }
-        }
-      }
-    },
-    "Add domain (e.g., example.com)" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "添加域名（例如 example.com）"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "添加域名（例如 example.com）"
           }
         }
       }
@@ -332,6 +255,40 @@
         }
       }
     },
+    "Add DNS server IP" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "添加 DNS 服务器 IP"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "添加 DNS 伺服器 IP"
+          }
+        }
+      }
+    },
+    "Add domain" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "添加域名"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "添加域名"
+          }
+        }
+      }
+    },
     "Add Domain" : {
       "localizations" : {
         "fa" : {
@@ -356,6 +313,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "添加域名"
+          }
+        }
+      }
+    },
+    "Add domain (e.g., example.com)" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "添加域名（例如 example.com）"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "添加域名（例如 example.com）"
           }
         }
       }
@@ -1685,6 +1659,7 @@
       }
     },
     "Connection Rule" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1701,6 +1676,7 @@
       }
     },
     "Connection Rules" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2246,23 +2222,6 @@
         }
       }
     },
-    "Delete Rule Set?" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "删除规则集？"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "刪除規則集？"
-          }
-        }
-      }
-    },
     "Delete Rule" : {
       "localizations" : {
         "fa" : {
@@ -2287,6 +2246,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "刪除規則"
+          }
+        }
+      }
+    },
+    "Delete Rule Set?" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除规则集？"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "刪除規則集？"
           }
         }
       }
@@ -2519,6 +2495,7 @@
       "shouldTranslate" : false
     },
     "DNS Search Domain" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2530,22 +2507,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "DNS 搜索域"
-          }
-        }
-      }
-    },
-    "DNS Server Address" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "DNS 服务器地址"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "DNS 伺服器地址"
           }
         }
       }
@@ -2602,6 +2563,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "DNS 服務器"
+          }
+        }
+      }
+    },
+    "DNS Server Address" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "DNS 服务器地址"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "DNS 伺服器地址"
           }
         }
       }
@@ -2730,22 +2708,6 @@
         }
       }
     },
-    "Domains that trigger this rule. The rule matches if the destination host shares a suffix with any domain in this list." : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "触发此规则的域名。如果目标主机与列表中任何域名后缀匹配，则规则生效。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "觸發此規則的域名。如果目標主機與列表中任何域名後綴匹配，則規則生效。"
-          }
-        }
-      }
-    },
     "Domain Rule" : {
       "localizations" : {
         "fa" : {
@@ -2826,6 +2788,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "域名"
+          }
+        }
+      }
+    },
+    "Domains that trigger this rule. The rule matches if the destination host shares a suffix with any domain in this list." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "触发此规则的域名。如果目标主机与列表中任何域名后缀匹配，则规则生效。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "觸發此規則的域名。如果目標主機與列表中任何域名後綴匹配，則規則生效。"
           }
         }
       }
@@ -3159,6 +3138,7 @@
       }
     },
     "Empty rules" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3355,6 +3335,7 @@
       }
     },
     "Evaluate the destination host before deciding to connect." : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4198,6 +4179,7 @@
       }
     },
     "http://..." : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hant" : {
           "stringUnit" : {
@@ -4773,22 +4755,6 @@
         }
       }
     },
-    "IP Address" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "IP 地址"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "IP 位址"
-          }
-        }
-      }
-    },
     "IP address" : {
       "localizations" : {
         "fa" : {
@@ -4813,6 +4779,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "IP 地址"
+          }
+        }
+      }
+    },
+    "IP Address" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "IP 地址"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "IP 位址"
           }
         }
       }
@@ -5611,6 +5593,7 @@
       }
     },
     "Match Domains" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -6417,6 +6400,7 @@
       }
     },
     "No connection rules. Add rules to specify which domains trigger VPN connection." : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -9029,6 +9013,7 @@
       "shouldTranslate" : false
     },
     "SSID Match" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -9356,6 +9341,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "訂閱"
+          }
+        }
+      }
+    },
+    "Subscription updated" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "訂閱已更新"
           }
         }
       }
@@ -9711,6 +9706,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "規則已在其他裝置或網站上變更。請先檢查遠端版本，再選擇如何繼續。"
+          }
+        }
+      }
+    },
+    "The selected profile has no subscription to update." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "目前配置沒有可更新的訂閱。"
           }
         }
       }
@@ -10547,6 +10552,16 @@
         }
       }
     },
+    "Updating subscription" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在更新訂閱"
+          }
+        }
+      }
+    },
     "Uplink" : {
       "localizations" : {
         "zh-Hans" : {
@@ -10894,6 +10909,7 @@
       }
     },
     "When action is 'Evaluate Connection', these rules determine whether to connect based on the destination host." : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {

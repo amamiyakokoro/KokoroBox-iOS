@@ -41,6 +41,12 @@ struct ToggleServiceControlIntent: SetValueIntent {
     @Parameter(title: "Running")
     var value: Bool
 
+    init() {}
+
+    init(value: Bool) {
+        self.value = value
+    }
+
     func perform() async throws -> some IntentResult {
         try await WidgetTunnelControl.setStarted(value)
         WidgetCenter.shared.reloadTimelines(ofKind: "\(WidgetAppConfiguration.packageName).widget.Dashboard")

@@ -1,6 +1,26 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Start VPN" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "啟動 VPN"
+          }
+        }
+      }
+    },
+    "Stop VPN" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "停止 VPN"
+          }
+        }
+      }
+    },
     "Connection dashboard" : {
       "localizations" : {
         "zh-Hant" : {
@@ -21,6 +41,16 @@
         }
       }
     },
+    "Download speed" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "下載速度"
+          }
+        }
+      }
+    },
     "Downloaded" : {
       "localizations" : {
         "zh-Hant" : {
@@ -32,11 +62,43 @@
       }
     },
     "Groups" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "代理"
+          }
+        }
+      }
+    },
+    "Kokoro" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kokoro"
+          }
+        }
+      }
+    },
+    "Memory" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "記憶體"
+          }
+        }
+      }
+    },
+    "No proxy data" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "尚無代理資料"
           }
         }
       }
@@ -52,6 +114,7 @@
       }
     },
     "Open app to view groups" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hant" : {
           "stringUnit" : {
@@ -81,7 +144,18 @@
         }
       }
     },
+    "Profile, traffic and VPN controls." : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "配置、流量與 VPN 控制。"
+          }
+        }
+      }
+    },
     "Proxy" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hant" : {
           "stringUnit" : {
@@ -101,7 +175,20 @@
         }
       }
     },
-    "sing-box" : {},
+    "Selected proxy" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已選代理"
+          }
+        }
+      }
+    },
+    "sing-box" : {
+
+    },
     "Start" : {
       "localizations" : {
         "zh-Hant" : {
@@ -163,11 +250,32 @@
       }
     },
     "Tools" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "工具"
+          }
+        }
+      }
+    },
+    "Update subscription" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更新訂閱"
+          }
+        }
+      }
+    },
+    "Upload speed" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上傳速度"
           }
         }
       }
@@ -198,86 +306,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "VPN 服務"
-          }
-        }
-      }
-    },
-    "Profile, traffic and VPN controls." : {
-      "localizations" : {
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "配置、流量與 VPN 控制。"
-          }
-        }
-      }
-    },
-    "Selected proxy" : {
-      "localizations" : {
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "已選代理"
-          }
-        }
-      }
-    },
-    "No proxy data" : {
-      "localizations" : {
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "尚無代理資料"
-          }
-        }
-      }
-    },
-    "Download speed" : {
-      "localizations" : {
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "下載速度"
-          }
-        }
-      }
-    },
-    "Upload speed" : {
-      "localizations" : {
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "上傳速度"
-          }
-        }
-      }
-    },
-    "Memory" : {
-      "localizations" : {
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "記憶體"
-          }
-        }
-      }
-    },
-    "Kokoro" : {
-      "localizations" : {
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kokoro"
-          }
-        }
-      }
-    },
-    "Update subscription" : {
-      "localizations" : {
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "更新訂閱"
           }
         }
       }
