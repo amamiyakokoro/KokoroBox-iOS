@@ -42,6 +42,7 @@
         @Published public private(set) var terminalState: TerminalViewState?
         @Published public private(set) var lightBackgroundColor: Color?
         @Published public private(set) var darkBackgroundColor: Color?
+        @Published public private(set) var backgroundColor: TerminalColor?
         public let extras = TailsshTerminalExtras()
         public var onWindowClose: (() -> Void)?
         private let terminalSession: InMemoryTerminalSession
@@ -138,6 +139,7 @@
             )
             state.configuration = TerminalSurfaceOptions(backend: .inMemory(terminalSession))
             extras.state = state
+            state.$backgroundColor.map { Optional($0) }.assign(to: &$backgroundColor)
             terminalState = state
 
             let options = LibboxTailscaleSSHOptions()
@@ -224,9 +226,7 @@
             return GhosttyThemeCatalog.theme(named: themeName)?.toTerminalConfiguration() ?? fallback
         }
 
-        /// The theme definition stands in for the surface's own background until
-        /// libghostty-spm ships https://github.com/Lakr233/libghostty-spm/pull/62;
-        /// a background the program sets (OSC 11) is not reflected.
+        /// Use the configured theme background until the terminal surface publishes its resolved color.
         private static func resolveBackgroundColor(themeName: String, customText: String, fallback: String) -> Color? {
             let value: String?
             if themeName.isEmpty {
