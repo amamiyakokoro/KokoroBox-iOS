@@ -3,6 +3,7 @@ import Libbox
 import Library
 import NetworkExtension
 import SwiftUI
+import WidgetKit
 
 struct MainView: View {
     @Environment(\.scenePhase) private var scenePhase
@@ -631,7 +632,10 @@ struct MainView: View {
     private func updateWidgetSubscription() async {
         guard !isUpdatingWidgetProfile else { return }
         isUpdatingWidgetProfile = true
-        defer { isUpdatingWidgetProfile = false }
+        defer {
+            isUpdatingWidgetProfile = false
+            publishWidgetSubscriptionUpdate(false)
+        }
         do {
             let profileID = await SharedPreferences.selectedProfileID.get()
             guard let profile = try await ProfileManager.get(profileID) else {
@@ -642,11 +646,23 @@ struct MainView: View {
                 alert = AlertState(errorMessage: String(localized: "The selected profile has no subscription to update."))
                 return
             }
+            publishWidgetSubscriptionUpdate(true)
             try await profile.updateRemoteProfile()
             environments.profileUpdate.send()
             alert = AlertState(title: String(localized: "Subscription updated"), message: profile.name)
         } catch {
             alert = AlertState(action: "update remote profile", error: error)
         }
+    }
+
+    private func publishWidgetSubscriptionUpdate(_ updating: Bool) {
+        guard let defaults = UserDefaults(suiteName: AppConfiguration.appGroupID) else { return }
+        let key = "dashboard_widget_subscription_update_started_at"
+        if updating {
+            defaults.set(Date(), forKey: key)
+        } else {
+            defaults.removeObject(forKey: key)
+        }
+        WidgetCenter.shared.reloadTimelines(ofKind: "\(AppConfiguration.packageName).widget.Dashboard")
     }
 }
