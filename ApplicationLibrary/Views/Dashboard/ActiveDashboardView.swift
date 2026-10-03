@@ -130,6 +130,9 @@ import SwiftUI
         .onReceive(environments.commandClient.statusPublisher) { _ in
             saveWidgetSnapshot()
         }
+        .onChangeCompat(of: environments.commandClient.groups?.map { [$0.tag, $0.selected] }) { _ in
+            saveWidgetSnapshot(forceReload: true)
+        }
         .onChangeCompat(of: coordinator.selectedProfileID) { _ in
             saveWidgetSnapshot(forceReload: true)
         }

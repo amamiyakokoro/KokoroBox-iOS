@@ -240,6 +240,46 @@
           }
         }
       }
+    },
+    "Proxy": {
+      "localizations": {
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "代理"
+          }
+        }
+      }
+    },
+    "Open app to view groups": {
+      "localizations": {
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開啟 App 查看代理"
+          }
+        }
+      }
+    },
+    "Selected proxy snapshot": {
+      "localizations": {
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已選代理快照"
+          }
+        }
+      }
+    },
+    "No proxy snapshot": {
+      "localizations": {
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "尚無代理快照"
+          }
+        }
+      }
     }
   },
   "version": "1.0"

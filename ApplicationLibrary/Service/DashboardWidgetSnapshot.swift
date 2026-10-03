@@ -17,6 +17,13 @@ enum DashboardWidgetSnapshot {
         var snapshot = defaults.dictionary(forKey: "dashboard_widget_snapshot") ?? [:]
         snapshot["profileName"] = profileName ?? String(localized: "No profile")
         snapshot["mode"] = client.clashMode
+        if let groups = client.groups {
+            // Prefer an interactive selector; URL-test groups are a fallback.
+            let group = groups.first { $0.selectable && !$0.selected.isEmpty }
+                ?? groups.first { !$0.selected.isEmpty }
+            snapshot["groupName"] = group?.tag ?? ""
+            snapshot["selectedOutbound"] = group?.selected ?? ""
+        }
         if let status = client.status {
             snapshot["download"] = LibboxFormatBytes(status.downlinkTotal)
             snapshot["upload"] = LibboxFormatBytes(status.uplinkTotal)
