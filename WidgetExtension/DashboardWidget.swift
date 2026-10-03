@@ -3,21 +3,8 @@ import SwiftUI
 import WidgetKit
 
 struct DashboardEntry: TimelineEntry {
-    var date: Date
+    let date: Date
     var isStarted = false
-    var subscriptionUpdateStartedAt: Date?
-    // Recover if the app exits before it can publish completion.
-    static let subscriptionUpdateTimeout: TimeInterval = 300
-
-    var isUpdatingSubscription: Bool {
-        guard let subscriptionUpdateStartedAt else { return false }
-        let age = date.timeIntervalSince(subscriptionUpdateStartedAt)
-        return age >= 0 && age < Self.subscriptionUpdateTimeout
-    }
-
-    var serviceStatus: String {
-        isUpdatingSubscription ? "UPDATING" : (isStarted ? "RUNNING" : "STOPPED")
-    }
     var profileName = String(localized: "Open app to select a profile")
     var mode = ""
     var groupName = ""
@@ -42,12 +29,6 @@ struct DashboardEntry: TimelineEntry {
         entry.isStarted = false
         return entry
     }
-
-    static var updatingPreview: DashboardEntry {
-        var entry = preview
-        entry.subscriptionUpdateStartedAt = entry.date
-        return entry
-    }
 }
 
 struct DashboardProvider: TimelineProvider {
@@ -64,23 +45,15 @@ struct DashboardProvider: TimelineProvider {
     func getTimeline(in context: Context, completion: @escaping (Timeline<DashboardEntry>) -> Void) {
         Task {
             let value = await entry()
-            if value.isUpdatingSubscription, let startedAt = value.subscriptionUpdateStartedAt {
-                var expired = value
-                expired.date = startedAt.addingTimeInterval(DashboardEntry.subscriptionUpdateTimeout)
-                expired.subscriptionUpdateStartedAt = nil
-                completion(Timeline(entries: [value, expired], policy: .after(expired.date)))
-            } else {
-                completion(Timeline(entries: [value], policy: .after(Date().addingTimeInterval(900))))
-            }
+            completion(Timeline(entries: [value], policy: .after(Date().addingTimeInterval(900))))
         }
     }
 
     private func entry() async -> DashboardEntry {
         var value = DashboardEntry(date: .now)
         value.isStarted = (try? await WidgetTunnelControl.currentIsStarted()) ?? false
-        let defaults = UserDefaults(suiteName: WidgetAppConfiguration.appGroupID)
-        value.subscriptionUpdateStartedAt = defaults?.object(forKey: "dashboard_widget_subscription_update_started_at") as? Date
-        let snapshot = defaults?.dictionary(forKey: "dashboard_widget_snapshot") ?? [:]
+        let snapshot = UserDefaults(suiteName: WidgetAppConfiguration.appGroupID)?
+            .dictionary(forKey: "dashboard_widget_snapshot") ?? [:]
         value.profileName = snapshot["profileName"] as? String ?? value.profileName
         value.mode = snapshot["mode"] as? String ?? ""
         value.groupName = snapshot["groupName"] as? String ?? ""
@@ -137,7 +110,7 @@ struct SmallProxyWidgetView: View {
             VStack(alignment: .leading, spacing: 3) {
                 Text("KokoroBox")
                     .font(.system(size: 19, weight: .semibold))
-                Text(entry.serviceStatus)
+                Text(entry.isStarted ? "RUNNING" : "STOPPED")
                     .font(.system(size: 10, weight: .semibold))
                     .foregroundStyle(.white.opacity(0.6))
             }
@@ -163,9 +136,14 @@ struct SmallProxyWidgetView: View {
 
                 Spacer(minLength: 0)
 
-                WidgetSubscriptionRefreshButton(isUpdating: entry.isUpdatingSubscription, size: 32)
-                    .font(.system(size: 15))
-                    .foregroundStyle(.white.opacity(0.5))
+                Button(intent: RefreshDashboardIntent()) {
+                    Image(systemName: "arrow.clockwise")
+                        .font(.system(size: 15))
+                        .foregroundStyle(.white.opacity(0.5))
+                        .frame(width: 32, height: 32)
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Update subscription")
             }
         }
         .foregroundStyle(.white.opacity(0.85))
@@ -184,13 +162,18 @@ struct DashboardWidgetView: View {
                     Text("KokoroBox")
                         .font(.system(size: 17, weight: .semibold))
                         .lineLimit(1)
-                    Text(entry.serviceStatus)
+                    Text(entry.isStarted ? "RUNNING" : "STOPPED")
                         .font(.system(size: 10, weight: .semibold))
                         .foregroundStyle(.white.opacity(0.6))
                 }
                 Spacer(minLength: 8)
-                WidgetSubscriptionRefreshButton(isUpdating: entry.isUpdatingSubscription, size: 28)
-                    .font(.system(size: 14))
+                Button(intent: RefreshDashboardIntent()) {
+                    Image(systemName: "arrow.clockwise")
+                        .font(.system(size: 14))
+                        .frame(width: 28, height: 28)
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Update subscription")
             }
 
             Grid(horizontalSpacing: 10, verticalSpacing: 7) {
@@ -273,29 +256,9 @@ struct RefreshDashboardIntent: AppIntent {
     }
 }
 
-struct WidgetSubscriptionRefreshButton: View {
-    let isUpdating: Bool
-    let size: CGFloat
-    @Environment(\.isLuminanceReduced) private var isLuminanceReduced
-
-    var body: some View {
-        Button(intent: RefreshDashboardIntent()) {
-            Image(systemName: "arrow.clockwise")
-                .frame(width: size, height: size)
-                .rotationEffect(.degrees(isUpdating ? 360 : 0))
-                .animation(isLuminanceReduced ? nil : .linear(duration: 1), value: isUpdating)
-        }
-        .buttonStyle(.plain)
-        .disabled(isUpdating)
-        .accessibilityLabel(isUpdating ? Text("Updating subscription") : Text("Update subscription"))
-    }
-}
-
 #Preview(as: .systemMedium) {
     DashboardWidget()
 } timeline: {
-    DashboardEntry.preview
-    DashboardEntry.updatingPreview
     DashboardEntry.preview
     DashboardEntry.stoppedPreview
 }
@@ -303,8 +266,6 @@ struct WidgetSubscriptionRefreshButton: View {
 #Preview(as: .systemSmall) {
     DashboardWidget()
 } timeline: {
-    DashboardEntry.preview
-    DashboardEntry.updatingPreview
     DashboardEntry.preview
     DashboardEntry.stoppedPreview
 }
