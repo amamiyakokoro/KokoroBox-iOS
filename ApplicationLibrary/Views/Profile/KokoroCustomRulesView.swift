@@ -168,11 +168,11 @@
                         } label: {
                             HStack {
                                 VStack(alignment: .leading, spacing: 3) {
-                                    Text(verbatim: rule.type)
+                                    Text(verbatim: rule.payload.isEmpty ? rule.type : rule.payload)
                                         .fontWeight(.medium)
+                                        .lineLimit(2)
                                     if !rule.payload.isEmpty {
-                                        Text(verbatim: rule.payload)
-                                            .lineLimit(1)
+                                        Text(verbatim: rule.type)
                                             .font(.caption)
                                             .foregroundStyle(.secondary)
                                     }
@@ -298,12 +298,14 @@
                         ForEach(remote.rules) { rule in
                             VStack(alignment: .leading, spacing: 3) {
                                 HStack {
-                                    Text(verbatim: rule.type).fontWeight(.medium)
+                                    Text(verbatim: rule.payload.flatMap { $0.isEmpty ? nil : $0 } ?? rule.type)
+                                        .fontWeight(.medium)
+                                        .lineLimit(2)
                                     Spacer()
                                     Text(verbatim: rule.target).foregroundStyle(.secondary)
                                 }
                                 if let payload = rule.payload, !payload.isEmpty {
-                                    Text(verbatim: payload)
+                                    Text(verbatim: rule.type)
                                         .font(.caption)
                                         .foregroundStyle(.secondary)
                                 }
