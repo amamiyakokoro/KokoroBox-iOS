@@ -1,4 +1,5 @@
 import Foundation
+import Library
 
 public struct Connection: Codable, Hashable, Equatable {
     public let id: String
@@ -23,6 +24,16 @@ public struct Connection: Codable, Hashable, Equatable {
     public let outbound: String
     public let outboundType: String
     public let chain: [String]
+
+    #if !os(tvOS)
+        var kokoroRuleSource: KokoroConnectionRuleSource {
+            KokoroConnectionRuleSource(
+                domain: domain,
+                destination: destination,
+                preferredTargets: Array(chain.reversed()) + [outbound]
+            )
+        }
+    #endif
 
     public func hash(into hasher: inout Hasher) {
         hasher.combine(id)

@@ -129,6 +129,96 @@ final class KokoroCustomRulesTests: XCTestCase {
         XCTAssertTrue(set.hasSameRules(as: [.init(type: "MATCH", payload: "", target: "DIRECT")]))
     }
 
+    func testConnectionSuggestionsPreferDomainSuffixAndAvailableRoutingGroup() throws {
+        let options = connectionOptions()
+        let source = KokoroConnectionRuleSource(
+            domain: "API.Example.COM.", destination: "203.0.113.10:443", preferredTargets: ["unknown-node", "JP"]
+        )
+        XCTAssertEqual(source.suggestions(options: options), [
+            .init(type: "DOMAIN-SUFFIX", payload: "example.com", target: "JP"),
+            .init(type: "DOMAIN", payload: "api.example.com", target: "JP"),
+            .init(type: "IP-CIDR", payload: "203.0.113.10/32", target: "JP"),
+        ])
+    }
+
+    func testConnectionSuggestionsHandleIPv6AndServerCapabilities() {
+        for destination in ["[2001:db8::1]:443", "2001:db8::1"] {
+            let source = KokoroConnectionRuleSource(domain: "", destination: destination, preferredTargets: ["removed"])
+            XCTAssertEqual(source.suggestions(options: connectionOptions()), [
+                .init(type: "IP-CIDR6", payload: "2001:db8::1/128", target: "DIRECT"),
+            ])
+            XCTAssertTrue(source.suggestions(options: options).isEmpty)
+        }
+        let source = KokoroConnectionRuleSource(domain: "example.com", destination: "", preferredTargets: [])
+        XCTAssertEqual(source.suggestions(options: options), [
+            .init(type: "DOMAIN-SUFFIX", payload: "example.com", target: "DIRECT"),
+        ])
+        let domainOnly = KokoroCustomRulesOptions(ruleTypes: ["DOMAIN"], targets: ["DIRECT"], ruleProviders: [], limits: [:])
+        XCTAssertEqual(source.suggestions(options: domainOnly), [
+            .init(type: "DOMAIN", payload: "example.com", target: "DIRECT"),
+        ])
+        XCTAssertTrue(source.suggestions(options: connectionOptions(targets: [])).isEmpty)
+        XCTAssertTrue(KokoroConnectionRuleSource(domain: "", destination: "invalid:443", preferredTargets: [])
+            .suggestions(options: connectionOptions()).isEmpty)
+        XCTAssertTrue(KokoroConnectionRuleSource(domain: "bad,host", destination: "", preferredTargets: [])
+            .suggestions(options: connectionOptions()).isEmpty)
+    }
+
+    func testDomainSuffixUsesPublicSuffixListIncludingPrivateAndExceptionRules() {
+        let cases = [
+            ("api.example.com", "example.com"),
+            ("a.b.example.co.uk", "example.co.uk"),
+            ("api.example.com.tw", "example.com.tw"),
+            ("cdn.user.github.io", "user.github.io"),
+            ("a.b.ck", "a.b.ck"),
+            ("a.www.ck", "www.ck"),
+            ("www.city.kawasaki.jp", "city.kawasaki.jp"),
+            ("api.example.internal", "example.internal"),
+            ("www.食狮.公司.cn", "xn--85x722f.xn--55qx5d.cn"),
+            ("www.xn--85x722f.xn--55qx5d.cn", "xn--85x722f.xn--55qx5d.cn"),
+        ]
+        for (hostname, expected) in cases {
+            XCTAssertEqual(KokoroDomainSuffix.registrableDomain(hostname), expected, hostname)
+            let source = KokoroConnectionRuleSource(domain: hostname, destination: "", preferredTargets: [])
+            let suggestions = source.suggestions(options: connectionOptions())
+            XCTAssertEqual(suggestions.first?.type, "DOMAIN-SUFFIX")
+            XCTAssertEqual(suggestions.first?.payload, expected)
+            XCTAssertEqual(suggestions.last?.payload, hostname)
+        }
+        for hostname in ["com", "co.uk", "github.io", "b.ck", "localhost", "bad..example.com", "bad/host.com", "bad,host.example.com"] {
+            XCTAssertNil(KokoroDomainSuffix.registrableDomain(hostname), hostname)
+        }
+    }
+
+    func testConnectionIPLiteralIsNotSuggestedAsDomain() {
+        let source = KokoroConnectionRuleSource(domain: "203.0.113.10", destination: "203.0.113.10", preferredTargets: [])
+        XCTAssertEqual(source.suggestions(options: connectionOptions()), [
+            .init(type: "IP-CIDR", payload: "203.0.113.10/32", target: "DIRECT"),
+        ])
+    }
+
+    func testConnectionRuleTakesPrecedenceAndKeepsMatchLast() throws {
+        let connectionRule = KokoroCustomRuleInput(type: "DOMAIN-SUFFIX", payload: "example.com", target: "JP")
+        let broadRule = KokoroCustomRuleInput(type: "DOMAIN-SUFFIX", payload: "com", target: "DIRECT")
+        let match = KokoroCustomRuleInput(type: "MATCH", payload: nil, target: "DIRECT")
+        XCTAssertEqual(try KokoroCustomRulesValidator.prepending(connectionRule, to: [broadRule, match], options: options),
+                       [connectionRule, broadRule, match])
+        // Moving an existing identical rule works even at the server's rule-count limit.
+        XCTAssertEqual(try KokoroCustomRulesValidator.prepending(connectionRule, to: [broadRule, connectionRule, match], options: options),
+                       [connectionRule, broadRule, match])
+        let other = KokoroCustomRuleInput(type: "DOMAIN-SUFFIX", payload: "other.net", target: "DIRECT")
+        XCTAssertThrowsError(try KokoroCustomRulesValidator.prepending(connectionRule, to: [broadRule, other, match], options: options)) { error in
+            XCTAssertEqual(error as? KokoroCustomRulesValidationError, .tooManyRules)
+        }
+    }
+
+    private func connectionOptions(targets: [String] = ["DIRECT", "JP"]) -> KokoroCustomRulesOptions {
+        KokoroCustomRulesOptions(
+            ruleTypes: ["DOMAIN", "DOMAIN-SUFFIX", "IP-CIDR", "IP-CIDR6", "MATCH"],
+            targets: targets, ruleProviders: [], limits: [:]
+        )
+    }
+
     func testConflictAndRateLimitErrorsKeepStructuredMetadata() throws {
         let url = URL(string: "https://amamiyakoko.ro/api/app/custom-rules")!
         let conflict = HTTPURLResponse(url: url, statusCode: 409, httpVersion: nil, headerFields: nil)!

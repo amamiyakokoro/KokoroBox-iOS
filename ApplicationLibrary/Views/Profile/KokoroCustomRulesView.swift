@@ -8,11 +8,16 @@
         @StateObject private var viewModel = KokoroCustomRulesViewModel()
         @State private var editingRule: KokoroCustomRuleDraft?
         @State private var isAddingRule = false
+        @State private var connectionDraft: KokoroCustomRuleDraft?
+        @State private var didPrepareConnectionRule = false
+        private let connectionRuleSource: KokoroConnectionRuleSource?
         #if os(iOS)
             @State private var editMode: EditMode = .inactive
         #endif
 
-        public init() {}
+        public init(connectionRuleSource: KokoroConnectionRuleSource? = nil) {
+            self.connectionRuleSource = connectionRuleSource
+        }
 
         public var body: some View {
             Group {
@@ -40,12 +45,30 @@
                     }
                 }
             #endif
-            .task { await viewModel.loadIfNeeded() }
+            .task {
+                await viewModel.loadIfNeeded()
+                prepareConnectionRuleIfNeeded()
+            }
+            .onChange(of: viewModel.isLoading) { isLoading in
+                if !isLoading { prepareConnectionRuleIfNeeded() }
+            }
             .onDisappear { viewModel.cancelSignIn() }
             .refreshable {
                 if viewModel.isSignedIn { await viewModel.reload() }
             }
             .alert($viewModel.alert)
+            .platformSheet(item: $connectionDraft, size: .small) { draft in
+                if let options = viewModel.options {
+                    KokoroCustomRuleEditView(
+                        title: String(localized: "Create Routing Rule"),
+                        draft: draft,
+                        options: options,
+                        connectionSuggestions: connectionRuleSource?.suggestions(options: options) ?? []
+                    ) { rule in
+                        viewModel.prependConnectionRule(rule)
+                    }
+                }
+            }
             .platformSheet(isPresented: $isAddingRule, size: .small) {
                 if let options = viewModel.options {
                     KokoroCustomRuleEditView(
@@ -207,7 +230,21 @@
                 Text("Status")
             } footer: {
                 Text("These rules override the default routing behavior in generated Kokoro configurations.")
+                if connectionRuleSource != nil {
+                    Text("Add the connection rule to the draft, then tap Save. After saving, update your Kokoro subscription profile and reconnect to apply the rules.")
+                }
             }
+        }
+
+        private func prepareConnectionRuleIfNeeded() {
+            guard !didPrepareConnectionRule, let connectionRuleSource,
+                  viewModel.ruleSet != nil, let options = viewModel.options else { return }
+            didPrepareConnectionRule = true
+            guard let suggestion = connectionRuleSource.suggestions(options: options).first else {
+                viewModel.alert = AlertState(errorMessage: String(localized: "No supported domain or IP rule can be created from this connection. You can add a rule manually."))
+                return
+            }
+            connectionDraft = KokoroCustomRuleDraft(type: suggestion.type, payload: suggestion.payload, target: suggestion.target)
         }
 
         private var newDraft: KokoroCustomRuleDraft {
@@ -316,28 +353,60 @@
         @State private var draft: KokoroCustomRuleDraft
         let title: String
         let options: KokoroCustomRulesOptions
+        let connectionSuggestions: [KokoroCustomRuleInput]
         let onSave: (KokoroCustomRuleDraft) -> Void
 
         init(
             title: String,
             draft: KokoroCustomRuleDraft,
             options: KokoroCustomRulesOptions,
+            connectionSuggestions: [KokoroCustomRuleInput] = [],
             onSave: @escaping (KokoroCustomRuleDraft) -> Void
         ) {
             self.title = title
             _draft = State(initialValue: draft)
             self.options = options
+            self.connectionSuggestions = connectionSuggestions
             self.onSave = onSave
         }
 
         var body: some View {
             Form {
+                if !connectionSuggestions.isEmpty {
+                    Section {
+                        ForEach(connectionSuggestions, id: \.self) { suggestion in
+                            Button {
+                                draft.type = suggestion.type
+                                draft.payload = suggestion.payload ?? ""
+                            } label: {
+                                HStack {
+                                    VStack(alignment: .leading) {
+                                        Text(verbatim: suggestion.type)
+                                        Text(verbatim: suggestion.payload ?? "")
+                                            .font(.caption)
+                                            .foregroundStyle(.secondary)
+                                    }
+                                    Spacer()
+                                    if draft.type == suggestion.type, draft.payload == suggestion.payload {
+                                        Image(systemName: "checkmark")
+                                    }
+                                }
+                            }
+                        }
+                    } header: {
+                        Text("Match Scope")
+                    } footer: {
+                        Text("DOMAIN matches this host. DOMAIN-SUFFIX uses its registrable domain and matches all subdomains. IP rules match only this destination address.")
+                    }
+                }
                 Section {
-                    FormPicker(
-                        String(localized: "Type"),
-                        options: options.ruleTypes.map { FormPickerOption($0, $0) },
-                        selection: $draft.type
-                    )
+                    if connectionSuggestions.isEmpty {
+                        FormPicker(
+                            String(localized: "Type"),
+                            options: options.ruleTypes.map { FormPickerOption($0, $0) },
+                            selection: $draft.type
+                        )
+                    }
                     FormPicker(
                         String(localized: "Target"),
                         options: availableTargets.map { FormPickerOption($0, $0) },
@@ -391,7 +460,7 @@
                     Button("Cancel") { dismiss() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") {
+                    Button(connectionSuggestions.isEmpty ? String(localized: "Save") : String(localized: "Add to Rules")) {
                         onSave(draft)
                         dismiss()
                     }

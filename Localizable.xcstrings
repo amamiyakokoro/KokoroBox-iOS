@@ -450,6 +450,38 @@
         }
       }
     },
+    "Add the connection rule to the draft, then tap Save. After saving, update your Kokoro subscription profile and reconnect to apply the rules." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "将连接规则加入草稿后，点击「保存」。保存后请更新 Kokoro 订阅配置并重新连接，以应用规则。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "將連線規則加入草稿後，點選「儲存」。儲存後請更新 Kokoro 訂閱設定並重新連線，以套用規則。"
+          }
+        }
+      }
+    },
+    "Add to Rules" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "加入规则"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "加入規則"
+          }
+        }
+      }
+    },
     "All" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1190,6 +1222,22 @@
         }
       }
     },
+    "add connection rule" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新增连接规则"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新增連線規則"
+          }
+        }
+      }
+    },
     "check saved custom rules" : {
 
     },
@@ -1904,6 +1952,22 @@
         }
       }
     },
+    "Create Routing Rule" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "从连接建立分流规则"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "從連線建立分流規則"
+          }
+        }
+      }
+    },
     "Create Subscription" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1980,6 +2044,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "自訂規則會覆寫 Kokoro 產生配置中的預設路由行為。"
+          }
+        }
+      }
+    },
+    "DOMAIN matches this host. DOMAIN-SUFFIX uses its registrable domain and matches all subdomains. IP rules match only this destination address." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "DOMAIN 匹配此完整域名。DOMAIN-SUFFIX 会自动取主域名，并匹配所有子域名。IP 规则仅匹配此目标地址。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "DOMAIN 匹配此完整網域。DOMAIN-SUFFIX 會自動取主網域，並匹配所有子網域。IP 規則僅匹配此目的位址。"
           }
         }
       }
@@ -5620,6 +5700,22 @@
       },
       "shouldTranslate" : false
     },
+    "Match Scope" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "匹配范围"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "匹配範圍"
+          }
+        }
+      }
+    },
     "Matches only when a request to this URL returns HTTP 200." : {
       "localizations" : {
         "fa" : {
@@ -6631,6 +6727,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "沒有正在運行的 Tailscale 端點"
+          }
+        }
+      }
+    },
+    "No supported domain or IP rule can be created from this connection. You can add a rule manually." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法从此连接建立支持的域名或 IP 规则。你可以手动新增规则。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法從此連線建立支援的網域或 IP 規則。你可以手動新增規則。"
           }
         }
       }

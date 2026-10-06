@@ -25,6 +25,9 @@ public struct ConnectionView: View {
 
     @State private var alert: AlertState?
     @State private var showDetails = false
+    #if !os(tvOS)
+        @State private var showCreateRule = false
+    #endif
 
     public var body: some View {
         Button {
@@ -92,6 +95,13 @@ public struct ConnectionView: View {
         #endif
         .alert($alert)
         .contextMenu {
+            #if !os(tvOS)
+                Button {
+                    showCreateRule = true
+                } label: {
+                    Label("Create Routing Rule", systemImage: "arrow.triangle.branch")
+                }
+            #endif
             if connection.closedAt == nil {
                 Button("Close", role: .destructive) {
                     Task {
@@ -101,6 +111,11 @@ public struct ConnectionView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
+        #if !os(tvOS)
+        .platformSheet(isPresented: $showCreateRule, size: PlatformSheetSize(minWidth: 560, minHeight: 600)) {
+            KokoroCustomRulesView(connectionRuleSource: connection.kokoroRuleSource)
+        }
+        #endif
         .background {
             NavigationLink(isActive: $showDetails) {
                 ConnectionDetailsView(connection)

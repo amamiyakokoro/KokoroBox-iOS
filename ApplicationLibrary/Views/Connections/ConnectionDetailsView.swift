@@ -10,6 +10,15 @@ public struct ConnectionDetailsView: View {
 
     public var body: some View {
         FormView {
+            #if !os(tvOS)
+                Section {
+                    FormNavigationLink {
+                        KokoroCustomRulesView(connectionRuleSource: connection.kokoroRuleSource)
+                    } label: {
+                        Label("Create Routing Rule", systemImage: "arrow.triangle.branch")
+                    }
+                }
+            #endif
             if connection.closedAt != nil {
                 FormTextItem("State", "Closed")
                 FormTextItem("Created At", connection.createdAt.myFormat)

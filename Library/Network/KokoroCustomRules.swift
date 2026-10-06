@@ -1,4 +1,54 @@
 import Foundation
+import Network
+
+/// A snapshot of connection metadata; suggestions are limited to current server options.
+public struct KokoroConnectionRuleSource: Hashable, Sendable {
+    public let domain: String
+    public let destination: String
+    public let preferredTargets: [String]
+
+    public init(domain: String, destination: String, preferredTargets: [String]) {
+        self.domain = domain
+        self.destination = destination
+        self.preferredTargets = preferredTargets
+    }
+
+    public func suggestions(options: KokoroCustomRulesOptions) -> [KokoroCustomRuleInput] {
+        guard let target = preferredTargets.first(where: options.targets.contains)
+            ?? options.targets.first(where: { $0 == "DIRECT" })
+            ?? options.targets.first else { return [] }
+        var suggestions: [KokoroCustomRuleInput] = []
+        let hostname = domain.trimmingCharacters(in: .whitespacesAndNewlines)
+            .lowercased().trimmingCharacters(in: CharacterSet(charactersIn: "."))
+        if !hostname.isEmpty, IPv4Address(hostname) == nil, IPv6Address(hostname) == nil {
+            if let suffix = KokoroDomainSuffix.registrableDomain(hostname) {
+                suggestions.append(.init(type: "DOMAIN-SUFFIX", payload: suffix, target: target))
+            }
+            suggestions.append(.init(type: "DOMAIN", payload: hostname, target: target))
+        }
+        // Libbox destinations can be bare IPs or host:port endpoints (IPv6 uses brackets).
+        let address = Self.destinationHost(destination)
+        if IPv4Address(address) != nil {
+            suggestions.append(.init(type: "IP-CIDR", payload: address + "/32", target: target))
+        } else if IPv6Address(address) != nil {
+            suggestions.append(.init(type: "IP-CIDR6", payload: address + "/128", target: target))
+        }
+        return suggestions.filter { (try? KokoroCustomRulesValidator.validate([$0], options: options)) != nil }
+    }
+
+    private static func destinationHost(_ destination: String) -> String {
+        let value = destination.trimmingCharacters(in: .whitespacesAndNewlines)
+        if value.hasPrefix("["), let end = value.firstIndex(of: "]") {
+            return String(value[value.index(after: value.startIndex) ..< end])
+        }
+        if value.filter({ $0 == ":" }).count == 1,
+           let separator = value.lastIndex(of: ":"),
+           UInt16(value[value.index(after: separator)...]) != nil {
+            return String(value[..<separator])
+        }
+        return value
+    }
+}
 
 public struct KokoroCustomRulesState: Codable, Sendable {
     public let schemaVersion: Int
@@ -170,6 +220,17 @@ public enum KokoroCustomRulesValidationError: LocalizedError, Equatable, Sendabl
 }
 
 public enum KokoroCustomRulesValidator {
+    /// Connection rules take precedence; an identical rule is moved rather than duplicated.
+    public static func prepending(
+        _ rule: KokoroCustomRuleInput,
+        to rules: [KokoroCustomRuleInput],
+        options: KokoroCustomRulesOptions
+    ) throws -> [KokoroCustomRuleInput] {
+        let updated = [rule] + rules.filter { $0 != rule }
+        try validate(updated, options: options)
+        return updated
+    }
+
     public static func validate(_ rules: [KokoroCustomRuleInput], options: KokoroCustomRulesOptions) throws {
         guard rules.count <= options.maximumRulesPerSet else {
             throw KokoroCustomRulesValidationError.tooManyRules

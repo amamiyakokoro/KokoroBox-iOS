@@ -15,6 +15,20 @@ The editor preserves the server's array order. Type, target, provider, and limit
 
 With a saved session, the app preloads account, subscription, and rule data at launch and foreground entry. A shared single-flight cache reuses successful values for five minutes; login, logout, and rule changes invalidate relevant entries. Only credentials persist in Keychain.
 
+## Create a rule from a connection
+
+On iOS, iPadOS, and macOS, select **Create Routing Rule** in a connection's context menu or details screen. Active and closed connections use the same flow. The existing Custom Rules screen loads the account's default set and options, or offers Kokoro sign-in first, then opens a prefilled rule editor.
+
+- A recorded domain suggests `DOMAIN-SUFFIX` first using its registrable domain (for example, `api.example.com` → `example.com`, `api.example.co.uk` → `example.co.uk`). `DOMAIN` keeps the full hostname. The bundled [Public Suffix List](https://publicsuffix.org/list/) includes ICANN and private suffixes, wildcard rules, exceptions, and internationalized domains; `cdn.user.github.io` therefore becomes `user.github.io`. Bare public suffixes and single-label hosts only offer `DOMAIN`.
+- A destination IPv4 address suggests `IP-CIDR` with `/32`; IPv6 suggests `IP-CIDR6` with `/128`. Endpoint ports and IPv6 brackets are removed.
+- Only currently supported rule types and valid values are offered. A matching routing group from the connection chain is preferred as the target, followed by the outbound, `DIRECT`, or the first available server target. The user can change the target before adding.
+
+**Add to Rules** places the rule at the beginning of the local draft so it takes precedence over existing rules; an identical rule is moved to the beginning instead of duplicated. Existing rules keep their relative order, including a final `MATCH`. Count limits and full-set validation apply. If the connection has no supported domain/IP suggestion, the screen explains this and still permits manual rule editing.
+
+Adding does not submit a server update. Review the full draft and tap **Save** to use the existing revision-aware replacement and conflict flow. After saving, update the Kokoro subscription profile and reconnect to load the generated rules. Existing live connections are not rerouted by this action.
+
+The list is stored in `Library/Network/Resources/public_suffix_list.txt`, with its upstream version, commit, and MPL 2.0 notice preserved. Refresh it from `https://publicsuffix.org/list/public_suffix_list.dat` during maintenance; rule creation does not download data. If the resource is unavailable, the client falls back to the exact `DOMAIN` suggestion.
+
 ## Conflict and unknown-result handling
 
 A `409` never causes an automatic retry. The client first reloads the current remote set and asks the user to choose one of the following before saving again:
@@ -42,6 +56,6 @@ Server validation remains authoritative. Unknown response fields are ignored.
 
 ## Verification
 
-Run `swift test` for decoding, `default` selection, ordering, replacement requests, dynamic validation, conflicts, unknown outcomes, and cache behavior. The suite also covers OAuth and refresh.
+Run `swift test` for decoding, `default` selection, ordering, replacement requests, dynamic validation, connection suggestions (domain, IPv4, IPv6, and supported options), priority insertion, duplicate handling, conflicts, unknown outcomes, and cache behavior. The suite also covers OAuth and refresh.
 
 Unsigned iOS Simulator and macOS arm64 builds verify that the shared SwiftUI editor compiles on both platforms. Before release, a signed-device/live-backend pass must still verify real account data, website synchronization, target/provider changes, concurrent website edits, rate limiting, and a deliberately interrupted save. Local tests do not prove those external behaviors.

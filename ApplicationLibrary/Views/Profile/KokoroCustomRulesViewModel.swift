@@ -118,6 +118,16 @@
             options = try await preloadStore.customRuleOptions(forceRefresh: true)
         }
 
+        func prependConnectionRule(_ draft: KokoroCustomRuleDraft) {
+            guard let options else { return }
+            do {
+                let updated = try KokoroCustomRulesValidator.prepending(draft.input, to: rules.map(\.input), options: options)
+                rules = updated.map { KokoroCustomRuleDraft(type: $0.type, payload: $0.payload, target: $0.target) }
+            } catch {
+                alert = AlertState(action: String(localized: "add connection rule"), error: error)
+            }
+        }
+
         func save() async {
             guard let ruleSet, !isSaving else { return }
             isSaving = true
