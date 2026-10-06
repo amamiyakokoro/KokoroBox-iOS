@@ -8,16 +8,11 @@
         @StateObject private var viewModel = KokoroCustomRulesViewModel()
         @State private var editingRule: KokoroCustomRuleDraft?
         @State private var isAddingRule = false
-        @State private var connectionDraft: KokoroCustomRuleDraft?
-        @State private var didPrepareConnectionRule = false
-        private let connectionRuleSource: KokoroConnectionRuleSource?
         #if os(iOS)
             @State private var editMode: EditMode = .inactive
         #endif
 
-        public init(connectionRuleSource: KokoroConnectionRuleSource? = nil) {
-            self.connectionRuleSource = connectionRuleSource
-        }
+        public init() {}
 
         public var body: some View {
             Group {
@@ -45,30 +40,12 @@
                     }
                 }
             #endif
-            .task {
-                await viewModel.loadIfNeeded()
-                prepareConnectionRuleIfNeeded()
-            }
-            .onChange(of: viewModel.isLoading) { isLoading in
-                if !isLoading { prepareConnectionRuleIfNeeded() }
-            }
+            .task { await viewModel.loadIfNeeded() }
             .onDisappear { viewModel.cancelSignIn() }
             .refreshable {
                 if viewModel.isSignedIn { await viewModel.reload() }
             }
             .alert($viewModel.alert)
-            .platformSheet(item: $connectionDraft, size: .small) { draft in
-                if let options = viewModel.options {
-                    KokoroCustomRuleEditView(
-                        title: String(localized: "Create Routing Rule"),
-                        draft: draft,
-                        options: options,
-                        connectionSuggestions: connectionRuleSource?.suggestions(options: options) ?? []
-                    ) { rule in
-                        viewModel.prependConnectionRule(rule)
-                    }
-                }
-            }
             .platformSheet(isPresented: $isAddingRule, size: .small) {
                 if let options = viewModel.options {
                     KokoroCustomRuleEditView(
@@ -230,21 +207,7 @@
                 Text("Status")
             } footer: {
                 Text("These rules override the default routing behavior in generated Kokoro configurations.")
-                if connectionRuleSource != nil {
-                    Text("Add the connection rule to the draft, then tap Save. After saving, update your Kokoro subscription profile and reconnect to apply the rules.")
-                }
             }
-        }
-
-        private func prepareConnectionRuleIfNeeded() {
-            guard !didPrepareConnectionRule, let connectionRuleSource,
-                  viewModel.ruleSet != nil, let options = viewModel.options else { return }
-            didPrepareConnectionRule = true
-            guard let suggestion = connectionRuleSource.suggestions(options: options).first else {
-                viewModel.alert = AlertState(errorMessage: String(localized: "No supported domain or IP rule can be created from this connection. You can add a rule manually."))
-                return
-            }
-            connectionDraft = KokoroCustomRuleDraft(type: suggestion.type, payload: suggestion.payload, target: suggestion.target)
         }
 
         private var newDraft: KokoroCustomRuleDraft {
@@ -350,12 +313,16 @@
     }
 
     @MainActor
-    private struct KokoroCustomRuleEditView: View {
+    struct KokoroCustomRuleEditView: View {
         @Environment(\.dismiss) private var dismiss
         @State private var draft: KokoroCustomRuleDraft
+        @State private var isSubmitting = false
         let title: String
         let options: KokoroCustomRulesOptions
         let connectionSuggestions: [KokoroCustomRuleInput]
+        let footer: String?
+        let validateDraft: ((KokoroCustomRuleDraft) -> String?)?
+        let onSubmit: ((KokoroCustomRuleDraft) async -> Bool)?
         let onSave: (KokoroCustomRuleDraft) -> Void
 
         init(
@@ -363,12 +330,18 @@
             draft: KokoroCustomRuleDraft,
             options: KokoroCustomRulesOptions,
             connectionSuggestions: [KokoroCustomRuleInput] = [],
-            onSave: @escaping (KokoroCustomRuleDraft) -> Void
+            footer: String? = nil,
+            validateDraft: ((KokoroCustomRuleDraft) -> String?)? = nil,
+            onSubmit: ((KokoroCustomRuleDraft) async -> Bool)? = nil,
+            onSave: @escaping (KokoroCustomRuleDraft) -> Void = { _ in }
         ) {
             self.title = title
             _draft = State(initialValue: draft)
             self.options = options
             self.connectionSuggestions = connectionSuggestions
+            self.footer = footer
+            self.validateDraft = validateDraft
+            self.onSubmit = onSubmit
             self.onSave = onSave
         }
 
@@ -440,7 +413,13 @@
                             .foregroundStyle(.red)
                     }
                 }
+                if let footer {
+                    Section {
+                        Text(verbatim: footer).foregroundStyle(.secondary)
+                    }
+                }
             }
+            .disabled(isSubmitting)
             .navigationTitle(title)
             #if os(iOS)
                 .navigationBarTitleDisplayMode(.inline)
@@ -460,13 +439,23 @@
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
+                        .disabled(isSubmitting)
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button(connectionSuggestions.isEmpty ? String(localized: "Save") : String(localized: "Add to Rules")) {
-                        onSave(draft)
-                        dismiss()
+                    Button("Save") {
+                        if let onSubmit {
+                            isSubmitting = true
+                            Task {
+                                let saved = await onSubmit(draft)
+                                isSubmitting = false
+                                if saved { dismiss() }
+                            }
+                        } else {
+                            onSave(draft)
+                            dismiss()
+                        }
                     }
-                    .disabled(validationMessage != nil)
+                    .disabled(isSubmitting || validationMessage != nil)
                 }
             }
         }
@@ -476,6 +465,7 @@
         }
 
         private var validationMessage: String? {
+            if let validateDraft { return validateDraft(draft) }
             do {
                 try KokoroCustomRulesValidator.validate([draft.input], options: options)
                 return nil

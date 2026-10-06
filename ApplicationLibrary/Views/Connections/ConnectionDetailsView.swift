@@ -13,7 +13,7 @@ public struct ConnectionDetailsView: View {
             #if !os(tvOS)
                 Section {
                     FormNavigationLink {
-                        KokoroCustomRulesView(connectionRuleSource: connection.kokoroRuleSource)
+                        KokoroConnectionRuleView(source: connection.kokoroRuleSource)
                     } label: {
                         Label("Create Routing Rule", systemImage: "arrow.triangle.branch")
                     }

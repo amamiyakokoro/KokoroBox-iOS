@@ -113,7 +113,7 @@ public struct ConnectionView: View {
         }
         #if !os(tvOS)
         .platformSheet(isPresented: $showCreateRule, size: PlatformSheetSize(minWidth: 560, minHeight: 600)) {
-            KokoroCustomRulesView(connectionRuleSource: connection.kokoroRuleSource)
+            KokoroConnectionRuleView(source: connection.kokoroRuleSource)
         }
         #endif
         .background {

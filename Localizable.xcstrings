@@ -6731,6 +6731,22 @@
         }
       }
     },
+    "No supported domain or IP rule can be created from this connection." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法从此连接建立支持的域名或 IP 规则。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法從此連線建立支援的網域或 IP 規則。"
+          }
+        }
+      }
+    },
     "No supported domain or IP rule can be created from this connection. You can add a rule manually." : {
       "localizations" : {
         "zh-Hans" : {
@@ -9676,6 +9692,22 @@
         }
       }
     },
+    "The custom rules changed elsewhere. Review this rule and tap Save again to add it to the latest rules." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自定义规则已在其他设备变更。请确认这条规则，再点击「保存」将其加入最新规则。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自訂規則已在其他裝置變更。請確認這條規則，再點選「儲存」將其加入最新規則。"
+          }
+        }
+      }
+    },
     "The default rule set is unavailable." : {
       "localizations" : {
         "zh-Hans" : {
@@ -10163,6 +10195,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "傳送至 %@"
+          }
+        }
+      }
+    },
+    "This rule will be saved first in your Kokoro custom rules. After saving, update your Kokoro subscription profile and reconnect to apply it." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此规则会保存至 Kokoro 自定义规则的最前面。保存后请更新 Kokoro 订阅配置并重新连接，以应用规则。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此規則會儲存至 Kokoro 自訂規則的最前面。儲存後請更新 Kokoro 訂閱設定並重新連線，以套用規則。"
           }
         }
       }

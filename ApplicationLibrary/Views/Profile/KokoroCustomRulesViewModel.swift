@@ -118,18 +118,27 @@
             options = try await preloadStore.customRuleOptions(forceRefresh: true)
         }
 
-        func prependConnectionRule(_ draft: KokoroCustomRuleDraft) {
-            guard let options else { return }
+        func saveConnectionRule(_ draft: KokoroCustomRuleDraft) async -> Bool {
+            guard let options, !isSaving else { return false }
             do {
-                let updated = try KokoroCustomRulesValidator.prepending(draft.input, to: rules.map(\.input), options: options)
+                // A second explicit Save after a conflict uses the latest remote rules.
+                if let remoteConflict {
+                    apply(remoteConflict)
+                    clearConflict()
+                }
+                guard let ruleSet else { return false }
+                let updated = try KokoroCustomRulesValidator.prepending(draft.input, to: ruleSet.rules.map(\.input), options: options)
                 rules = updated.map { KokoroCustomRuleDraft(type: $0.type, payload: $0.payload, target: $0.target) }
+                return await save()
             } catch {
                 alert = AlertState(action: String(localized: "add connection rule"), error: error)
+                return false
             }
         }
 
-        func save() async {
-            guard let ruleSet, !isSaving else { return }
+        @discardableResult
+        func save() async -> Bool {
+            guard let ruleSet, !isSaving else { return false }
             isSaving = true
             defer { isSaving = false }
             let targetRules = rules.map(\.input)
@@ -144,8 +153,9 @@
                 )
                 await preloadStore.invalidateCustomRuleState()
                 apply(updated)
+                return true
             } catch KokoroAPIError.networkTimeout {
-                await reconcileUnknownSave(targetRules)
+                return await reconcileUnknownSave(targetRules)
             } catch KokoroAPIError.conflict {
                 await prepareConflict()
             } catch let KokoroAPIError.http(status, _) where status == 404 {
@@ -161,6 +171,7 @@
             } catch {
                 alert = AlertState(action: String(localized: "save custom rules"), error: error)
             }
+            return false
         }
 
         func reapplyLocalChanges() {
@@ -195,11 +206,12 @@
             clearConflict()
         }
 
-        private func reconcileUnknownSave(_ targetRules: [KokoroCustomRuleInput]) async {
+        private func reconcileUnknownSave(_ targetRules: [KokoroCustomRuleInput]) async -> Bool {
             do {
                 let remote = try await currentRemoteSet()
                 if remote.hasSameRules(as: targetRules) {
                     apply(remote)
+                    return true
                 } else {
                     remoteConflict = remote
                     showConflictResolution = true
@@ -207,6 +219,7 @@
             } catch {
                 alert = AlertState(action: String(localized: "check saved custom rules"), error: error)
             }
+            return false
         }
 
         private func prepareConflict() async {
