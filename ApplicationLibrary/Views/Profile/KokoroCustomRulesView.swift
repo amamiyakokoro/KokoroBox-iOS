@@ -5,6 +5,7 @@
     @MainActor
     public struct KokoroCustomRulesView: View {
         @Environment(\.dismiss) private var dismiss
+        @EnvironmentObject private var environments: ExtensionEnvironments
         @StateObject private var viewModel = KokoroCustomRulesViewModel()
         @State private var editingRule: KokoroCustomRuleDraft?
         @State private var isAddingRule = false
@@ -43,9 +44,14 @@
             .task { await viewModel.loadIfNeeded() }
             .onDisappear { viewModel.cancelSignIn() }
             .refreshable {
-                if viewModel.isSignedIn { await viewModel.reload() }
+                if viewModel.isSignedIn, !viewModel.isSaving, !viewModel.isUpdatingSubscriptions {
+                    await viewModel.reload()
+                }
             }
             .alert($viewModel.alert)
+            .onChange(of: viewModel.subscriptionUpdateVersion) { _ in
+                environments.profileUpdate.send()
+            }
             .platformSheet(isPresented: $isAddingRule, size: .small) {
                 if let options = viewModel.options {
                     KokoroCustomRuleEditView(
@@ -101,12 +107,12 @@
                     } label: {
                         Label("Reload", systemImage: "arrow.clockwise")
                     }
-                    .disabled(viewModel.isLoading || viewModel.isSaving)
+                    .disabled(viewModel.isLoading || viewModel.isSaving || viewModel.isUpdatingSubscriptions)
                 }
             #endif
             ToolbarItem(placement: .primaryAction) {
                 Button("Save") { Task { await viewModel.save() } }
-                    .disabled(viewModel.isSaving || viewModel.validationMessage != nil)
+                    .disabled(viewModel.isSaving || viewModel.isUpdatingSubscriptions || viewModel.validationMessage != nil)
             }
         }
 
@@ -115,7 +121,7 @@
                 rulesSection
                 statusSection
             }
-            .disabled(viewModel.isSaving)
+            .disabled(viewModel.isSaving || viewModel.isUpdatingSubscriptions)
             .toolbar { rulesToolbarContent }
         }
 
@@ -201,12 +207,20 @@
 
         private var statusSection: some View {
             Section {
+                if viewModel.needsSubscriptionUpdate {
+                    FormButton {
+                        Task { await viewModel.updateSubscriptions() }
+                    } label: {
+                        Label("Retry Subscription Update", systemImage: "arrow.clockwise")
+                    }
+                }
                 FormTextItem("Revision", String(viewModel.ruleSet?.revision ?? 0))
                 FormTextItem("Rule Count", String(viewModel.rules.count))
             } header: {
                 Text("Status")
             } footer: {
                 Text("These rules override the default routing behavior in generated Kokoro configurations.")
+                Text("Kokoro subscriptions update automatically after saving. The active profile reloads if its configuration changes.")
             }
         }
 

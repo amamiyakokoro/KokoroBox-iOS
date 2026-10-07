@@ -41,6 +41,9 @@
         @Published var isSaving = false
         @Published var showConflictResolution = false
         @Published private(set) var remoteConflict: KokoroRuleSet?
+        @Published private(set) var needsSubscriptionUpdate = false
+        @Published private(set) var isUpdatingSubscriptions = false
+        @Published private(set) var subscriptionUpdateVersion = 0
 
         private let authenticator = KokoroWebAuthenticator.shared
         private let preloadStore = KokoroPreloadStore.shared
@@ -119,7 +122,7 @@
         }
 
         func saveConnectionRule(_ draft: KokoroCustomRuleDraft) async -> Bool {
-            guard let options, !isSaving else { return false }
+            guard let options, !isSaving, !isUpdatingSubscriptions else { return false }
             do {
                 // A second explicit Save after a conflict uses the latest remote rules.
                 if let remoteConflict {
@@ -129,7 +132,8 @@
                 guard let ruleSet else { return false }
                 let updated = try KokoroCustomRulesValidator.prepending(draft.input, to: ruleSet.rules.map(\.input), options: options)
                 rules = updated.map { KokoroCustomRuleDraft(type: $0.type, payload: $0.payload, target: $0.target) }
-                return await save()
+                let saved = await save()
+                return saved && !needsSubscriptionUpdate
             } catch {
                 alert = AlertState(action: String(localized: "add connection rule"), error: error)
                 return false
@@ -138,7 +142,7 @@
 
         @discardableResult
         func save() async -> Bool {
-            guard let ruleSet, !isSaving else { return false }
+            guard let ruleSet, !isSaving, !isUpdatingSubscriptions else { return false }
             isSaving = true
             defer { isSaving = false }
             let targetRules = rules.map(\.input)
@@ -151,8 +155,7 @@
                     expectedRevision: ruleSet.revision,
                     rules: targetRules
                 )
-                await preloadStore.invalidateCustomRuleState()
-                apply(updated)
+                await completeConfirmedSave(updated)
                 return true
             } catch KokoroAPIError.networkTimeout {
                 return await reconcileUnknownSave(targetRules)
@@ -210,7 +213,7 @@
             do {
                 let remote = try await currentRemoteSet()
                 if remote.hasSameRules(as: targetRules) {
-                    apply(remote)
+                    await completeConfirmedSave(remote)
                     return true
                 } else {
                     remoteConflict = remote
@@ -242,6 +245,31 @@
         private func apply(_ updated: KokoroRuleSet) {
             ruleSet = updated
             rules = updated.rules.map(KokoroCustomRuleDraft.init)
+        }
+
+        private func completeConfirmedSave(_ updated: KokoroRuleSet) async {
+            await preloadStore.invalidateCustomRuleState()
+            apply(updated)
+            _ = await updateSubscriptions()
+        }
+
+        @discardableResult
+        func updateSubscriptions() async -> Bool {
+            guard !isUpdatingSubscriptions else { return false }
+            isUpdatingSubscriptions = true
+            defer {
+                isUpdatingSubscriptions = false
+                subscriptionUpdateVersion += 1
+            }
+            do {
+                try await ProfileUpdateTask.updateKokoroSubscriptions()
+                needsSubscriptionUpdate = false
+                return true
+            } catch {
+                needsSubscriptionUpdate = true
+                alert = AlertState(errorMessage: "\(String(localized: "Custom rules were saved, but the Kokoro subscriptions could not be updated. Retry the subscription update."))\n\(error.localizedDescription)")
+                return false
+            }
         }
 
         private func fetchDefaultRuleSetAndOptions(forceRefresh: Bool) async throws {

@@ -2363,6 +2363,22 @@
         }
       }
     },
+    "Custom rules were saved, but the Kokoro subscriptions could not be updated. Retry the subscription update." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自定义规则已保存，但 Kokoro 订阅更新失败。请重试订阅更新。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自訂規則已儲存，但 Kokoro 訂閱更新失敗。請重試訂閱更新。"
+          }
+        }
+      }
+    },
     "DERP region" : {
       "localizations" : {
         "zh-Hans" : {
@@ -5246,6 +5262,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kokoro 訂閱"
+          }
+        }
+      }
+    },
+    "Kokoro subscriptions update automatically after saving. The active profile reloads if its configuration changes." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存后会自动更新 Kokoro 订阅。正在使用的配置有变化时会重新加载。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "儲存後會自動更新 Kokoro 訂閱。正在使用的設定有變更時會重新載入。"
           }
         }
       }
@@ -8198,6 +8230,22 @@
         }
       }
     },
+    "Retry Subscription Update" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重试订阅更新"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重試訂閱更新"
+          }
+        }
+      }
+    },
     "Revision" : {
       "localizations" : {
         "zh-Hans" : {
@@ -10211,6 +10259,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "此規則會儲存至 Kokoro 自訂規則的最前面。儲存後請更新 Kokoro 訂閱設定並重新連線，以套用規則。"
+          }
+        }
+      }
+    },
+    "This rule will be saved first in your Kokoro custom rules. Kokoro subscriptions will update automatically after saving, and the active profile will reload if its configuration changes." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此规则会保存至 Kokoro 自定义规则的最前面。保存后会自动更新 Kokoro 订阅，正在使用的配置有变化时会重新加载。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此規則會儲存至 Kokoro 自訂規則的最前面。儲存後會自動更新 Kokoro 訂閱，正在使用的設定有變更時會重新載入。"
           }
         }
       }

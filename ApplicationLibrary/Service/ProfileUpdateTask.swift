@@ -77,6 +77,26 @@ public enum ProfileUpdateTask {
         }
         return success
     }
+
+    /// Rules affect all generated Kokoro configurations, regardless of periodic update settings.
+    @MainActor
+    static func updateKokoroSubscriptions() async throws {
+        let profiles = try await ProfileManager.listRemote().filter {
+            KokoroAPI.isAuthenticatedConfigurationURL($0.remoteURL)
+        }
+        var lastError: Error?
+        for profile in profiles {
+            do {
+                try Task.checkCancellation()
+                try await profile.updateRemoteProfile(forceRefresh: true)
+            } catch is CancellationError {
+                throw CancellationError()
+            } catch {
+                lastError = error
+            }
+        }
+        if let lastError { throw lastError }
+    }
 }
 
 extension Profile {

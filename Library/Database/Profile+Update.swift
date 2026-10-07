@@ -5,26 +5,38 @@ import Libbox
 private actor RemoteProfileUpdateCoordinator {
     static let shared = RemoteProfileUpdateCoordinator()
 
-    private var updates: [Int64: Task<Void, Error>] = [:]
+    private struct Update {
+        let identifier: UUID
+        let task: Task<Void, Error>
+    }
 
-    func update(_ profile: Profile) async throws {
+    private var updates: [Int64: Update] = [:]
+
+    func update(_ profile: Profile, forceRefresh: Bool = false) async throws {
         guard let profileID = profile.id else {
             try await profile.performRemoteProfileUpdate()
             return
         }
-        if let update = updates[profileID] {
+        if let update = updates[profileID], !forceRefresh {
             try await withTaskCancellationHandler {
-                try await update.value
+                try await update.task.value
             } onCancel: {
-                update.cancel()
+                update.task.cancel()
             }
             return
         }
+        let previous = updates[profileID]?.task
+        let identifier = UUID()
         let update = Task {
+            // A rule-triggered refresh must download after any older in-flight update finishes.
+            if let previous { _ = try? await previous.value }
+            try Task.checkCancellation()
             try await profile.performRemoteProfileUpdate()
         }
-        updates[profileID] = update
-        defer { updates[profileID] = nil }
+        updates[profileID] = Update(identifier: identifier, task: update)
+        defer {
+            if updates[profileID]?.identifier == identifier { updates[profileID] = nil }
+        }
         try await withTaskCancellationHandler {
             try await update.value
         } onCancel: {
@@ -34,8 +46,8 @@ private actor RemoteProfileUpdateCoordinator {
 }
 
 public extension Profile {
-    nonisolated func updateRemoteProfile() async throws {
-        try await RemoteProfileUpdateCoordinator.shared.update(self)
+    nonisolated func updateRemoteProfile(forceRefresh: Bool = false) async throws {
+        try await RemoteProfileUpdateCoordinator.shared.update(self, forceRefresh: forceRefresh)
     }
 
     fileprivate nonisolated func performRemoteProfileUpdate() async throws {
