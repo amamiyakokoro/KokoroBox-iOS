@@ -2258,7 +2258,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
-					"/var/jb/Applications/sing-box.app/Frameworks",
+					"@executable_path/../../Applications/sing-box.app/Frameworks",
 				);
 				MARKETING_VERSION = "1.13.0-alpha.21";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_PACKAGE_IDENTIFIER).helper";
@@ -2283,7 +2283,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
-					"/var/jb/Applications/sing-box.app/Frameworks",
+					"@executable_path/../../Applications/sing-box.app/Frameworks",
 				);
 				MARKETING_VERSION = "1.13.0-alpha.21";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_PACKAGE_IDENTIFIER).helper";
@@ -3639,7 +3639,7 @@
 			repositoryURL = "https://github.com/Lakr233/libghostty-spm";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.5.20260906;
+				minimumVersion = 2.2.2026100703;
 			};
 		};
 		3AC89DD32FCD9E3B002A14E8 /* XCRemoteSwiftPackageReference "DeviceKit" */ = {
