@@ -270,6 +270,7 @@ public class ExtensionPlatformInterface: NSObject, LibboxPlatformInterfaceProtoc
         throw NSError(domain: "ExtensionPlatformInterface", code: 0, userInfo: [NSLocalizedDescriptionKey: String(localized: "Not implemented")])
     }
 
+    // Required by the pinned Libbox 1.15.0-alpha.8 used for App Store builds.
     public func useProcFS() -> Bool {
         false
     }

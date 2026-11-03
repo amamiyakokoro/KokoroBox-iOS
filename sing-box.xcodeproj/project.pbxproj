@@ -618,6 +618,7 @@
 		3AF7B0042FF10001000A0001 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				"Info-iOS.plist",
 				Info.plist,
 			);
 			target = 3AF7B0012FF10001000A0001 /* ShareExtension */;
@@ -632,6 +633,7 @@
 		3AF7B1152FF10002000A0001 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				"Info-iOS.plist",
 				Info.plist,
 			);
 			target = 3AF7B1012FF10002000A0001 /* ActionExtension */;
@@ -646,6 +648,7 @@
 		3AF7B2152FF10003000A0001 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				"Info-iOS.plist",
 				Info.plist,
 			);
 			target = 3AF7B2012FF10003000A0001 /* ShareExtension.System */;
@@ -1917,7 +1920,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				"CURRENT_PROJECT_VERSION[sdk=iphone*]" = 31;
+				"CURRENT_PROJECT_VERSION[sdk=iphone*]" = 32;
 				DEVELOPMENT_TEAM = 755TNLRN92;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1960,7 +1963,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				"CURRENT_PROJECT_VERSION[sdk=iphone*]" = 31;
+				"CURRENT_PROJECT_VERSION[sdk=iphone*]" = 32;
 				DEVELOPMENT_TEAM = 755TNLRN92;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2169,7 +2172,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				"CURRENT_PROJECT_VERSION[sdk=iphone*]" = 31;
+				"CURRENT_PROJECT_VERSION[sdk=iphone*]" = 32;
 				DEVELOPMENT_TEAM = 755TNLRN92;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IntentsExtension/Info.plist;
@@ -2211,7 +2214,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				"CURRENT_PROJECT_VERSION[sdk=iphone*]" = 31;
+				"CURRENT_PROJECT_VERSION[sdk=iphone*]" = 32;
 				DEVELOPMENT_TEAM = 755TNLRN92;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IntentsExtension/Info.plist;
@@ -2304,7 +2307,7 @@
 				CODE_SIGN_ENTITLEMENTS = FileProviderExtension/FileProviderExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 32;
 				DEVELOPMENT_TEAM = 755TNLRN92;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FileProviderExtension/Info.plist;
@@ -2337,7 +2340,7 @@
 				CODE_SIGN_ENTITLEMENTS = FileProviderExtension/FileProviderExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 32;
 				DEVELOPMENT_TEAM = 755TNLRN92;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FileProviderExtension/Info.plist;
@@ -2372,7 +2375,7 @@
 				CODE_SIGN_ENTITLEMENTS = WidgetExtension/WidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 32;
 				DEVELOPMENT_TEAM = 755TNLRN92;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WidgetExtension/Info.plist;
@@ -2404,7 +2407,7 @@
 				CODE_SIGN_ENTITLEMENTS = WidgetExtension/WidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 32;
 				DEVELOPMENT_TEAM = 755TNLRN92;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WidgetExtension/Info.plist;
@@ -2656,7 +2659,7 @@
 				CODE_SIGN_ENTITLEMENTS = SFI/SFI.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 32;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 755TNLRN92;
 				ENABLE_PREVIEWS = YES;
@@ -2700,7 +2703,7 @@
 				CODE_SIGN_ENTITLEMENTS = SFI/SFI.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 32;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 755TNLRN92;
 				ENABLE_PREVIEWS = YES;
@@ -3180,11 +3183,12 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				"CURRENT_PROJECT_VERSION[sdk=iphone*]" = 31;
+				"CURRENT_PROJECT_VERSION[sdk=iphone*]" = 32;
 				DEVELOPMENT_TEAM = 755TNLRN92;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
+				"INFOPLIST_FILE[sdk=iphone*]" = "ShareExtension/Info-iOS.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = KokoroBox;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -3222,11 +3226,12 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				"CURRENT_PROJECT_VERSION[sdk=iphone*]" = 31;
+				"CURRENT_PROJECT_VERSION[sdk=iphone*]" = 32;
 				DEVELOPMENT_TEAM = 755TNLRN92;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
+				"INFOPLIST_FILE[sdk=iphone*]" = "ShareExtension/Info-iOS.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = KokoroBox;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -3264,7 +3269,7 @@
 				CODE_SIGN_ENTITLEMENTS = ActionExtension/ActionExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 32;
 				DEVELOPMENT_TEAM = 755TNLRN92;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ActionExtension/Info.plist;
@@ -3302,7 +3307,7 @@
 				CODE_SIGN_ENTITLEMENTS = ActionExtension/ActionExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 32;
 				DEVELOPMENT_TEAM = 755TNLRN92;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ActionExtension/Info.plist;

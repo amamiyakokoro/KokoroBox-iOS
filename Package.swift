@@ -34,7 +34,6 @@ let package = Package(
             "TaildropSendSession.swift",
             "TaildropTargets.swift",
             "UserServiceEndpointPublisher.swift",
-            "UserServiceEndpointRegistry.swift",
             "UserServiceXPC.swift",
             "XPCMachServiceBridge.swift",
         ], sources: ["HTTPUserAgent.swift", "KokoroAPI.swift", "KokoroCustomRules.swift", "KokoroDomainSuffix.swift", "KokoroOAuth.swift", "KokoroPreloadStore.swift", "PublicIPInfoService.swift"], resources: [.copy("Resources/public_suffix_list.txt")]),
